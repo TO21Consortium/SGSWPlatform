@@ -1,10 +1,9 @@
 # SGSWPlatform
----------------------------------------
 
 SGSWPlatform is an Android-based S/W Platform for smart glasses made by TO21 consortium. This repository contains all essential files for smart glasses. To build the source code and flash the image files, we should follow the below instructions.
 
 ## Starting with smart glass board
----------------------------------------
+
 #### Smart Glass (SG) Keys and Touch
 * Peripheral ports and keys
 * Touch functions
@@ -50,7 +49,7 @@ You can using adb command to install android .apk file.
 
 
 ## How to compile the source code
----------------------------------------
+
 
 #### Compile the u-boot
 Go to the SDK directory and following the below commands: 
