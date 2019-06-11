@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.android.tools.build</groupId>
+  <artifactId>transform-api</artifactId>
+  <version>1.4.0-beta3</version>
+  <versioning>
+    <versions>
+      <version>1.4.0-beta3</version>
+      <version>1.4.0-beta5</version>
+      <version>1.4.0-beta6</version>
+    </versions>
+    <lastUpdated>20151019183150</lastUpdated>
+  </versioning>
+</metadata>
