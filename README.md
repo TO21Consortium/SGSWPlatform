@@ -24,10 +24,10 @@ All the necessary materials in the SNU FTP server and directory:
 2. Turn on the AndroidTool.
 3. Set SG board to loader mode.
 4. Remove battery
-* Connect SG board to PC using USB cable.
-* Press and hold the recovery key.
-* Press the reset key meanwhile the recovery key still holds.
-* Wait about 3 seconds before the releasing the recovery key.
+  * Connect SG board to PC using USB cable.
+  * Press and hold the recovery key.
+  * Press the reset key meanwhile the recovery key still holds.
+  * Wait about 3 seconds before the releasing the recovery key.
 5. RKDevTool will detect the LOADER Device as bellow:
 6. For the first time you should download all binaries.
 7. In the next time you can select which binaries you want to download by click to the check boxes.
