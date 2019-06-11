@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- Define the permissible memory classes -->
+  <xs:simpleType name="class">
+    <xs:restriction base="xs:string">
+      <!-- Data memory -->
+      <xs:enumeration value="D" />
+      <!-- Data memory (supervisor access) -->
+      <xs:enumeration value="S" />
+      <!-- CP14 -->
+      <xs:enumeration value="C14" />
+      <!-- CP15 -->
+      <xs:enumeration value="C15" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Define the permissible set of register widths in octets -->
+  <xs:simpleType name="width">
+    <xs:restriction base="xs:unsignedByte">
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="4" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Define the read/write capability flags -->
+  <xs:simpleType name="rw_flags">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="R" />
+      <xs:enumeration value="W" />
+      <xs:enumeration value="RW" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Define a basic register -->
+  <xs:complexType name="register">
+    <xs:attribute name="addr" type="xs:hexBinary" use="required" />
+    <xs:attribute name="width" type="width" use="required" />
+    <xs:attribute name="rw_flags" type="rw_flags" use="required" />
+    <xs:attribute name="name" type="xs:string" use="optional" />
+    <xs:attribute name="comment" type="xs:string" use="optional" />
+  </xs:complexType>
+
+  <!-- Define a bit-field within a register -->
+  <xs:complexType name="registerfield">
+    <xs:complexContent>
+      <xs:extension base="register">
+        <xs:attribute name="shift" type="xs:unsignedShort" use="required" />
+        <xs:attribute name="mask" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- Define an index register -->
+  <xs:complexType name="indexregister">
+    <xs:complexContent>
+      <xs:extension base="register">
+        <xs:choice minOccurs="1" maxOccurs="1">
+          <!-- Either an absolute count -->
+          <xs:element name="count">
+            <xs:complexType>
+              <xs:attribute name="value" type="xs:unsignedShort" use="required" />
+            </xs:complexType>
+          </xs:element>
+          <!-- or obtained indirectly from a register field -->
+          <xs:element name="countfrom" type="registerfield" />
+        </xs:choice>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- Define a table -->
+  <xs:complexType name="table">
+    <xs:sequence>
+      <!-- The one and only index register -->
+      <xs:element name="indexregister" type="indexregister" minOccurs="1" maxOccurs="1" />
+      <!-- and at least 1 other register in the table -->
+      <xs:element name="register" type="register" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required" />
+  </xs:complexType>
+
+
+  <!-- Define a block -->
+  <xs:complexType name="block">
+    <!-- containing a number of tables or registers -->
+    <xs:choice maxOccurs="unbounded">
+      <xs:element name="register" type="register" />
+      <xs:element name="table" type="table" />
+    </xs:choice>
+    <xs:attribute name="name" type="xs:string" use="optional" />
+    <xs:attribute name="comment" type="xs:string" use="optional" />
+    <xs:attribute name="description" type="xs:string" use="optional" />
+  </xs:complexType>
+
+  <!-- Define a memory-mapped region -->
+  <xs:complexType name="memory">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="register" type="register" />
+      <xs:element name="block" type="block" />
+      <xs:element name="table" type="table" />
+    </xs:choice>
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="class" type="class" use="required"/>
+  </xs:complexType>
+
+  <!-- Define a Cortex R4 co-processor -->
+  <xs:complexType name="coprocessor">
+    <xs:sequence>
+      <xs:element name="block" minOccurs="1" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element name="register" type="register" />
+            <xs:element name="table" type="table" />
+          </xs:choice>
+          <xs:attribute name="name" type="xs:string" use="required" />
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="id" type="class" use="required" />
+  </xs:complexType>
+
+  <!-- Define a subsystem, top-level element for 'digits' registers -->
+  <xs:element name="subsystem">
+    <xs:complexType>
+      <xs:sequence>
+        <!-- containing a number of blocks -->
+        <xs:element minOccurs="1" maxOccurs="unbounded" name="block" type="block" />
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Define a Cortex processor -->
+  <xs:element name="processor">
+    <xs:complexType>
+      <xs:choice minOccurs="1" maxOccurs="unbounded">
+        <xs:element name="coprocessor" type="coprocessor" />
+        <xs:element name="memory" type="memory" />
+      </xs:choice>
+      <xs:attribute name="name" type="xs:string" use="required" />
+      <xs:attribute name="comment" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

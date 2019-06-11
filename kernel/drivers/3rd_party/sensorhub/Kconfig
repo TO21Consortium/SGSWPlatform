@@ -1,0 +1,8 @@
+#
+# sensorhub device configuration
+#
+
+menu "sensorhub device drivers"
+
+source "drivers/3rd_party/sensorhub/stm/Kconfig"
+endmenu

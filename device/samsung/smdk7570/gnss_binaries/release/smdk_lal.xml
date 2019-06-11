@@ -1,0 +1,32 @@
+<gnss_host>
+   <gnss_device type="K140">
+      <data_port>
+         <shmipc device="/dev/gnss_ipc" />
+      </data_port>
+      <control_port />
+
+      <sleep device="true" ap="false" />
+
+      <patch address="0" file="/system/etc/K140_ASIC_TRK.bin" />
+      
+      <locations chipcfg="0x00200044" />
+      
+      <constellations primary="0" constrained="0x3B" />
+      <refclk freq="26000000" unc_ppb="2500" offset="96250" warmup_ms="31" shared="false" calalways="false" tc_enabled_during_tm3="false" />
+      <reserved_fields isp_test_config="0" /> 
+      <lna external="true" bias="0" /> <!-- If omitted, internal LNA -->
+
+      <!-- I2C bus frequency, 0 == disabled -->
+      <I2C freq="0" />
+
+   </gnss_device>
+
+   <user>
+      <ports>
+         <tcp name="Autotest" port="7555" />
+      </ports>
+   </user>
+
+   <debug console="true" device="true" />
+</gnss_host>
+

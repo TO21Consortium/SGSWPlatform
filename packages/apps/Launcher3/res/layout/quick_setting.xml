@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:orientation="vertical"
+    android:background="#818181"
+    android:gravity="center_horizontal">
+
+    <LinearLayout
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+        
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_wifi_signal_0_dark"/>
+
+        <Switch
+            android:id="@+id/sw_wifi"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView
+        	   android:layout_width="20dp"
+            android:layout_height="40dp"/>
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_settings_bluetooth_alpha"/>
+
+        <Switch
+            android:id="@+id/sw_bluetooth"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView
+        	   android:layout_width="20dp"
+            android:layout_height="40dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_appwidget_settings_brightness_half_holo"/>
+
+	    <SeekBar
+	        android:id="@+id/bright_seekbar"
+	        android:layout_width="100dp"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:max="254"/>
+
+	</LinearLayout>
+
+</LinearLayout>

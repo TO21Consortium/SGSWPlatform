@@ -1,0 +1,10 @@
+menu "Bluetooth device drivers"
+	depends on BT
+
+config BT_BCM43438
+        bool "Enable BCM43438 driver"
+        default n
+        help
+          Adds BCM43438 RFKILL driver for Broadcom BCM43438 chipset for exynos74xx.
+          default is n.
+endmenu

@@ -1,0 +1,151 @@
+fullpage=true
+no_footer_links=true
+landing.page=true
+page.metaDescription=The official site for the Android Open Source Project.
+header.hide=1
+@jd:body
+
+<!--
+    Copyright 2015 The Android Open Source Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<div class="wrap">
+
+  <div class="landing-banner">
+      <h1 itemprop="name" style="margin-bottom:0;">Welcome to the Android Open Source Project!</h1>
+
+      <p>
+      Android is an open-source software stack for a wide range of mobile devices and a corresponding open-source project led by 
+      Google. Here you can find the information and source code you need to learn more about the Android platform. From there you can
+      create custom variants of the Android software stack, port devices and accessories to the Android platform,
+      and ensure your devices are compatible with the Android compatibility definition.
+      </p>
+
+<h2 align="center">Android 6.0 Updates Available &mdash; see details below</h2>
+  </div>
+
+</div>
+
+<div class="wrap">
+
+  <div class="landing-docs">
+    <div class="col-8">
+    <h3>What's New</h3>
+<a href="{@docRoot}devices/tech/power/index.html">
+        <h4>Doze and App Standby</h4></a>
+        <p>New battery-saving features <em>Doze</em> and <em>App Standby</em>
+        are described in <strong><a href="{@docRoot}devices/tech/power/mgmt.html">Power
+        Management</a></strong> while the remaining <strong><a
+        href="{@docRoot}devices/tech/power/index.html">Power</a></strong> section has
+        been revised.</p>
+
+<a href="{@docRoot}devices/tech/security/authentication/index.html">
+        <h4>Authentication</h4></a>
+        <p>An entirely new <strong><a
+        href="{@docRoot}devices/tech/security/authentication/index.html">Authentication</a></strong>
+        section describes the <strong><a
+        href="{@docRoot}devices/tech/security/authentication/fingerprint-hal.html">Fingerprint</a></strong>,
+        <strong><a
+        href="{@docRoot}devices/tech/security/authentication/gatekeeper.html">Gatekeeper</a></strong>,
+        and <strong><a
+        href="{@docRoot}devices/tech/security/authentication/keymaster.html">Keymaster</a></strong>
+        interfaces in detail, including a list of <strong><a
+        href="{@docRoot}devices/tech/security/authentication/km-features.html">Keymaster
+        features</a></strong> and an <strong><a
+        href="{@docRoot}devices/tech/security/authentication/km-implementer-ref.html">implementer’s
+        reference</a></strong>.</p>
+
+<a href="{@docRoot}devices/storage/index.html">
+        <h4>Adoptable Storage</h4></a>
+        <p>The <strong><a
+        href="{@docRoot}devices/storage/index.html">Storage</a></strong>
+        section has been revised to introduce <strong><a
+        href="{@docRoot}devices/storage/adoptable.html">adoptable
+        storage</a></strong> that can hold app data and distinguish between it and <strong><a
+        href="{@docRoot}devices/storage/traditional.html">traditional
+        storage</a></strong>.</p>
+
+<a href="{@docRoot}devices/tech/config/index.html">
+        <h4>Configuration</h4></a>
+        <p>Instructions now exist for configuring <strong><a
+        href="{@docRoot}devices/tech/config/runtime_perms.html">runtime permissions</a></strong>,
+        <strong><a href="{@docRoot}devices/tech/config/voicemail.html">visual
+        voicemail</a></strong>, and Android’s new <strong><a
+        href="{@docRoot}devices/tech/config/filesystem.html">file
+        system</a></strong>. And carriers get <strong><a
+        href="{@docRoot}devices/tech/config/carrier.html">custom
+        configuration</a></strong>.</p>
+
+<a href="{@docRoot}devices/tech/debug/index.html">
+        <h4>Tooling</h4></a>
+        <p>Information on the <strong><a href="{@docRoot}source/jack.html">Jack
+        (Java Android Compiler Kit)</a></strong> default toolchain in Android 6.0 is
+        available, as well as instructions for <strong><a
+        href="{@docRoot}devices/tech/dalvik/gc-debug.html">debugging garbage collection
+        in ART</a></strong>.</p>
+
+<a href="{@docRoot}devices/media/index.html">
+        <h4>Media</h4></a>
+        <p>The <strong><a
+        href="{@docRoot}devices/media/index.html">Media</a></strong> section now
+        contains descriptions of media resource manager dependencies for <strong><a 
+        href="{@docRoot}devices/media/oem.html">OEMs</a></strong> and <strong><a 
+        href="{@docRoot}devices/media/soc.html">SoC vendors</a></strong>.</p>
+
+<a href="{@docRoot}accessories/stylus.html">
+        <h4>Bluetooth Stylus</h4></a>
+        <p>The <strong><a
+        href="{@docRoot}accessories/index.html">Accessories</a></strong>
+        section now explains how to implement a <strong><a
+        href="{@docRoot}accessories/stylus.html">Bluetooth Stylus</a></strong>.</p>
+    </div>
+
+    <div class="col-8">
+      <h3>Getting Started</h3>
+      <a href="{@docRoot}source/index.html">
+        <h4>Explore the Source</h4></a>
+        <p>Get the complete Android platform and modify and build it to suit your needs. You can
+        also <strong><a
+        href="https://android-review.googlesource.com/#/q/status:open">contribute
+        to</a></strong> the <strong><a
+        href="https://android.googlesource.com/">Android Open Source Project (AOSP)
+        repository</a></strong> to make your changes available to everyone else
+        in the Android ecosystem.</p>
+<a href="{@docRoot}source/index.html"><img border="0" src="images/android_framework_small.png" alt="Android framework summary" style="display:inline;float:left;margin:5px 10px"></a>
+      <a href="{@docRoot}devices/index.html">
+        <h4>Port Android to Devices</h4></a>
+        <p>Port the latest Android platform and
+        create compelling devices that your customers want.</p>
+
+      <a href="{@docRoot}accessories/index.html">
+        <h4>Build Accessories</h4></a>
+        <p>Sometimes, a device can't do it all. Tap into Android's open accessory standard and build accessories to complement the wide variety of Android-powered devices.</p>
+
+      <a href="{@docRoot}compatibility/index.html">
+        <h4>Get Compatible</h4></a>
+        <p>Being Android-compatible lets you offer custom features but still give users and developers a consistent
+          and standard experience across all Android-powered devices. Android provides guidance
+          and a test suite to verify your Android compatibility.</p>
+
+      <a href="https://android.googlesource.com/platform/docs/source.android.com/">
+        <h4>Help this Site</h4></a>
+        <p>Please note, source.android.com is maintained in the Android Open Source Project. See the <strong><a
+        href="https://android.googlesource.com/platform/docs/source.android.com/+log/master">docs/source.android.com
+        project log in AOSP</a></strong> for the complete list of changes to this site.
+        Contribute your own updates to that same project and help maintain source.android.com.</p>
+    </div>
+
+  </div>
+
+</div>

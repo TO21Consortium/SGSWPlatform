@@ -1,0 +1,2273 @@
+Binary file bcmdhd.o matches
+Binary file built-in.o matches
+dhd_flowring.c:211:	dhdp->bus->delete_flow_map = kzalloc(count, GFP_ATOMIC);
+dhd_flowring.c:212:	if  (!dhdp->bus->delete_flow_map) {
+dhd_flowring.c:240:	if (dhdp->bus->delete_flow_map)
+dhd_flowring.c:241:		kfree(dhdp->bus->delete_flow_map);
+dhd_flowring.c:306:	if (dhdp->bus->delete_flow_map)
+dhd_flowring.c:307:		kfree(dhdp->bus->delete_flow_map);
+dhd_flowring.c:531:	dll_prepend(&dhdp->bus->const_flowring, &flow_ring_node->list);
+dhd_msgbuf.c:3837:	set_bit(flow_delete_resp->cmplt.flow_ring_id, dhd->bus->delete_flow_map);
+dhd_msgbuf.c:3838:	queue_work(dhd->bus->tx_wq, &dhd->bus->delete_flow_work);
+dhd_pcie.c:251:		bus->regs = regs;
+dhd_pcie.c:252:		bus->tcm = tcm;
+dhd_pcie.c:253:		bus->tcm_size = tcm_size;
+dhd_pcie.c:254:		bus->osh = osh;
+dhd_pcie.c:256:		dll_init(&bus->const_flowring);
+dhd_pcie.c:259:		bus->pcie_sh = MALLOC(osh, sizeof(pciedev_shared_t));
+dhd_pcie.c:260:		if (!bus->pcie_sh) {
+dhd_pcie.c:261:			DHD_ERROR(("%s: MALLOC of bus->pcie_sh failed\n", __FUNCTION__));
+dhd_pcie.c:272:		if (!(bus->dhd = dhd_attach(osh, bus, PCMSGBUF_HDRLEN))) {
+dhd_pcie.c:277:		bus->dhd->busstate = DHD_BUS_DOWN;
+dhd_pcie.c:278:		bus->db1_for_mb = TRUE;
+dhd_pcie.c:279:		bus->dhd->hang_report  = TRUE;
+dhd_pcie.c:289:	if (bus && bus->pcie_sh)
+dhd_pcie.c:290:		MFREE(osh, bus->pcie_sh, sizeof(pciedev_shared_t));
+dhd_pcie.c:301:	ASSERT(bus->sih != NULL);
+dhd_pcie.c:302:	return bus->sih->chip;
+dhd_pcie.c:309:	ASSERT(bus->sih != NULL);
+dhd_pcie.c:310:	return bus->sih->chiprev;
+dhd_pcie.c:316:	return bus->dhd;
+dhd_pcie.c:322:	return (void *)bus->sih;
+dhd_pcie.c:328:	return &bus->txq;
+dhd_pcie.c:335:	return  bus->sih->chip;
+dhd_pcie.c:342:	return bus->sih->chiprev;
+dhd_pcie.c:349:	return bus->sih->chippkg;
+dhd_pcie.c:384:			if (bus->dhd->busstate == DHD_BUS_DOWN) {
+dhd_pcie.c:398:			bus->intrcount++;
+dhd_pcie.c:401:			bus->ipend = TRUE;
+dhd_pcie.c:403:			bus->intdis = TRUE;
+dhd_pcie.c:408:			DHD_OS_WAKE_LOCK(bus->dhd);
+dhd_pcie.c:410:			DHD_OS_WAKE_UNLOCK(bus->dhd);
+dhd_pcie.c:412:			bus->dpc_sched = TRUE;
+dhd_pcie.c:413:			dhd_sched_dpc(bus->dhd);     /* queue DPC now!! */
+dhd_pcie.c:430:	osl_t *osh = bus->osh;
+dhd_pcie.c:431:	void *regsva = (void*)bus->regs;
+dhd_pcie.c:432:	uint16 devid = bus->cl_devid;
+dhd_pcie.c:439:	link_recovery = bus->dhd;
+dhd_pcie.c:441:	bus->alp_only = TRUE;
+dhd_pcie.c:442:	bus->sih = NULL;
+dhd_pcie.c:449:	bus->bar1_win_base = OSL_PCI_READ_CONFIG(bus->osh, PCI_BAR1_WIN, 4);
+dhd_pcie.c:450:	DHD_ERROR(("%s: PCI_BAR1_WIN = %x\n", __FUNCTION__, bus->bar1_win_base));
+dhd_pcie.c:454:	if (!(bus->sih = si_attach((uint)devid, osh, regsva, PCI_BUS, bus,
+dhd_pcie.c:455:	                           &bus->vars, &bus->varsz))) {
+dhd_pcie.c:461:	si_setcore(bus->sih, PCIE2_CORE_ID, 0);
+dhd_pcie.c:462:	sbpcieregs = (sbpcieregs_t*)(bus->regs);
+dhd_pcie.c:468:	bus->bar1_win_mask = 0xffffffff - (bus->tcm_size - 1);
+dhd_pcie.c:469:	DHD_ERROR(("%s: BAR1 window val=%d mask=%x\n", __FUNCTION__, val, bus->bar1_win_mask));
+dhd_pcie.c:475:	if ((si_setcore(bus->sih, ARM7S_CORE_ID, 0)) ||
+dhd_pcie.c:476:	    (si_setcore(bus->sih, ARMCM3_CORE_ID, 0)) ||
+dhd_pcie.c:477:	    (si_setcore(bus->sih, ARMCR4_CORE_ID, 0))) {
+dhd_pcie.c:478:		bus->armrev = si_corerev(bus->sih);
+dhd_pcie.c:484:	if (!si_setcore(bus->sih, ARMCR4_CORE_ID, 0)) {
+dhd_pcie.c:485:		if (!(bus->orig_ramsize = si_socram_size(bus->sih))) {
+dhd_pcie.c:491:		if (!(bus->orig_ramsize = si_tcm_size(bus->sih))) {
+dhd_pcie.c:496:		switch ((uint16)bus->sih->chip) {
+dhd_pcie.c:499:			bus->dongle_ram_base = CR4_4335_RAM_BASE;
+dhd_pcie.c:508:			bus->dongle_ram_base = CR4_4350_RAM_BASE;
+dhd_pcie.c:511:			bus->dongle_ram_base = CR4_4360_RAM_BASE;
+dhd_pcie.c:514:			bus->dongle_ram_base = (bus->sih->chiprev < 6)  /* changed at 4345C0 */
+dhd_pcie.c:518:			bus->dongle_ram_base = CR4_43602_RAM_BASE;
+dhd_pcie.c:521:			bus->dongle_ram_base = CR4_4349_RAM_BASE;
+dhd_pcie.c:524:			bus->dongle_ram_base = 0;
+dhd_pcie.c:526:			           __FUNCTION__, bus->dongle_ram_base));
+dhd_pcie.c:529:	bus->ramsize = bus->orig_ramsize;
+dhd_pcie.c:534:	           bus->ramsize, bus->orig_ramsize, bus->dongle_ram_base));
+dhd_pcie.c:536:	bus->srmemsize = si_socram_srmem_size(bus->sih);
+dhd_pcie.c:539:	bus->def_intmask = PCIE_MB_D2H_MB_MASK | PCIE_MB_TOPCIE_FN0_0 | PCIE_MB_TOPCIE_FN0_1;
+dhd_pcie.c:542:	bus->intr = (bool)dhd_intr;
+dhd_pcie.c:544:	bus->wait_for_d3_ack = 1;
+dhd_pcie.c:545:	bus->suspended = FALSE;
+dhd_pcie.c:551:	if (bus->sih != NULL)
+dhd_pcie.c:552:		si_detach(bus->sih);
+dhd_pcie.c:576:	if (!bus || !bus->sih)
+dhd_pcie.c:579:	if ((bus->sih->buscorerev == 2) || (bus->sih->buscorerev == 6) ||
+dhd_pcie.c:580:		(bus->sih->buscorerev == 4)) {
+dhd_pcie.c:583:	else if (bus->sih) {
+dhd_pcie.c:584:		si_corereg(bus->sih, bus->sih->buscoreidx, PCIMailBoxMask,
+dhd_pcie.c:585:			bus->def_intmask, bus->def_intmask);
+dhd_pcie.c:595:	if (!bus || !bus->sih)
+dhd_pcie.c:598:	if ((bus->sih->buscorerev == 2) || (bus->sih->buscorerev == 6) ||
+dhd_pcie.c:599:		(bus->sih->buscorerev == 4)) {
+dhd_pcie.c:602:	else if (bus->sih) {
+dhd_pcie.c:603:		si_corereg(bus->sih, bus->sih->buscoreidx, PCIMailBoxMask,
+dhd_pcie.c:604:			bus->def_intmask, 0);
+dhd_pcie.c:615:	dhd_os_sdlock(bus->dhd);
+dhd_pcie.c:617:	bus->dhd->busstate = DHD_BUS_DOWN;
+dhd_pcie.c:619:	pcie_watchdog_reset(bus->osh, bus->sih, (sbpcieregs_t *)(bus->regs));
+dhd_pcie.c:621:	dhd_os_sdunlock(bus->dhd);
+dhd_pcie.c:638:		osh = bus->osh;
+dhd_pcie.c:641:		if (bus->dhd) {
+dhd_pcie.c:642:			dongle_isolation = bus->dhd->dongle_isolation;
+dhd_pcie.c:643:			if (bus->intr) {
+dhd_pcie.c:647:			dhd_detach(bus->dhd);
+dhd_pcie.c:649:			dhd_free(bus->dhd);
+dhd_pcie.c:650:			bus->dhd = NULL;
+dhd_pcie.c:654:		if (bus->regs) {
+dhd_pcie.c:655:			dhdpcie_bus_reg_unmap(osh, (ulong)bus->regs, DONGLE_REG_MAP_SIZE);
+dhd_pcie.c:656:			bus->regs = NULL;
+dhd_pcie.c:658:		if (bus->tcm) {
+dhd_pcie.c:659:			dhdpcie_bus_reg_unmap(osh, (ulong)bus->tcm, bus->tcm_size);
+dhd_pcie.c:660:			bus->tcm = NULL;
+dhd_pcie.c:665:		if (bus->pcie_sh)
+dhd_pcie.c:666:			MFREE(osh, bus->pcie_sh, sizeof(pciedev_shared_t));
+dhd_pcie.c:670:		if (bus->console.buf != NULL)
+dhd_pcie.c:671:			MFREE(osh, bus->console.buf, bus->console.bufsize);
+dhd_pcie.c:689:	DHD_TRACE(("%s: Enter bus->dhd %p bus->dhd->dongle_reset %d \n", __FUNCTION__,
+dhd_pcie.c:690:		bus->dhd, bus->dhd->dongle_reset));
+dhd_pcie.c:692:	if ((bus->dhd && bus->dhd->dongle_reset) && reset_flag) {
+dhd_pcie.c:697:	if (bus->sih) {
+dhd_pcie.c:700:			pcie_watchdog_reset(bus->osh, bus->sih, (sbpcieregs_t *)(bus->regs));
+dhd_pcie.c:702:		if (bus->ltrsleep_on_unload) {
+dhd_pcie.c:703:			si_corereg(bus->sih, bus->sih->buscoreidx,
+dhd_pcie.c:706:		si_detach(bus->sih);
+dhd_pcie.c:707:		if (bus->vars && bus->varsz)
+dhd_pcie.c:708:			MFREE(osh, bus->vars, bus->varsz);
+dhd_pcie.c:709:		bus->vars = NULL;
+dhd_pcie.c:718:	uint32 data = OSL_PCI_READ_CONFIG(bus->osh, addr, size);
+dhd_pcie.c:726:	OSL_PCI_WRITE_CONFIG(bus->osh, addr, size, data);
+dhd_pcie.c:732:	OSL_PCI_WRITE_CONFIG(bus->osh, PCI_BAR0_WIN, 4, data);
+dhd_pcie.c:739:	OSL_PCI_WRITE_CONFIG(bus->osh, PCI_BAR1_WIN, 4, data);
+dhd_pcie.c:751:		(dhd_dongle_memsize < (int32)bus->orig_ramsize))
+dhd_pcie.c:752:		bus->ramsize = dhd_dongle_memsize;
+dhd_pcie.c:760:	if (bus->dhd && bus->dhd->dongle_reset)
+dhd_pcie.c:763:	if (bus->vars && bus->varsz) {
+dhd_pcie.c:764:		MFREE(osh, bus->vars, bus->varsz);
+dhd_pcie.c:765:		bus->vars = NULL;
+dhd_pcie.c:780:	if (!bus->dhd)
+dhd_pcie.c:783:	if (bus->dhd->busstate == DHD_BUS_DOWN) {
+dhd_pcie.c:788:	bus->dhd->busstate = DHD_BUS_DOWN;
+dhd_pcie.c:793:		dhd_dpc_kill(bus->dhd);
+dhd_pcie.c:796:	bus->rxlen = 0;
+dhd_pcie.c:797:	dhd_os_ioctl_resp_wake(bus->dhd);
+dhd_pcie.c:1039:		bus->console.count += dhd_watchdog_ms;
+dhd_pcie.c:1040:		if (bus->console.count >= dhd_console_ms) {
+dhd_pcie.c:1041:			bus->console.count -= dhd_console_ms;
+dhd_pcie.c:1105:	bus->fw_path = pfw_path;
+dhd_pcie.c:1106:	bus->nv_path = pnv_path;
+dhd_pcie.c:1119:		__FUNCTION__, bus->fw_path, bus->nv_path));
+dhd_pcie.c:1121:	DHD_OS_WAKE_LOCK(bus->dhd);
+dhd_pcie.c:1125:	DHD_OS_WAKE_UNLOCK(bus->dhd);
+dhd_pcie.c:1149:	memptr = memblock = MALLOC(bus->dhd->osh, MEMBLOCK + DHD_SDALIGN);
+dhd_pcie.c:1165:		if (si_setcore(bus->sih, ARMCR4_CORE_ID, 0)) {
+dhd_pcie.c:1169:				bus->resetinstr = *(((uint32*)memptr));
+dhd_pcie.c:1171:				offset += bus->dongle_ram_base;
+dhd_pcie.c:1187:		MFREE(bus->dhd->osh, memblock, MEMBLOCK + DHD_SDALIGN);
+dhd_pcie.c:1207:	pnv_path = bus->nv_path;
+dhd_pcie.c:1210:	if (!nvram_file_exists && (bus->nvram_params == NULL))
+dhd_pcie.c:1219:	memblock = MALLOC(bus->dhd->osh, MAX_NVRAMBUF_SIZE);
+dhd_pcie.c:1233:		len = bus->nvram_params_len;
+dhd_pcie.c:1235:		memcpy(memblock, bus->nvram_params, len);
+dhd_pcie.c:1264:		MFREE(bus->dhd->osh, memblock, MAX_NVRAMBUF_SIZE);
+dhd_pcie.c:1295:	if ((p_dlarray == 0) ||	(dlarray_size == 0) ||(dlarray_size > bus->ramsize) ||
+dhd_pcie.c:1299:	memptr = memblock = MALLOC(bus->dhd->osh, MEMBLOCK + DHD_SDALIGN);
+dhd_pcie.c:1316:		if (si_setcore(bus->sih, ARMCR4_CORE_ID, 0)) {
+dhd_pcie.c:1319:				bus->resetinstr = *(((uint32*)memptr));
+dhd_pcie.c:1321:				offset += bus->dongle_ram_base;
+dhd_pcie.c:1341:		ularray = MALLOC(bus->dhd->osh, dlarray_size);
+dhd_pcie.c:1345:		offset = bus->dongle_ram_base;
+dhd_pcie.c:1375:			MFREE(bus->dhd->osh, ularray, dlarray_size);
+dhd_pcie.c:1381:		MFREE(bus->dhd->osh, memblock, MEMBLOCK + DHD_SDALIGN);
+dhd_pcie.c:1397:	if ((bus->fw_path == NULL) || (bus->fw_path[0] == '\0')) {
+dhd_pcie.c:1413:	if ((bus->fw_path != NULL) && (bus->fw_path[0] != '\0')) {
+dhd_pcie.c:1414:		if (dhdpcie_download_code_file(bus, bus->fw_path)) {
+dhd_pcie.c:1479:	if (bus->dhd->dongle_reset)
+dhd_pcie.c:1483:	timeleft = dhd_os_ioctl_resp_wait(bus->dhd, &bus->rxlen, &pending);
+dhd_pcie.c:1484:	rxlen = bus->rxlen;
+dhd_pcie.c:1485:	bcopy(&bus->ioct_resp, msg, MIN(rxlen, sizeof(ioctl_comp_resp_msg_t)));
+dhd_pcie.c:1486:	bus->rxlen = 0;
+dhd_pcie.c:1493:		bus->ioct_resp.cmn_hdr.request_id = 0;
+dhd_pcie.c:1494:		bus->ioct_resp.compl_hdr.status = 0xffff;
+dhd_pcie.c:1495:		bus->dhd->rxcnt_timeout++;
+dhd_pcie.c:1496:		DHD_ERROR(("%s: rxcnt_timeout=%d\n", __FUNCTION__, bus->dhd->rxcnt_timeout));
+dhd_pcie.c:1505:		bus->dhd->rxcnt_timeout = 0;
+dhd_pcie.c:1508:		bus->dhd->rx_ctlpkts++;
+dhd_pcie.c:1510:		bus->dhd->rx_ctlerrs++;
+dhd_pcie.c:1512:	if (bus->dhd->rxcnt_timeout >= MAX_CNTL_TX_TIMEOUT)
+dhd_pcie.c:1515:	if (bus->dhd->dongle_trap_occured)
+dhd_pcie.c:1528:	dhd_console_t *c = &bus->console;
+dhd_pcie.c:1534:	if (bus->console_addr == 0)
+dhd_pcie.c:1538:	addr = bus->console_addr + OFFSETOF(hnd_cons_t, log);
+dhd_pcie.c:1546:		if ((c->buf = MALLOC(bus->dhd->osh, c->bufsize)) == NULL)
+dhd_pcie.c:1605:	pciedev_shared_t *pciedev_shared = bus->pcie_sh;
+dhd_pcie.c:1623:		mbuffer = data = MALLOC(bus->dhd->osh, msize);
+dhd_pcie.c:1632:	if ((str = MALLOC(bus->dhd->osh, maxstrlen)) == NULL) {
+dhd_pcie.c:1653:	if ((bus->pcie_sh->flags & (PCIE_SHARED_ASSERT|PCIE_SHARED_TRAP)) == 0) {
+dhd_pcie.c:1658:		          (bus->pcie_sh->flags & PCIE_SHARED_ASSERT_BUILT)
+dhd_pcie.c:1661:		if (bus->pcie_sh->flags & PCIE_SHARED_ASSERT) {
+dhd_pcie.c:1664:			if (bus->pcie_sh->assert_exp_addr != 0) {
+dhd_pcie.c:1667:				                                  bus->pcie_sh->assert_exp_addr,
+dhd_pcie.c:1675:			if (bus->pcie_sh->assert_file_addr != 0) {
+dhd_pcie.c:1678:				                                  bus->pcie_sh->assert_file_addr,
+dhd_pcie.c:1686:			bcm_bprintf(&strbuf, " line %d ",  bus->pcie_sh->assert_line);
+dhd_pcie.c:1689:		if (bus->pcie_sh->flags & PCIE_SHARED_TRAP) {
+dhd_pcie.c:1690:			bus->dhd->dongle_trap_occured = TRUE;
+dhd_pcie.c:1692:			                                  bus->pcie_sh->trap_addr,
+dhd_pcie.c:1703:			ltoh32(bus->pcie_sh->trap_addr),
+dhd_pcie.c:1707:			addr =  bus->pcie_sh->console_addr + OFFSETOF(hnd_cons_t, log);
+dhd_pcie.c:1712:			addr =  bus->pcie_sh->console_addr + OFFSETOF(hnd_cons_t, log.buf_size);
+dhd_pcie.c:1717:			addr =  bus->pcie_sh->console_addr + OFFSETOF(hnd_cons_t, log.idx);
+dhd_pcie.c:1727:				!(console_buffer = MALLOC(bus->dhd->osh, console_size)))
+dhd_pcie.c:1760:	if (bus->pcie_sh->flags & (PCIE_SHARED_ASSERT | PCIE_SHARED_TRAP)) {
+dhd_pcie.c:1766:		MFREE(bus->dhd->osh, mbuffer, msize);
+dhd_pcie.c:1768:		MFREE(bus->dhd->osh, str, maxstrlen);
+dhd_pcie.c:1771:		MFREE(bus->dhd->osh, console_buffer, console_size);
+dhd_pcie.c:1878:	if (flow_id >= bus->max_sub_queues) {
+dhd_pcie.c:1880:			flow_id, bus->max_sub_queues));
+dhd_pcie.c:1884:	flow_ring_node = DHD_FLOW_RING(bus->dhd, flow_id);
+dhd_pcie.c:1900:		while ((txp = dhd_flow_queue_dequeue(bus->dhd, queue)) != NULL) {
+dhd_pcie.c:1904:		if (bus->dhd->tcpack_sup_mode != TCPACK_SUP_HOLD) {
+dhd_pcie.c:1905:			dhd_tcpack_check_xmit(bus->dhd, txp);
+dhd_pcie.c:1910:			ret = dhd_prot_txdata(bus->dhd, txp, flow_ring_node->flow_info.ifindex);
+dhd_pcie.c:1913:				dhd_prot_txdata_write_flush(bus->dhd, flow_id, FALSE);
+dhd_pcie.c:1915:				dhd_flow_queue_reinsert(bus->dhd, queue, txp);
+dhd_pcie.c:1923:		dhd_prot_txdata_write_flush(bus->dhd, flow_id, FALSE);
+dhd_pcie.c:1939:	if (!bus->txmode_push) {
+dhd_pcie.c:1943:		if (!bus->dhd->flowid_allocator) {
+dhd_pcie.c:1950:		flow_ring_node = DHD_FLOW_RING(bus->dhd, flowid);
+dhd_pcie.c:1956:		if ((flowid >= bus->dhd->num_flow_rings) ||
+dhd_pcie.c:1970:		if ((ret = dhd_flow_queue_enqueue(bus->dhd, queue, txp)) != BCME_OK)
+dhd_pcie.c:1991:			if ((ret = dhd_flow_queue_enqueue(bus->dhd, queue, txp_pend)) != BCME_OK) {
+dhd_pcie.c:2002:	} else { /* bus->txmode_push */
+dhd_pcie.c:2003:		return dhd_prot_txdata(bus->dhd, txp, ifidx);
+dhd_pcie.c:2008:	PKTCFREE(bus->dhd->osh, txp, TRUE);
+dhd_pcie.c:2020:	uint8 *pktdata = (uint8 *)PKTDATA(bus->dhd->osh, txp);
+dhd_pcie.c:2023:	if (!bus->dhd->flowid_allocator) {
+dhd_pcie.c:2028:	flowid = dhd_flowid_find(bus->dhd, ifidx,
+dhd_pcie.c:2029:		bus->dhd->flow_prio_map[(PKTPRIO(txp))],
+dhd_pcie.c:2033:		skb_queue_tail(&bus->orphan_list, txp);
+dhd_pcie.c:2034:		queue_work(bus->tx_wq, &bus->create_flow_work);
+dhd_pcie.c:2039:	flow_ring_node = DHD_FLOW_RING(bus->dhd, flowid);
+dhd_pcie.c:2047:	if ((flowid >= bus->dhd->num_flow_rings) ||
+dhd_pcie.c:2061:		skb_queue_tail(&bus->orphan_list, txp);
+dhd_pcie.c:2062:		queue_work(bus->tx_wq, &bus->create_flow_work);
+dhd_pcie.c:2066:	if ((ret = dhd_flow_queue_enqueue(bus->dhd, queue, txp)) != BCME_OK) {
+dhd_pcie.c:2079:	PKTCFREE(bus->dhd->osh, txp, TRUE);
+dhd_pcie.c:2088:	dhd_txflowcontrol(bus->dhd, ALL_INTERFACES, ON);
+dhd_pcie.c:2089:	bus->bus_flowctrl = TRUE;
+dhd_pcie.c:2095:	dhd_txflowcontrol(bus->dhd, ALL_INTERFACES, OFF);
+dhd_pcie.c:2096:	bus->bus_flowctrl = TRUE;
+dhd_pcie.c:2103:	bus->rxlen = retlen;
+dhd_pcie.c:2104:	bus->ioct_resp.cmn_hdr.request_id = pkt_id;
+dhd_pcie.c:2105:	bus->ioct_resp.compl_hdr.status = status;
+dhd_pcie.c:2106:	bus->ioct_resp.resp_len = (uint16)resp_len;
+dhd_pcie.c:2117:	if (bus->console_addr == 0)
+dhd_pcie.c:2121:	if (bus->dhd->dongle_reset) {
+dhd_pcie.c:2122:		dhd_os_sdunlock(bus->dhd);
+dhd_pcie.c:2127:	addr = bus->console_addr + OFFSETOF(hnd_cons_t, cbuf_idx);
+dhd_pcie.c:2133:	addr = bus->console_addr + OFFSETOF(hnd_cons_t, cbuf);
+dhd_pcie.c:2138:	addr = bus->console_addr + OFFSETOF(hnd_cons_t, vcons_in);
+dhd_pcie.c:2154:	dhd_rx_frame(bus->dhd, ifidx, pkt, pkt_count, 0);
+dhd_pcie.c:2163:	new_bar1_wbase = (uint)offset & bus->bar1_win_mask;
+dhd_pcie.c:2164:	if (bus->bar1_win_base != new_bar1_wbase) {
+dhd_pcie.c:2165:		bus->bar1_win_base = new_bar1_wbase;
+dhd_pcie.c:2166:		dhdpcie_bus_cfg_set_bar1_win(bus, bus->bar1_win_base);
+dhd_pcie.c:2168:		    __FUNCTION__, offset, bus->bar1_win_base));
+dhd_pcie.c:2171:	address = offset - bus->bar1_win_base;
+dhd_pcie.c:2183:	*(volatile uint8 *)(bus->tcm + dhd_bus_cmn_check_offset(bus, offset)) = (uint8)data;
+dhd_pcie.c:2191:	data = R_REG(bus->dhd->osh,
+dhd_pcie.c:2192:	    (volatile uint8 *)(bus->tcm + dhd_bus_cmn_check_offset(bus, offset)));
+dhd_pcie.c:2194:	data = *(volatile uint8 *)(bus->tcm + dhd_bus_cmn_check_offset(bus, offset));
+dhd_pcie.c:2202:	*(volatile uint32 *)(bus->tcm + dhd_bus_cmn_check_offset(bus, offset)) = (uint32)data;
+dhd_pcie.c:2207:	*(volatile uint16 *)(bus->tcm + dhd_bus_cmn_check_offset(bus, offset)) = (uint16)data;
+dhd_pcie.c:2212:	*(volatile uint64 *)(bus->tcm + dhd_bus_cmn_check_offset(bus, offset)) = (uint64)data;
+dhd_pcie.c:2220:	data = R_REG(bus->dhd->osh,
+dhd_pcie.c:2221:	    (volatile uint16 *)(bus->tcm + dhd_bus_cmn_check_offset(bus, offset)));
+dhd_pcie.c:2223:	data = *(volatile uint16 *)(bus->tcm + dhd_bus_cmn_check_offset(bus, offset));
+dhd_pcie.c:2233:	data = R_REG(bus->dhd->osh,
+dhd_pcie.c:2234:	    (volatile uint32 *)(bus->tcm + dhd_bus_cmn_check_offset(bus, offset)));
+dhd_pcie.c:2236:	data = *(volatile uint32 *)(bus->tcm + dhd_bus_cmn_check_offset(bus, offset));
+dhd_pcie.c:2246:	data = R_REG(bus->dhd->osh,
+dhd_pcie.c:2247:	    (volatile uint64 *)(bus->tcm + dhd_bus_cmn_check_offset(bus, offset)));
+dhd_pcie.c:2249:	data = *(volatile uint64 *)(bus->tcm + dhd_bus_cmn_check_offset(bus, offset));
+dhd_pcie.c:2262:	sh = (pciedev_shared_t*)bus->shared_addr;
+dhd_pcie.c:2282:			shmem = (pciedev_shared_t *)bus->pcie_sh;
+dhd_pcie.c:2293:			shmem = (pciedev_shared_t *)bus->pcie_sh;
+dhd_pcie.c:2304:			shmem = (pciedev_shared_t *)bus->pcie_sh;
+dhd_pcie.c:2315:			shmem = (pciedev_shared_t *)bus->pcie_sh;
+dhd_pcie.c:2325:			tcm_offset = bus->ring_sh[ringid].ring_mem_addr;
+dhd_pcie.c:2331:			tcm_offset = bus->ring_sh[ringid].ring_mem_addr;
+dhd_pcie.c:2338:			tcm_offset = bus->ring_sh[ringid].ring_mem_addr;
+dhd_pcie.c:2345:			tcm_offset = bus->ring_sh[ringid].ring_state_w;
+dhd_pcie.c:2349:			tcm_offset = bus->ring_sh[ringid].ring_state_r;
+dhd_pcie.c:2354:			dhdpcie_bus_wtcm32(bus, bus->d2h_mb_data_ptr_addr,
+dhd_pcie.c:2359:			dhdpcie_bus_wtcm32(bus, bus->h2d_mb_data_ptr_addr,
+dhd_pcie.c:2374:	sh = (pciedev_shared_t*)bus->shared_addr;
+dhd_pcie.c:2378:			tcm_offset = bus->ring_sh[ringid].ring_state_w;
+dhd_pcie.c:2382:			tcm_offset = bus->ring_sh[ringid].ring_state_r;
+dhd_pcie.c:2390:			*(uint32*)data = LTOH32(dhdpcie_bus_rtcm32(bus, bus->h2d_mb_data_ptr_addr));
+dhd_pcie.c:2393:			*(uint32*)data = LTOH32(dhdpcie_bus_rtcm32(bus, bus->d2h_mb_data_ptr_addr));
+dhd_pcie.c:2406:	return ((pciedev_shared_t*)bus->pcie_sh)->flags;
+dhd_pcie.c:2671:	if (bus->dhd->busstate != DHD_BUS_DATA) {
+dhd_pcie.c:2674:	if ((page_p = (char *)MALLOC(bus->dhd->osh, 4096)) == NULL) {
+dhd_pcie.c:2678:	if ((buzzz_p = MALLOC(bus->dhd->osh, sizeof(buzzz_t))) == NULL) {
+dhd_pcie.c:2689:	sh = bus->pcie_sh;
+dhd_pcie.c:2705:		buffer_p = MALLOC(bus->dhd->osh, buzzz_p->buffer_sz);
+dhd_pcie.c:2717:		MFREE(bus->dhd->osh, buffer_p, buzzz_p->buffer_sz); buffer_p = NULL;
+dhd_pcie.c:2722:	if (page_p)   MFREE(bus->dhd->osh, page_p, 4096);
+dhd_pcie.c:2723:	if (buzzz_p)  MFREE(bus->dhd->osh, buzzz_p, sizeof(buzzz_t));
+dhd_pcie.c:2724:	if (buffer_p) MFREE(bus->dhd->osh, buffer_p, buzzz_p->buffer_sz);
+dhd_pcie.c:2742:	si_corereg(bus->sih, bus->sih->buscoreidx, PCIE2_MDIO_CONTROL, ~0, mdioctrl);
+dhd_pcie.c:2743:	si_corereg(bus->sih, bus->sih->buscoreidx, PCIE2_MDIO_WR_DATA, ~0, mdiodata);
+dhd_pcie.c:2748:		uint mdioctrl_read = si_corereg(bus->sih, bus->sih->buscoreidx, PCIE2_MDIO_WR_DATA,
+dhd_pcie.c:2785:	si_corereg(bus->sih, bus->sih->buscoreidx, PCIE2_MDIO_CONTROL, ~0, mdio_ctrl);
+dhd_pcie.c:2789:		si_corereg(bus->sih, bus->sih->buscoreidx, PCIE2_MDIO_WR_DATA, ~0,
+dhd_pcie.c:2797:		uint done_val =  si_corereg(bus->sih, bus->sih->buscoreidx, reg32, 0, 0);
+dhd_pcie.c:2800:				*val = si_corereg(bus->sih, bus->sih->buscoreidx,
+dhd_pcie.c:2827:			bus->dhd->up = FALSE;
+dhd_pcie.c:2828:			if (bus->dhd->busstate != DHD_BUS_DOWN) {
+dhd_pcie.c:2829:				if (bus->intr) {
+dhd_pcie.c:2835:				dhd_bus_oob_intr_set(bus->dhd, FALSE);
+dhd_pcie.c:2836:				dhd_bus_oob_intr_unregister(bus->dhd);
+dhd_pcie.c:2858:				bus->dhd->busstate = DHD_BUS_DOWN;
+dhd_pcie.c:2860:				if (bus->intr) {
+dhd_pcie.c:2866:				dhd_bus_oob_intr_set(bus->dhd, FALSE);
+dhd_pcie.c:2867:				dhd_bus_oob_intr_unregister(bus->dhd);
+dhd_pcie.c:2890:			bus->dhd->dongle_reset = TRUE;
+dhd_pcie.c:2894:			if (bus->dhd->busstate == DHD_BUS_DOWN) {
+dhd_pcie.c:2943:				bus->dhd->dongle_reset = FALSE;
+dhd_pcie.c:2952:				bus->dhd->up = TRUE;
+dhd_pcie.c:2962:		bus->dhd->busstate = DHD_BUS_DOWN;
+dhd_pcie.c:2995:	if (bus->dhd->dongle_reset && !(actionid == IOV_SVAL(IOV_DEVRESET) ||
+dhd_pcie.c:3009:		si_corereg(bus->sih, bus->sih->buscoreidx, OFFSETOF(sbpcieregs_t, configaddr), ~0,
+dhd_pcie.c:3011:		si_corereg(bus->sih, bus->sih->buscoreidx, OFFSETOF(sbpcieregs_t, configdata), ~0,
+dhd_pcie.c:3016:		si_corereg(bus->sih, bus->sih->buscoreidx, OFFSETOF(sbpcieregs_t, configaddr), ~0,
+dhd_pcie.c:3018:		int_val = si_corereg(bus->sih, bus->sih->buscoreidx,
+dhd_pcie.c:3033:		bar0 = (uchar *)bus->regs;
+dhd_pcie.c:3050:		bar0 = (uchar *)bus->regs;
+dhd_pcie.c:3059:		si_corereg(bus->sih, bus->sih->buscoreidx, int_val, ~0, int_val2);
+dhd_pcie.c:3071:		int_val = si_corereg(bus->sih, coreidx, (addr & 0xFFF), 0, 0);
+dhd_pcie.c:3086:		si_corereg(bus->sih, coreidx, (addr & 0xFFF), ~0, sdreg.value);
+dhd_pcie.c:3094:		if (!PCIE_GEN2(bus->sih)) {
+dhd_pcie.c:3109:		if (!PCIE_GEN2(bus->sih)) {
+dhd_pcie.c:3120:		int_val = si_corereg(bus->sih, bus->sih->buscoreidx, int_val, 0, 0);
+dhd_pcie.c:3125:		OSL_PCI_WRITE_CONFIG(bus->osh, int_val, 4, int_val2);
+dhd_pcie.c:3129:		int_val = OSL_PCI_READ_CONFIG(bus->osh, int_val, 4);
+dhd_pcie.c:3142:		int_val = (bus->dhd->busstate == DHD_BUS_SUSPEND) ? 1 : 0;
+dhd_pcie.c:3151:		int_val = (int32)bus->ramsize;
+dhd_pcie.c:3182:		if (si_setcore(bus->sih, ARMCR4_CORE_ID, 0)) {
+dhd_pcie.c:3184:			if (set && address == bus->dongle_ram_base) {
+dhd_pcie.c:3185:				bus->resetinstr = *(((uint32*)params) + 2);
+dhd_pcie.c:3189:		if ((bus->orig_ramsize) &&
+dhd_pcie.c:3190:		    ((address > bus->orig_ramsize) || (address + size > bus->orig_ramsize)))
+dhd_pcie.c:3193:			si_socdevram(bus->sih, FALSE, &enable, &protect, &remap);
+dhd_pcie.c:3196:					__FUNCTION__, bus->orig_ramsize, size, address));
+dhd_pcie.c:3204:				uint32 devramsize = si_socdevram_size(bus->sih);
+dhd_pcie.c:3251:		int_val = (int32)bus->ramsize;
+dhd_pcie.c:3256:		int_val = (int32)bus->dongle_ram_base;
+dhd_pcie.c:3270:		bool_val = bus->sleep_allowed;
+dhd_pcie.c:3275:		bus->sleep_allowed = bool_val;
+dhd_pcie.c:3279:		int_val = bus->dhd->dongle_isolation;
+dhd_pcie.c:3284:		bus->dhd->dongle_isolation = bool_val;
+dhd_pcie.c:3288:		int_val = bus->ltrsleep_on_unload;
+dhd_pcie.c:3293:		bus->ltrsleep_on_unload = bool_val;
+dhd_pcie.c:3300:		bcmerror = dhd_prot_ringupd_dump(bus->dhd, &dump_b);
+dhd_pcie.c:3306:		d2h_support = DMA_INDX_ENAB(bus->dhd->dma_d2h_ring_upd_support) ? 1 : 0;
+dhd_pcie.c:3307:		h2d_support = DMA_INDX_ENAB(bus->dhd->dma_h2d_ring_upd_support) ? 1 : 0;
+dhd_pcie.c:3314:		if (bus->dhd->busstate == DHD_BUS_DOWN) {
+dhd_pcie.c:3319:				bus->dhd->dma_d2h_ring_upd_support = (int_val & 1) ? TRUE : FALSE;
+dhd_pcie.c:3320:				bus->dhd->dma_h2d_ring_upd_support = (int_val & 2) ? TRUE : FALSE;
+dhd_pcie.c:3330:		int_val = dhd_prot_metadatalen_get(bus->dhd, TRUE);
+dhd_pcie.c:3339:		dhd_prot_metadatalen_set(bus->dhd, int_val, TRUE);
+dhd_pcie.c:3343:		dhd_prot_txp_threshold(bus->dhd, TRUE, int_val);
+dhd_pcie.c:3347:		int_val = dhd_prot_txp_threshold(bus->dhd, FALSE, int_val);
+dhd_pcie.c:3353:			bus->db1_for_mb = TRUE;
+dhd_pcie.c:3355:			bus->db1_for_mb = FALSE;
+dhd_pcie.c:3359:		if (bus->db1_for_mb)
+dhd_pcie.c:3367:		int_val = dhd_prot_metadatalen_get(bus->dhd, FALSE);
+dhd_pcie.c:3376:		dhd_prot_metadatalen_set(bus->dhd, int_val, FALSE);
+dhd_pcie.c:3380:		int_val = bus->dhd->flow_prio_map_type;
+dhd_pcie.c:3385:		int_val = (int32)dhd_update_flow_prio_map(bus->dhd, (uint8)int_val);
+dhd_pcie.c:3420:	if (bus->dhd == NULL) {
+dhd_pcie.c:3424:	if (bus->dhd->prot == NULL) {
+dhd_pcie.c:3428:	if (bus->dhd->busstate != DHD_BUS_DATA) {
+dhd_pcie.c:3432:	dhdmsgbuf_lpbk_req(bus->dhd, len);
+dhd_pcie.c:3455:	netdev = dhd_idx2net(bus->dhd, 0);
+dhd_pcie.c:3456:	if (bus->dhd == NULL) {
+dhd_pcie.c:3460:	if (bus->dhd->prot == NULL) {
+dhd_pcie.c:3464:	if (bus->dhd->busstate != DHD_BUS_DATA && bus->dhd->busstate != DHD_BUS_SUSPEND) {
+dhd_pcie.c:3468:	if (bus->dhd->dongle_reset)
+dhd_pcie.c:3471:	if (bus->suspended == state) /* Set to same state */
+dhd_pcie.c:3475:		bus->wait_for_d3_ack = 0;
+dhd_pcie.c:3476:		bus->suspended = TRUE;
+dhd_pcie.c:3477:		bus->dhd->busstate = DHD_BUS_SUSPEND;
+dhd_pcie.c:3478:		DHD_OS_WAKE_LOCK_WAIVE(bus->dhd);
+dhd_pcie.c:3481:		timeleft = dhd_os_ioctl_resp_wait(bus->dhd, &bus->wait_for_d3_ack, &pending);
+dhd_pcie.c:3483:		DHD_OS_WAKE_LOCK_RESTORE(bus->dhd);
+dhd_pcie.c:3484:		if (bus->wait_for_d3_ack) {
+dhd_pcie.c:3486:			if (dhd_os_check_wakelock_all(bus->dhd)) {
+dhd_pcie.c:3488:				bus->dev->current_state = PCI_D3hot;
+dhd_pcie.c:3489:				pci_set_master(bus->dev);
+dhd_pcie.c:3490:				rc = pci_set_power_state(bus->dev, PCI_D0);
+dhd_pcie.c:3494:						__FUNCTION__, bus->dev->current_state, rc));
+dhd_pcie.c:3496:				bus->suspended = FALSE;
+dhd_pcie.c:3497:				bus->dhd->busstate = DHD_BUS_DATA;
+dhd_pcie.c:3503:			bus->dhd->d3ackcnt_timeout = 0;
+dhd_pcie.c:3506:			bus->dhd->d3ackcnt_timeout++;
+dhd_pcie.c:3508:					__FUNCTION__, bus->dhd->d3ackcnt_timeout));
+dhd_pcie.c:3509:			bus->dev->current_state = PCI_D3hot;
+dhd_pcie.c:3510:			pci_set_master(bus->dev);
+dhd_pcie.c:3511:			rc = pci_set_power_state(bus->dev, PCI_D0);
+dhd_pcie.c:3515:					__FUNCTION__, bus->dev->current_state, rc));
+dhd_pcie.c:3517:			bus->suspended = FALSE;
+dhd_pcie.c:3518:			DHD_GENERAL_LOCK(bus->dhd, flags);
+dhd_pcie.c:3519:			bus->dhd->busstate = DHD_BUS_DATA;
+dhd_pcie.c:3522:			DHD_GENERAL_UNLOCK(bus->dhd, flags);
+dhd_pcie.c:3523:			if (bus->dhd->d3ackcnt_timeout >= MAX_CNTL_D3ACK_TIMEOUT) {
+dhd_pcie.c:3528:				bus->islinkdown = TRUE;
+dhd_pcie.c:3531:				bus->dhd->d3ackcnt_timeout = 0;
+dhd_pcie.c:3532:				dhd_os_check_hang(bus->dhd, 0, -ETIMEDOUT);
+dhd_pcie.c:3536:		bus->wait_for_d3_ack = 1;
+dhd_pcie.c:3540:		DHD_OS_OOB_IRQ_WAKE_UNLOCK(bus->dhd);
+dhd_pcie.c:3543:		bus->suspended = FALSE;
+dhd_pcie.c:3544:		bus->dhd->busstate = DHD_BUS_DATA;
+dhd_pcie.c:3554:	if (bus->dhd == NULL) {
+dhd_pcie.c:3558:	if (bus->dhd->prot == NULL) {
+dhd_pcie.c:3562:	if (bus->dhd->busstate != DHD_BUS_DATA) {
+dhd_pcie.c:3571:	return dhdmsgbuf_dmaxfer_req(bus->dhd, len, srcdelay, destdelay);
+dhd_pcie.c:3582:	if (!bus->sih)
+dhd_pcie.c:3588:		bus->alp_only = TRUE;
+dhd_pcie.c:3591:		cr4_regs = si_setcore(bus->sih, ARMCR4_CORE_ID, 0);
+dhd_pcie.c:3593:		if (cr4_regs == NULL && !(si_setcore(bus->sih, ARM7S_CORE_ID, 0)) &&
+dhd_pcie.c:3594:		    !(si_setcore(bus->sih, ARMCM3_CORE_ID, 0))) {
+dhd_pcie.c:3601:			si_core_disable(bus->sih, 0);
+dhd_pcie.c:3603:			if (!(si_setcore(bus->sih, SOCRAM_CORE_ID, 0))) {
+dhd_pcie.c:3609:			si_core_reset(bus->sih, 0, 0);
+dhd_pcie.c:3613:			if (bus->ramsize) {
+dhd_pcie.c:3615:				if (dhdpcie_bus_membytes(bus, TRUE, bus->ramsize - 4,
+dhd_pcie.c:3631:			si_core_reset(bus->sih, SICF_CPUHALT, SICF_CPUHALT);
+dhd_pcie.c:3632:			if (bus->sih->chip == BCM43602_CHIP_ID) {
+dhd_pcie.c:3633:				W_REG(bus->pcie_mb_intr_osh, cr4_regs + ARMCR4REG_BANKIDX, 5);
+dhd_pcie.c:3634:				W_REG(bus->pcie_mb_intr_osh, cr4_regs + ARMCR4REG_BANKPDA, 0);
+dhd_pcie.c:3635:				W_REG(bus->pcie_mb_intr_osh, cr4_regs + ARMCR4REG_BANKIDX, 7);
+dhd_pcie.c:3636:				W_REG(bus->pcie_mb_intr_osh, cr4_regs + ARMCR4REG_BANKPDA, 0);
+dhd_pcie.c:3642:		if (!si_setcore(bus->sih, ARMCR4_CORE_ID, 0)) {
+dhd_pcie.c:3643:			if (!(si_setcore(bus->sih, SOCRAM_CORE_ID, 0))) {
+dhd_pcie.c:3649:			if (!si_iscoreup(bus->sih)) {
+dhd_pcie.c:3660:			if (!si_setcore(bus->sih, PCMCIA_CORE_ID, 0) &&
+dhd_pcie.c:3661:			    !si_setcore(bus->sih, SDIOD_CORE_ID, 0)) {
+dhd_pcie.c:3668:			if (!(si_setcore(bus->sih, ARM7S_CORE_ID, 0)) &&
+dhd_pcie.c:3669:			    !(si_setcore(bus->sih, ARMCM3_CORE_ID, 0))) {
+dhd_pcie.c:3675:			if (bus->sih->chip == BCM43602_CHIP_ID) {
+dhd_pcie.c:3677:				if (!(si_setcore(bus->sih, SOCRAM_CORE_ID, 0))) {
+dhd_pcie.c:3683:				si_core_reset(bus->sih, 0, 0);
+dhd_pcie.c:3684:				si_setcore(bus->sih, ARMCR4_CORE_ID, 0);
+dhd_pcie.c:3695:			if (!(si_setcore(bus->sih, ARMCR4_CORE_ID, 0))) {
+dhd_pcie.c:3703:				(uint8 *)&bus->resetinstr, sizeof(bus->resetinstr));
+dhd_pcie.c:3708:		si_core_reset(bus->sih, 0, 0);
+dhd_pcie.c:3711:		bus->alp_only = FALSE;
+dhd_pcie.c:3713:		bus->dhd->busstate = DHD_BUS_LOAD;
+dhd_pcie.c:3718:	si_setcore(bus->sih, PCIE2_CORE_ID, 0);
+dhd_pcie.c:3736:	varsize = bus->varsz ? ROUNDUP(bus->varsz, 4) : 0;
+dhd_pcie.c:3737:	varaddr = (bus->ramsize - 4) - varsize;
+dhd_pcie.c:3739:	varaddr += bus->dongle_ram_base;
+dhd_pcie.c:3741:	if (bus->vars) {
+dhd_pcie.c:3743:		vbuffer = (uint8 *)MALLOC(bus->dhd->osh, varsize);
+dhd_pcie.c:3748:		bcopy(bus->vars, vbuffer, bus->varsz);
+dhd_pcie.c:3756:		nvram_ularray = (uint8*)MALLOC(bus->dhd->osh, varsize);
+dhd_pcie.c:3777:		MFREE(bus->dhd->osh, nvram_ularray, varsize);
+dhd_pcie.c:3780:		MFREE(bus->dhd->osh, vbuffer, varsize);
+dhd_pcie.c:3783:	phys_size = REMAP_ENAB(bus) ? bus->ramsize : bus->orig_ramsize;
+dhd_pcie.c:3785:	phys_size += bus->dongle_ram_base;
+dhd_pcie.c:3789:		phys_size, bus->ramsize));
+dhd_pcie.c:3800:		bus->nvram_csm = varsizew;
+dhd_pcie.c:3804:		bus->nvram_csm = varsizew;
+dhd_pcie.c:3825:	if (bus->dhd->up) {
+dhd_pcie.c:3835:	if (bus->vars)
+dhd_pcie.c:3836:		MFREE(bus->dhd->osh, bus->vars, bus->varsz);
+dhd_pcie.c:3838:	bus->vars = MALLOC(bus->dhd->osh, len);
+dhd_pcie.c:3839:	bus->varsz = bus->vars ? len : 0;
+dhd_pcie.c:3840:	if (bus->vars == NULL) {
+dhd_pcie.c:3846:	bcopy(arg, bus->vars, bus->varsz);
+dhd_pcie.c:3947:	for (item = dll_head_p(&bus->const_flowring);
+dhd_pcie.c:3948:	         !dll_end(&bus->const_flowring, item); item = next) {
+dhd_pcie.c:3961:	if ((bus->sih->buscorerev == 2) || (bus->sih->buscorerev == 6) ||
+dhd_pcie.c:3962:		(bus->sih->buscorerev == 4)) {
+dhd_pcie.c:3966:	if (bus->db1_for_mb)  {
+dhd_pcie.c:3969:		si_corereg(bus->sih, bus->sih->buscoreidx, PCIH2D_DB1, ~0, 0x12345678);
+dhd_pcie.c:3982:	if ((bus->sih->buscorerev == 2) || (bus->sih->buscorerev == 6) ||
+dhd_pcie.c:3983:		(bus->sih->buscorerev == 4)) {
+dhd_pcie.c:3984:		si_corereg(bus->sih, bus->sih->buscoreidx, PCIMailBoxInt, PCIE_INTB, PCIE_INTB);
+dhd_pcie.c:3988:		si_corereg(bus->sih, bus->sih->buscoreidx, PCIH2D_MailBox, ~0, 0x12345678);
+dhd_pcie.c:3995:	W_REG(bus->pcie_mb_intr_osh, bus->pcie_mb_intr_addr, value);
+dhd_pcie.c:4002:	w = (R_REG(bus->pcie_mb_intr_osh, bus->pcie_mb_intr_addr) & ~PCIE_INTB) | PCIE_INTB;
+dhd_pcie.c:4003:	W_REG(bus->pcie_mb_intr_osh, bus->pcie_mb_intr_addr, w);
+dhd_pcie.c:4009:	if ((bus->sih->buscorerev == 2) || (bus->sih->buscorerev == 6) ||
+dhd_pcie.c:4010:		(bus->sih->buscorerev == 4)) {
+dhd_pcie.c:4011:		bus->pcie_mb_intr_addr = si_corereg_addr(bus->sih, bus->sih->buscoreidx,
+dhd_pcie.c:4013:		if (bus->pcie_mb_intr_addr) {
+dhd_pcie.c:4014:			bus->pcie_mb_intr_osh = si_osh(bus->sih);
+dhd_pcie.c:4018:		bus->pcie_mb_intr_addr = si_corereg_addr(bus->sih, bus->sih->buscoreidx,
+dhd_pcie.c:4020:		if (bus->pcie_mb_intr_addr) {
+dhd_pcie.c:4021:			bus->pcie_mb_intr_osh = si_osh(bus->sih);
+dhd_pcie.c:4037:	if (bus->dhd->busstate == DHD_BUS_DOWN) {
+dhd_pcie.c:4039:		bus->intstatus = 0;
+dhd_pcie.c:4043:	intstatus = bus->intstatus;
+dhd_pcie.c:4045:	if ((bus->sih->buscorerev == 6) || (bus->sih->buscorerev == 4) ||
+dhd_pcie.c:4046:		(bus->sih->buscorerev == 2)) {
+dhd_pcie.c:4051:		bus->intstatus = 0;
+dhd_pcie.c:4057:		newstatus = si_corereg(bus->sih, bus->sih->buscoreidx, PCIMailBoxInt, 0, 0);
+dhd_pcie.c:4058:		intstatus |= (newstatus & bus->def_intmask);
+dhd_pcie.c:4059:		si_corereg(bus->sih, bus->sih->buscoreidx, PCIMailBoxInt, newstatus, newstatus);
+dhd_pcie.c:4060:		if (intstatus & bus->def_intmask) {
+dhd_pcie.c:4062:			intstatus &= ~bus->def_intmask;
+dhd_pcie.c:4123:		if (!bus->wait_for_d3_ack) {
+dhd_pcie.c:4124:			bus->wait_for_d3_ack = 1;
+dhd_pcie.c:4125:			dhd_os_ioctl_resp_wake(bus->dhd);
+dhd_pcie.c:4133:		bus->dhd->busstate = DHD_BUS_DOWN;
+dhd_pcie.c:4142:	if ((bus->sih->buscorerev == 2) || (bus->sih->buscorerev == 6) ||
+dhd_pcie.c:4143:		(bus->sih->buscorerev == 4)) {
+dhd_pcie.c:4155:		if (bus->dhd->busstate == DHD_BUS_SUSPEND) {
+dhd_pcie.c:4174:	DHD_PERIM_LOCK(bus->dhd); /* Take the perimeter lock */
+dhd_pcie.c:4175:	dhd_prot_process_ctrlbuf(bus->dhd);
+dhd_pcie.c:4177:	DHD_PERIM_UNLOCK(bus->dhd); /* Release the perimeter lock */
+dhd_pcie.c:4179:	DHD_PERIM_LOCK(bus->dhd); /* Take the perimeter lock */
+dhd_pcie.c:4181:	dhd_update_txflowrings(bus->dhd);
+dhd_pcie.c:4186:	more |= dhd_prot_process_msgbuf_txcpl(bus->dhd, dhd_txbound);
+dhd_pcie.c:4191:	more |= dhd_prot_process_msgbuf_rxcpl(bus->dhd, dhd_rxbound);
+dhd_pcie.c:4192:	DHD_PERIM_UNLOCK(bus->dhd); /* Release the perimeter lock */
+dhd_pcie.c:4203:	pciedev_shared_t *sh = bus->pcie_sh;
+dhd_pcie.c:4206:	shaddr = bus->dongle_ram_base + bus->ramsize - 4;
+dhd_pcie.c:4210:	while (((addr == 0) || (addr == bus->nvram_csm)) && !dhd_timeout_expired(&tmo)) {
+dhd_pcie.c:4215:	if ((addr == 0) || (addr == bus->nvram_csm) || (addr < bus->dongle_ram_base) ||
+dhd_pcie.c:4219:		printk("%s: nvram_csm (0x%08x), dongle_ram_base(0x%08x), shaddr (0x%08x)\n", __func__, bus->nvram_csm, bus->dongle_ram_base, shaddr);
+dhd_pcie.c:4223:		bus->shared_addr = (ulong)addr;
+dhd_pcie.c:4249:	bus->console_addr = sh->console_addr;
+dhd_pcie.c:4253:	bus->dma_rxoffset = bus->pcie_sh->dma_rxoffset;
+dhd_pcie.c:4254:	dhd_prot_rx_dataoffset(bus->dhd, bus->dma_rxoffset);
+dhd_pcie.c:4256:	DHD_ERROR(("DMA RX offset from shared Area %d\n", bus->dma_rxoffset));
+dhd_pcie.c:4269:			dhd_tcpack_suppress_set(bus->dhd, TCPACK_SUP_OFF);
+dhd_pcie.c:4271:			bus->txmode_push = TRUE;
+dhd_pcie.c:4273:			bus->txmode_push = FALSE;
+dhd_pcie.c:4275:	DHD_ERROR(("bus->txmode_push is set to %d\n", bus->txmode_push));
+dhd_pcie.c:4282:			(DMA_INDX_ENAB(bus->dhd->dma_h2d_ring_upd_support) ? 1 : 0),
+dhd_pcie.c:4283:			(DMA_INDX_ENAB(bus->dhd->dma_d2h_ring_upd_support) ? 1 : 0)));
+dhd_pcie.c:4285:	} else if (DMA_INDX_ENAB(bus->dhd->dma_d2h_ring_upd_support) ||
+dhd_pcie.c:4286:	           DMA_INDX_ENAB(bus->dhd->dma_h2d_ring_upd_support)) {
+dhd_pcie.c:4295:		bus->dhd->dma_d2h_ring_upd_support = FALSE;
+dhd_pcie.c:4296:		bus->dhd->dma_h2d_ring_upd_support = FALSE;
+dhd_pcie.c:4308:		bus->h2d_mb_data_ptr_addr = ltoh32(sh->h2d_mb_data_ptr);
+dhd_pcie.c:4309:		bus->d2h_mb_data_ptr_addr = ltoh32(sh->d2h_mb_data_ptr);
+dhd_pcie.c:4312:		bus->max_sub_queues = ltoh16(ring_info.max_sub_queues);
+dhd_pcie.c:4317:		if (DMA_INDX_ENAB(bus->dhd->dma_h2d_ring_upd_support)) {
+dhd_pcie.c:4318:			w_init = dhd_prot_init_index_dma_block(bus->dhd,
+dhd_pcie.c:4320:				bus->max_sub_queues);
+dhd_pcie.c:4321:			r_init = dhd_prot_init_index_dma_block(bus->dhd,
+dhd_pcie.c:4329:				bus->dhd->dma_h2d_ring_upd_support = FALSE;
+dhd_pcie.c:4333:		if (DMA_INDX_ENAB(bus->dhd->dma_d2h_ring_upd_support)) {
+dhd_pcie.c:4334:			w_init = dhd_prot_init_index_dma_block(bus->dhd,
+dhd_pcie.c:4337:			r_init = dhd_prot_init_index_dma_block(bus->dhd,
+dhd_pcie.c:4339:				bus->max_sub_queues);
+dhd_pcie.c:4345:				bus->dhd->dma_d2h_ring_upd_support = FALSE;
+dhd_pcie.c:4358:		DHD_INFO(("h2d_mb_data_ptr_addr 0x%04x\n", bus->h2d_mb_data_ptr_addr));
+dhd_pcie.c:4359:		DHD_INFO(("d2h_mb_data_ptr_addr 0x%04x\n", bus->d2h_mb_data_ptr_addr));
+dhd_pcie.c:4362:	bus->dhd->d2h_sync_mode = sh->flags & PCIE_SHARED_D2H_SYNC_MODE_MASK;
+dhd_pcie.c:4363:	DHD_INFO(("d2h_sync_mode 0x%08x\n", bus->dhd->d2h_sync_mode));
+dhd_pcie.c:4392:			bus->ring_sh[i].ring_mem_addr = tcm_memloc;
+dhd_pcie.c:4396:				i, bus->ring_sh[i].ring_mem_addr));
+dhd_pcie.c:4400:		if (bus->txmode_push) {
+dhd_pcie.c:4401:			bus->ring_sh[i].ring_mem_addr = tcm_memloc;
+dhd_pcie.c:4403:				i, bus->ring_sh[i].ring_mem_addr));
+dhd_pcie.c:4415:			bus->ring_sh[i].ring_state_w = h2d_w_idx_ptr;
+dhd_pcie.c:4416:			bus->ring_sh[i].ring_state_r = h2d_r_idx_ptr;
+dhd_pcie.c:4423:				bus->ring_sh[i].ring_state_w, bus->ring_sh[i].ring_state_r));
+dhd_pcie.c:4427:			bus->ring_sh[i].ring_state_w = d2h_w_idx_ptr;
+dhd_pcie.c:4428:			bus->ring_sh[i].ring_state_r = d2h_r_idx_ptr;
+dhd_pcie.c:4435:				bus->ring_sh[i].ring_state_w, bus->ring_sh[i].ring_state_r));
+dhd_pcie.c:4439:		if (bus->txmode_push) {
+dhd_pcie.c:4440:			bus->ring_sh[i].ring_state_w = h2d_w_idx_ptr;
+dhd_pcie.c:4441:			bus->ring_sh[i].ring_state_r = h2d_r_idx_ptr;
+dhd_pcie.c:4444:				bus->ring_sh[i].ring_state_w, bus->ring_sh[i].ring_state_r));
+dhd_pcie.c:4446:			for (j = 0; j < (bus->max_sub_queues - BCMPCIE_H2D_COMMON_MSGRINGS);
+dhd_pcie.c:4449:				bus->ring_sh[i].ring_state_w = h2d_w_idx_ptr;
+dhd_pcie.c:4450:				bus->ring_sh[i].ring_state_r = h2d_r_idx_ptr;
+dhd_pcie.c:4457:					bus->ring_sh[i].ring_state_w,
+dhd_pcie.c:4458:					bus->ring_sh[i].ring_state_r));
+dhd_pcie.c:4472:	ASSERT(bus->dhd);
+dhd_pcie.c:4473:	if (!bus->dhd)
+dhd_pcie.c:4477:	bus->reg = si_setcore(bus->sih, PCIE2_CORE_ID, 0);
+dhd_pcie.c:4478:	ASSERT(bus->reg != NULL);
+dhd_pcie.c:4489:	bus->reg = si_setcore(bus->sih, PCIE2_CORE_ID, 0);
+dhd_pcie.c:4490:	ASSERT(bus->reg != NULL);
+dhd_pcie.c:4498:	/* bcmsdh_intr_unmask(bus->sdh); */
+dhd_pcie.c:4510:	addr = bus->dongle_ram_base + bus->ramsize - 4;
+dhd_pcie.c:4600:	cur_coreid = si_coreid(bus->sih);
+dhd_pcie.c:4602:	chipcregs = (chipcregs_t *)si_setcore(bus->sih, CC_CORE_ID, 0);
+dhd_pcie.c:4603:	chipc_corerev = si_corerev(bus->sih);
+dhd_pcie.c:4612:	if (((uint16)bus->sih->chip != BCM4350_CHIP_ID) &&
+dhd_pcie.c:4613:		((uint16)bus->sih->chip != BCM4345_CHIP_ID)) {
+dhd_pcie.c:4678:	if (bus->regs == NULL) {
+dhd_pcie.c:4702:	si_setcore(bus->sih, cur_coreid, 0);
+dhd_pcie.c:4711:	return bus->txmode_push;
+dhd_pcie.c:4727:	dhd_tcpack_info_tbl_clean(bus->dhd);
+dhd_pcie.c:4734:	while ((pkt = dhd_flow_queue_dequeue(bus->dhd, queue)) != NULL) {
+dhd_pcie.c:4735:		PKTFREE(bus->dhd->osh, pkt, TRUE);
+dhd_pcie.c:4746:	dhd_prot_clean_flow_ring(bus->dhd, flow_ring_node->prot_info);
+dhd_pcie.c:4747:	dhd_flowid_free(bus->dhd, flow_ring_node->flow_info.ifindex,
+dhd_pcie.c:4765:	if (dhd_prot_flow_ring_create(bus->dhd, flow_ring_node) != BCME_OK)
+dhd_pcie.c:4779:	flow_ring_node = DHD_FLOW_RING(bus->dhd, flowid);
+dhd_pcie.c:4825:	dhd_tcpack_info_tbl_clean(bus->dhd);
+dhd_pcie.c:4828:	while ((pkt = dhd_flow_queue_dequeue(bus->dhd, queue)) != NULL) {
+dhd_pcie.c:4829:		PKTFREE(bus->dhd->osh, pkt, TRUE);
+dhd_pcie.c:4836:	dhd_prot_flow_ring_delete(bus->dhd, flow_ring_node);
+dhd_pcie.c:4848:	flow_ring_node = DHD_FLOW_RING(bus->dhd, flowid);
+dhd_pcie.c:4881:	dhd_tcpack_info_tbl_clean(bus->dhd);
+dhd_pcie.c:4884:	while ((pkt = dhd_flow_queue_dequeue(bus->dhd, queue)) != NULL) {
+dhd_pcie.c:4885:		PKTFREE(bus->dhd->osh, pkt, TRUE);
+dhd_pcie.c:4892:	dhd_prot_flow_ring_flush(bus->dhd, flow_ring_node);
+dhd_pcie.c:4909:	flow_ring_node = DHD_FLOW_RING(bus->dhd, flowid);
+dhd_pcie.c:4919:	if (bus->txmode_push)
+dhd_pcie.c:4923:	return bus->max_sub_queues;
+dhd_pcie.c:4983:		osh = bus->osh;
+dhd_pcie.c:4986:		if (bus->dhd) {
+dhd_pcie.c:4987:			dongle_isolation = bus->dhd->dongle_isolation;
+dhd_pcie_linux.c:162:	if (bus && (bus->dhd->busstate == DHD_BUS_DOWN) &&
+dhd_pcie_linux.c:165:		(!check_rev() || (check_rev() && !bus->dhd->dongle_reset))) {
+dhd_pcie_linux.c:167:		!bus->dhd->dongle_reset) {
+dhd_pcie_linux.c:173:	if (bus && ((bus->dhd->busstate == DHD_BUS_SUSPEND)||
+dhd_pcie_linux.c:174:		(bus->dhd->busstate == DHD_BUS_DATA)) &&
+dhd_pcie_linux.c:175:		(bus->suspended != state)) {
+dhd_pcie_linux.c:230:	struct pci_dev *dev = bus->dev;
+dhd_pcie_linux.c:234:		dhdpcie_pme_active(bus->osh, state);
+dhd_pcie_linux.c:240:		dhdpcie_pme_active(bus->osh, state);
+dhd_pcie_linux.c:312:		"(good PCI location)\n", pdev->bus->number,
+dhd_pcie_linux.c:360:	if (bus->tx_wq)
+dhd_pcie_linux.c:361:		destroy_workqueue(bus->tx_wq);
+dhd_pcie_linux.c:362:	skb = skb_dequeue(&bus->orphan_list);
+dhd_pcie_linux.c:365:		skb = skb_dequeue(&bus->orphan_list);
+dhd_pcie_linux.c:372:		msm_pcie_deregister_event(&bus->pcie_event);
+dhd_pcie_linux.c:400:	struct pci_dev *pdev = dhdpcie_info->bus->dev;
+dhd_pcie_linux.c:541:				dhd_pub_t *dhd = bus->dhd;
+dhd_pcie_linux.c:546:					bus->islinkdown = TRUE;
+dhd_pcie_linux.c:569:	skb = skb_dequeue(&bus->orphan_list);
+dhd_pcie_linux.c:572:		if (BCME_OK != dhd_flowid_update(bus->dhd, ifidx,
+dhd_pcie_linux.c:573:			bus->dhd->flow_prio_map[(PKTPRIO(skb))], skb)) {
+dhd_pcie_linux.c:574:			PKTCFREE(bus->dhd->osh, skb, TRUE);
+dhd_pcie_linux.c:575:			skb = skb_dequeue(&bus->orphan_list);
+dhd_pcie_linux.c:579:		flow_ring_node = DHD_FLOW_RING(bus->dhd, flowid);
+dhd_pcie_linux.c:582:		if ((flowid >= bus->dhd->num_flow_rings) ||
+dhd_pcie_linux.c:589:			PKTCFREE(bus->dhd->osh, skb, TRUE);
+dhd_pcie_linux.c:590:			skb = skb_dequeue(&bus->orphan_list);
+dhd_pcie_linux.c:593:		if (BCME_OK != dhd_flow_queue_enqueue(bus->dhd, queue, skb)) {
+dhd_pcie_linux.c:595:			PKTCFREE(bus->dhd->osh, skb, TRUE);
+dhd_pcie_linux.c:596:			skb = skb_dequeue(&bus->orphan_list);
+dhd_pcie_linux.c:604:		skb = skb_dequeue(&bus->orphan_list);
+dhd_pcie_linux.c:614:	for_each_set_bit(flowid, bus->delete_flow_map, bus->dhd->num_flow_rings) {
+dhd_pcie_linux.c:615:		clear_bit(flowid, bus->delete_flow_map);
+dhd_pcie_linux.c:641:		adapter = dhd_wifi_platform_get_adapter(PCI_BUS, pdev->bus->number,
+dhd_pcie_linux.c:696:		dhdpcie_info->bus->dev = pdev;
+dhd_pcie_linux.c:700:		bus->pcie_event.events = MSM_PCIE_EVENT_LINKDOWN;
+dhd_pcie_linux.c:701:		bus->pcie_event.user = pdev;
+dhd_pcie_linux.c:702:		bus->pcie_event.mode = MSM_PCIE_TRIGGER_CALLBACK;
+dhd_pcie_linux.c:703:		bus->pcie_event.callback = dhdpcie_linkdown_cb;
+dhd_pcie_linux.c:704:		bus->pcie_event.options = MSM_PCIE_CONFIG_NO_RECOVERY;
+dhd_pcie_linux.c:705:		msm_pcie_register_event(&bus->pcie_event);
+dhd_pcie_linux.c:706:		bus->islinkdown = FALSE;
+dhd_pcie_linux.c:710:		if (bus->intr) {
+dhd_pcie_linux.c:720:			bus->pollrate = 1;
+dhd_pcie_linux.c:726:			if (dhd_bus_start(bus->dhd)) {
+dhd_pcie_linux.c:736:		bus->tx_wq = create_singlethread_workqueue("bcmdhd_tx");
+dhd_pcie_linux.c:737:		if (bus->tx_wq == NULL) {
+dhd_pcie_linux.c:741:		INIT_WORK(&bus->create_flow_work, dhd_pcie_create_flow_worker);
+dhd_pcie_linux.c:742:		INIT_WORK(&bus->delete_flow_work, dhd_pcie_delete_flow_worker);
+dhd_pcie_linux.c:743:		skb_queue_head_init(&bus->orphan_list);
+dhd_pcie_linux.c:748:		if (dhd_register_if(bus->dhd, 0, TRUE)) {
+dhd_pcie_linux.c:790:		pdev = bus->dev;
+dhd_pcie_linux.c:840:	if (bus->dev == NULL)
+dhd_pcie_linux.c:845:	if (bus->islinkdown) {
+dhd_pcie_linux.c:848:	ret = msm_pcie_pm_control(MSM_PCIE_RESUME, bus->dev->bus->number,
+dhd_pcie_linux.c:849:		bus->dev, NULL, options);
+dhd_pcie_linux.c:850:	if (bus->islinkdown && !ret) {
+dhd_pcie_linux.c:851:		msm_pcie_recover_config(bus->dev);
+dhd_pcie_linux.c:852:		if (bus->dhd)
+dhd_pcie_linux.c:853:			DHD_OS_WAKE_UNLOCK(bus->dhd);
+dhd_pcie_linux.c:854:		bus->islinkdown = FALSE;
+dhd_pcie_linux.c:857:	ret = msm_pcie_pm_control(MSM_PCIE_RESUME, bus->dev->bus->number,
+dhd_pcie_linux.c:858:		bus->dev, NULL, 0);
+dhd_pcie_linux.c:886:	if (bus->dev == NULL)
+dhd_pcie_linux.c:891:	if (bus->islinkdown)
+dhd_pcie_linux.c:894:	ret = msm_pcie_pm_control(MSM_PCIE_SUSPEND,	bus->dev->bus->number,
+dhd_pcie_linux.c:895:		bus->dev, NULL, options);
+dhd_pcie_linux.c:897:	ret = msm_pcie_pm_control(MSM_PCIE_SUSPEND,	bus->dev->bus->number,
+dhd_pcie_linux.c:898:		bus->dev, NULL, 0);
+dhd_pcie_linux.c:916:	if (bus->dev == NULL)
+dhd_pcie_linux.c:919:	pci_disable_device(bus->dev);
+dhd_pcie_linux.c:935:	if (bus->dev == NULL)
+dhd_pcie_linux.c:938:	pch = pci_get_drvdata(bus->dev);
+dhd_pcie_linux.c:946:	if (pci_load_and_free_saved_state(bus->dev, &pch->state))
+dhd_pcie_linux.c:947:		pci_disable_device(bus->dev);
+dhd_pcie_linux.c:951:	if (pci_load_saved_state(bus->dev, pch->state))
+dhd_pcie_linux.c:952:		pci_disable_device(bus->dev);
+dhd_pcie_linux.c:959:		pci_restore_state(bus->dev);
+dhd_pcie_linux.c:960:		ret = pci_enable_device(bus->dev);
+dhd_pcie_linux.c:962:			pci_set_master(bus->dev);
+dhd_pcie_linux.c:971:		pci_disable_device(bus->dev);
+dhd_pcie_linux.c:989:		if (bus->dev == NULL) {
+dhd_pcie_linux.c:990:			DHD_ERROR(("%s: bus->dev is NULL\n", __FUNCTION__));
+dhd_pcie_linux.c:994:		dhdpcie_info = pci_get_drvdata(bus->dev);
+dhd_pcie_linux.c:1000:		bar0_addr = pci_resource_start(bus->dev, 0);	/* Bar-0 mapped address */
+dhd_pcie_linux.c:1001:		bar1_addr = pci_resource_start(bus->dev, 2);	/* Bar-1 mapped address */
+dhd_pcie_linux.c:1004:		bar1_size = pci_resource_len(bus->dev, 2);
+dhd_pcie_linux.c:1019:		bus->regs = dhdpcie_info->regs;
+dhd_pcie_linux.c:1026:			bus->regs = NULL;
+dhd_pcie_linux.c:1030:		bus->tcm = dhdpcie_info->tcm;
+dhd_pcie_linux.c:1031:		bus->tcm_size = dhdpcie_info->tcm_size;
+dhd_pcie_linux.c:1054:	if (bus->dev == NULL) {
+dhd_pcie_linux.c:1055:		DHD_ERROR(("%s: bus->dev is NULL\n", __FUNCTION__));
+dhd_pcie_linux.c:1059:	dhdpcie_info = pci_get_drvdata(bus->dev);
+dhd_pcie_linux.c:1065:	if (bus->regs) {
+dhd_pcie_linux.c:1067:		bus->regs = NULL;
+dhd_pcie_linux.c:1070:	if (bus->tcm) {
+dhd_pcie_linux.c:1072:		bus->tcm = NULL;
+dhd_pcie_linux.c:1087:	if (bus->dev == NULL) {
+dhd_pcie_linux.c:1088:		DHD_ERROR(("%s: bus->dev is NULL\n", __FUNCTION__));
+dhd_pcie_linux.c:1092:	dhdpcie_info = pci_get_drvdata(bus->dev);
+dhd_pcie_linux.c:1098:	if (bus->intr) {
+dhd_pcie_linux.c:1125:	if (bus->dev == NULL) {
+dhd_pcie_linux.c:1126:		DHD_ERROR(("%s: bus->dev is NULL\n", __FUNCTION__));
+dhd_pcie_linux.c:1130:	pch = pci_get_drvdata(bus->dev);
+dhd_pcie_linux.c:1154:	if (bus->dhd->up && bus->suspended) {
+dhd_pcie_linux.c:1155:		DHD_OS_OOB_IRQ_WAKE_LOCK_TIMEOUT(bus->dhd, OOB_WAKE_LOCK_TIMEOUT);
+dhd_pcie_linux.c:1172:	if (bus->dev == NULL) {
+dhd_pcie_linux.c:1173:		DHD_ERROR(("%s: bus->dev is NULL\n", __FUNCTION__));
+dhd_pcie_linux.c:1177:	pch = pci_get_drvdata(bus->dev);
+dhd_pcie_linux.c:1224:	if (bus->dev == NULL) {
+dhd_pcie_linux.c:1225:		DHD_ERROR(("%s: bus->dev is NULL\n", __FUNCTION__));
+dhd_pcie_linux.c:1229:	pch = pci_get_drvdata(bus->dev);
+dhd_sdio.c:145:#define PKTFREE2()		if ((bus->bus != SPI_BUS) || bus->usebufpool) \
+dhd_sdio.c:146:					PKTFREE(bus->dhd->osh, pkt, FALSE);
+dhd_sdio.c:452:	(((uint8)(bus->tx_max - bus->tx_seq) > 1) && \
+dhd_sdio.c:453:	(((uint8)(bus->tx_max - bus->tx_seq) & 0x80) == 0))
+dhd_sdio.c:457:	(((uint8)(bus->tx_max - bus->tx_seq) != 0) && \
+dhd_sdio.c:458:	(((uint8)(bus->tx_max - bus->tx_seq) & 0x80) == 0))
+dhd_sdio.c:462:	((uint8)(bus->tx_max - bus->tx_seq) - 1)
+dhd_sdio.c:470:		regvar = R_REG(bus->dhd->osh, regaddr); \
+dhd_sdio.c:471:	} while (bcmsdh_regfail(bus->sdh) && (++retryvar <= retry_limit)); \
+dhd_sdio.c:473:		bus->regfails += (retryvar-1); \
+dhd_sdio.c:486:		W_REG(bus->dhd->osh, regaddr, regval); \
+dhd_sdio.c:487:	} while (bcmsdh_regfail(bus->sdh) && (++retryvar <= retry_limit)); \
+dhd_sdio.c:489:		bus->regfails += (retryvar-1); \
+dhd_sdio.c:498:		bus->idlecount = 0; \
+dhd_sdio.c:526:	((bus->rxint_mode == SDIO_DEVICE_HMB_RXINT) ? I_HMB_FRAME_IND : I_XMTDATA_AVAIL)
+dhd_sdio.c:596:	if (bus->sih->buscorerev >= 15) {
+dhd_sdio.c:598:		if (bus->blocksize == 512) {
+dhd_sdio.c:602:			mes = bus->blocksize/4;
+dhd_sdio.c:603:			wm = bus->blocksize/4;
+dhd_sdio.c:610:			bus->sih->buscorerev));
+dhd_sdio.c:616:		bcmsdh_cfg_write(bus->sdh, SDIO_FUNC_1, SBSDIO_WATERMARK, wm, &err);
+dhd_sdio.c:618:		devctl = bcmsdh_cfg_read(bus->sdh, SDIO_FUNC_1, SBSDIO_DEVICE_CTL, &err);
+dhd_sdio.c:620:		bcmsdh_cfg_write(bus->sdh, SDIO_FUNC_1, SBSDIO_DEVICE_CTL, devctl, &err);
+dhd_sdio.c:625:		bcmsdh_cfg_write(bus->sdh, SDIO_FUNC_1, SBSDIO_FUNC1_MESBUSYCTRL,
+dhd_sdio.c:630:		bcmsdh_cfg_read(bus->sdh, SDIO_FUNC_1, SBSDIO_DEVICE_CTL, &err),
+dhd_sdio.c:631:		bcmsdh_cfg_read(bus->sdh, SDIO_FUNC_1, SBSDIO_WATERMARK, &err),
+dhd_sdio.c:632:		bcmsdh_cfg_read(bus->sdh, SDIO_FUNC_1, SBSDIO_FUNC1_MESBUSYCTRL, &err)));
+dhd_sdio.c:643:		(dhd_dongle_ramsize < (int32)bus->orig_ramsize))
+dhd_sdio.c:644:		bus->ramsize = dhd_dongle_ramsize;
+dhd_sdio.c:651:	bcmsdh_cfg_write(bus->sdh, SDIO_FUNC_1, SBSDIO_FUNC1_SBADDRLOW,
+dhd_sdio.c:654:		bcmsdh_cfg_write(bus->sdh, SDIO_FUNC_1, SBSDIO_FUNC1_SBADDRMID,
+dhd_sdio.c:657:		bcmsdh_cfg_write(bus->sdh, SDIO_FUNC_1, SBSDIO_FUNC1_SBADDRHIGH,
+dhd_sdio.c:669:	bcmsdh_gpioouten(bus->sdh, GPIO_DEV_WAKEUP);
+dhd_sdio.c:675:	bcmsdh_reg_write(bus->sdh, addr, 4, 2);
+dhd_sdio.c:676:	val = bcmsdh_reg_read(bus->sdh, data, 4);
+dhd_sdio.c:678:	bcmsdh_reg_write(bus->sdh, data, 4, val);
+dhd_sdio.c:680:	bus->_oobwakeup = TRUE;
+dhd_sdio.c:695:	if (bus->sih->chip == BCM43430_CHIP_ID) {
+dhd_sdio.c:698:		if (bcmsdh_reg_read(bus->sdh, addr, 4) != 0)
+dhd_sdio.c:703:	if (bus->sih->chip == BCM4324_CHIP_ID) {
+dhd_sdio.c:706:			bcmsdh_reg_write(bus->sdh, addr, 4, 3);
+dhd_sdio.c:707:			core_capext = bcmsdh_reg_read(bus->sdh, data, 4);
+dhd_sdio.c:708:	} else if (bus->sih->chip == BCM4330_CHIP_ID) {
+dhd_sdio.c:710:	} else if ((bus->sih->chip == BCM4335_CHIP_ID) ||
+dhd_sdio.c:711:		(bus->sih->chip == BCM4339_CHIP_ID) ||
+dhd_sdio.c:712:		(bus->sih->chip == BCM43349_CHIP_ID) ||
+dhd_sdio.c:713:		(bus->sih->chip == BCM4345_CHIP_ID) ||
+dhd_sdio.c:714:		(bus->sih->chip == BCM4354_CHIP_ID) ||
+dhd_sdio.c:715:		(bus->sih->chip == BCM4356_CHIP_ID) ||
+dhd_sdio.c:716:		(bus->sih->chip == BCM4358_CHIP_ID) ||
+dhd_sdio.c:717:		(BCM4349_CHIP(bus->sih->chip))		||
+dhd_sdio.c:718:		(bus->sih->chip == BCM4350_CHIP_ID)) {
+dhd_sdio.c:721:			core_capext = bcmsdh_reg_read(bus->sdh, CORE_CAPEXT_ADDR, 4);
+dhd_sdio.c:727:	if (bus->sih->chip == BCM4324_CHIP_ID) {
+dhd_sdio.c:730:	} else if ((bus->sih->chip == BCM4335_CHIP_ID) ||
+dhd_sdio.c:731:		(bus->sih->chip == BCM4339_CHIP_ID) ||
+dhd_sdio.c:732:		(bus->sih->chip == BCM43349_CHIP_ID) ||
+dhd_sdio.c:733:		(bus->sih->chip == BCM4345_CHIP_ID) ||
+dhd_sdio.c:734:		(bus->sih->chip == BCM4354_CHIP_ID) ||
+dhd_sdio.c:735:		(bus->sih->chip == BCM4356_CHIP_ID) ||
+dhd_sdio.c:736:		(bus->sih->chip == BCM4358_CHIP_ID) ||
+dhd_sdio.c:737:		(bus->sih->chip == BCM4350_CHIP_ID)) {
+dhd_sdio.c:741:		bcmsdh_reg_write(bus->sdh, addr, 4, CC_PMUCC3);
+dhd_sdio.c:742:		enabval = bcmsdh_reg_read(bus->sdh, data, 4);
+dhd_sdio.c:744:		if ((bus->sih->chip == BCM4350_CHIP_ID) ||
+dhd_sdio.c:745:			(bus->sih->chip == BCM4345_CHIP_ID) ||
+dhd_sdio.c:746:			(bus->sih->chip == BCM4354_CHIP_ID) ||
+dhd_sdio.c:747:			(bus->sih->chip == BCM4356_CHIP_ID) ||
+dhd_sdio.c:748:			(bus->sih->chip == BCM4358_CHIP_ID))
+dhd_sdio.c:754:		data = bcmsdh_reg_read(bus->sdh,
+dhd_sdio.c:767:	bcmsdh_gpio_init(bus->sdh);
+dhd_sdio.c:784:	if ((bus->sih->chip == BCM4334_CHIP_ID) && (bus->sih->chiprev == 2))
+dhd_sdio.c:787:	val = bcmsdh_cfg_read(bus->sdh, SDIO_FUNC_1, SBSDIO_FUNC1_WAKEUPCTRL, NULL);
+dhd_sdio.c:789:	bcmsdh_cfg_write(bus->sdh, SDIO_FUNC_1, SBSDIO_FUNC1_WAKEUPCTRL,
+dhd_sdio.c:791:	val = bcmsdh_cfg_read(bus->sdh, SDIO_FUNC_1, SBSDIO_FUNC1_WAKEUPCTRL, NULL);
+dhd_sdio.c:801:	bcmsdh_cfg_write(bus->sdh, SDIO_FUNC_1,
+dhd_sdio.c:804:	bus->_slpauto = dhd_slpauto ? TRUE : FALSE;
+dhd_sdio.c:806:	bus->_srenab = TRUE;
+dhd_sdio.c:822:	bus->kso = TRUE;
+dhd_sdio.c:828:	val = bcmsdh_cfg_read(bus->sdh, SDIO_FUNC_1, SBSDIO_FUNC1_SLEEPCSR, NULL);
+dhd_sdio.c:831:		bcmsdh_cfg_write(bus->sdh, SDIO_FUNC_1, SBSDIO_FUNC1_SLEEPCSR, val, &err);
+dhd_sdio.c:857:	bcmsdh_cfg_write(bus->sdh, SDIO_FUNC_1, SBSDIO_FUNC1_SLEEPCSR, wr_val, &err);
+dhd_sdio.c:871:		rd_val = bcmsdh_cfg_read(bus->sdh, SDIO_FUNC_1, SBSDIO_FUNC1_SLEEPCSR, &err);
+dhd_sdio.c:882:		bcmsdh_cfg_write(bus->sdh, SDIO_FUNC_1, SBSDIO_FUNC1_SLEEPCSR, wr_val, &err);
+dhd_sdio.c:908:			bcmsdh_cfg_read(bus->sdh, SDIO_FUNC_1,
+dhd_sdio.c:915:		if (bus->clkstate == CLK_NONE) {
+dhd_sdio.c:926:	bus->kso = on;
+dhd_sdio.c:938:	val = bcmsdh_cfg_read(bus->sdh, SDIO_FUNC_1, SBSDIO_FUNC1_SLEEPCSR, &err);
+dhd_sdio.c:948:	return bcmsdh_cfg_read(bus->sdh, SDIO_FUNC_0, SDIOD_CCCR_BRCM_CARDCAP, NULL);
+dhd_sdio.c:956:	bcmsdh_cfg_write(bus->sdh, SDIO_FUNC_0, SDIOD_CCCR_BRCM_CARDCAP, cap, &err);
+dhd_sdio.c:980:			val = bcmsdh_cfg_read(bus->sdh, SDIO_FUNC_1, SBSDIO_FUNC1_CHIPCLKCSR, &err);
+dhd_sdio.c:986:				bcmsdh_cfg_write(bus->sdh, SDIO_FUNC_1, SBSDIO_FUNC1_CHIPCLKCSR,
+dhd_sdio.c:989:					bcmsdh_cfg_read(bus->sdh, SDIO_FUNC_1,
+dhd_sdio.c:995:			bcmsdh_cfg_read(bus->sdh, SDIO_FUNC_1,
+dhd_sdio.c:998:		err = bcmsdh_sleep(bus->sdh, TRUE);
+dhd_sdio.c:1004:			err = bcmsdh_gpioout(bus->sdh, GPIO_DEV_WAKEUP, FALSE);  /* GPIO_1 is off */
+dhd_sdio.c:1011:		if (bus->clkstate == CLK_NONE) {
+dhd_sdio.c:1017:		if ((bus->sih->chip == BCM4334_CHIP_ID) && (bus->sih->chiprev == 2)) {
+dhd_sdio.c:1019:				(bcmsdh_gpioin(bus->sdh, GPIO_DEV_SRSTATE) != TRUE),
+dhd_sdio.c:1022:			if (bcmsdh_gpioin(bus->sdh, GPIO_DEV_SRSTATE) == FALSE) {
+dhd_sdio.c:1028:		err = bcmsdh_sleep(bus->sdh, FALSE);
+dhd_sdio.c:1034:			err = bcmsdh_sleep(bus->sdh, TRUE);
+dhd_sdio.c:1036:			err = bcmsdh_sleep(bus->sdh, FALSE);
+dhd_sdio.c:1043:				err = bcmsdh_sleep(bus->sdh, TRUE);
+dhd_sdio.c:1045:				err = bcmsdh_sleep(bus->sdh, FALSE);
+dhd_sdio.c:1058:			err = bcmsdh_gpioout(bus->sdh, GPIO_DEV_WAKEUP, TRUE);  /* GPIO_1 is on */
+dhd_sdio.c:1091:				(((csr = bcmsdh_cfg_read(bus->sdh, SDIO_FUNC_1,
+dhd_sdio.c:1106:		bus->kso = on ? FALSE : TRUE;
+dhd_sdio.c:1109:			__FUNCTION__, bus->kso, on, err));
+dhd_sdio.c:1111:			bus->kso = FALSE;
+dhd_sdio.c:1130:	sdh = bus->sdh;
+dhd_sdio.c:1137:		bus->clkstate = (on ? CLK_AVAIL : CLK_SDONLY);
+dhd_sdio.c:1143:		clkreq = bus->alp_only ? SBSDIO_ALP_AVAIL_REQ : SBSDIO_HT_AVAIL_REQ;
+dhd_sdio.c:1156:				dhd_os_send_hang_message(bus->dhd);
+dhd_sdio.c:1174:		if (!SBSDIO_CLKAV(clkctl, bus->alp_only) && pendok) {
+dhd_sdio.c:1186:			bus->clkstate = CLK_PENDING;
+dhd_sdio.c:1191:			if (bus->clkstate == CLK_PENDING) {
+dhd_sdio.c:1200:		if (!SBSDIO_CLKAV(clkctl, bus->alp_only)) {
+dhd_sdio.c:1204:			          !SBSDIO_CLKAV(clkctl, bus->alp_only)), PMU_MAX_TRANSITION_DLY);
+dhd_sdio.c:1210:		if (!SBSDIO_CLKAV(clkctl, bus->alp_only)) {
+dhd_sdio.c:1217:		bus->clkstate = CLK_AVAIL;
+dhd_sdio.c:1221:		if (bus->alp_only == TRUE) {
+dhd_sdio.c:1234:		bus->activity = TRUE;
+dhd_sdio.c:1236:		bus->idlecount = 0;
+dhd_sdio.c:1241:		if (bus->clkstate == CLK_PENDING) {
+dhd_sdio.c:1248:		bus->clkstate = CLK_SDONLY;
+dhd_sdio.c:1272:		if (bus->idleclock == DHD_IDLE_STOP) {
+dhd_sdio.c:1275:			err = bcmsdh_iovar_op(bus->sdh, "sd_clock", NULL, 0,
+dhd_sdio.c:1283:			iovalue = bus->sd_mode;
+dhd_sdio.c:1284:			err = bcmsdh_iovar_op(bus->sdh, "sd_mode", NULL, 0,
+dhd_sdio.c:1291:		} else if (bus->idleclock != DHD_IDLE_ACTIVE) {
+dhd_sdio.c:1293:			iovalue = bus->sd_divisor;
+dhd_sdio.c:1294:			err = bcmsdh_iovar_op(bus->sdh, "sd_divisor", NULL, 0,
+dhd_sdio.c:1302:		bus->clkstate = CLK_SDONLY;
+dhd_sdio.c:1305:		if ((bus->sd_divisor == -1) || (bus->sd_mode == -1)) {
+dhd_sdio.c:1307:			           __FUNCTION__, bus->sd_divisor, bus->sd_mode));
+dhd_sdio.c:1310:		if (bus->idleclock == DHD_IDLE_STOP) {
+dhd_sdio.c:1314:				err = bcmsdh_iovar_op(bus->sdh, "sd_mode", NULL, 0,
+dhd_sdio.c:1324:			err = bcmsdh_iovar_op(bus->sdh, "sd_clock", NULL, 0,
+dhd_sdio.c:1331:		} else if (bus->idleclock != DHD_IDLE_ACTIVE) {
+dhd_sdio.c:1333:			iovalue = bus->idleclock;
+dhd_sdio.c:1334:			err = bcmsdh_iovar_op(bus->sdh, "sd_divisor", NULL, 0,
+dhd_sdio.c:1342:		bus->clkstate = CLK_NONE;
+dhd_sdio.c:1354:	uint oldstate = bus->clkstate;
+dhd_sdio.c:1360:	if (bus->clkstate == target) {
+dhd_sdio.c:1362:			dhd_os_wd_timer(bus->dhd, dhd_watchdog_ms);
+dhd_sdio.c:1363:			bus->activity = TRUE;
+dhd_sdio.c:1365:			bus->idlecount = 0;
+dhd_sdio.c:1374:		if (bus->clkstate == CLK_NONE)
+dhd_sdio.c:1379:			dhd_os_wd_timer(bus->dhd, dhd_watchdog_ms);
+dhd_sdio.c:1380:		bus->activity = TRUE;
+dhd_sdio.c:1382:			bus->idlecount = 0;
+dhd_sdio.c:1389:		if (bus->clkstate == CLK_NONE)
+dhd_sdio.c:1391:		else if (bus->clkstate == CLK_AVAIL)
+dhd_sdio.c:1395:			           bus->clkstate, target));
+dhd_sdio.c:1397:			dhd_os_wd_timer(bus->dhd, dhd_watchdog_ms);
+dhd_sdio.c:1403:		if (bus->clkstate == CLK_AVAIL)
+dhd_sdio.c:1410:		if (bus->poll == 0)
+dhd_sdio.c:1411:			dhd_os_wd_timer(bus->dhd, 0);
+dhd_sdio.c:1415:	DHD_INFO(("dhdsdio_clkctl: %d -> %d\n", oldstate, bus->clkstate));
+dhd_sdio.c:1425:	bcmsdh_info_t *sdh = bus->sdh;
+dhd_sdio.c:1426:	sdpcmd_regs_t *regs = bus->regs;
+dhd_sdio.c:1431:	          (bus->sleeping ? "SLEEP" : "WAKE")));
+dhd_sdio.c:1433:	if (bus->dhd->hang_was_sent)
+dhd_sdio.c:1437:	if (sleep == bus->sleeping)
+dhd_sdio.c:1443:		if (bus->dpc_sched || bus->rxskip || pktq_len(&bus->txq))
+dhd_sdio.c:1449:			bcmsdh_intr_disable(bus->sdh);
+dhd_sdio.c:1466:			if (bus->sih->chip != BCM4329_CHIP_ID &&
+dhd_sdio.c:1467:				bus->sih->chip != BCM4319_CHIP_ID) {
+dhd_sdio.c:1479:		bus->sleeping = TRUE;
+dhd_sdio.c:1480:		wake_up(&bus->bus_sleep);
+dhd_sdio.c:1506:			if (bus->intr && (bus->dhd->busstate == DHD_BUS_DATA)) {
+dhd_sdio.c:1507:				bus->intdis = FALSE;
+dhd_sdio.c:1508:				bcmsdh_intr_enable(bus->sdh);
+dhd_sdio.c:1516:			bus->sleeping = FALSE;
+dhd_sdio.c:1529:	bcmsdh_enable_hw_oob_intr(bus->sdh, enable);
+dhd_sdio.c:1531:	sdpcmd_regs_t *regs = bus->regs;
+dhd_sdio.c:1568:	osh = bus->dhd->osh;
+dhd_sdio.c:1573:	if (bus->ext_loop) {
+dhd_sdio.c:1578:		*data++ = (uint8)bus->loopid++;
+dhd_sdio.c:1615:	if (dhd_deferred_tx || bus->fcstate || pktq_len(&bus->txq) || bus->dpc_sched ||
+dhd_sdio.c:1616:	    (!DATAOK(bus)) || (bus->flowcontrol & NBITVAL(prec)) ||
+dhd_sdio.c:1617:	    (bus->clkstate != CLK_AVAIL)) {
+dhd_sdio.c:1621:		DHD_TRACE(("%s: deferring pktq len %d\n", __FUNCTION__, pktq_len(&bus->txq)));
+dhd_sdio.c:1622:		bus->fcqueued++;
+dhd_sdio.c:1625:		dhd_os_sdlock_txq(bus->dhd);
+dhd_sdio.c:1626:		deq_ret = dhd_prec_enq(bus->dhd, &bus->txq, pkt, prec);
+dhd_sdio.c:1627:		dhd_os_sdunlock_txq(bus->dhd);
+dhd_sdio.c:1635:				if (dhd_tcpack_check_xmit(bus->dhd, pkt) == BCME_ERROR) {
+dhd_sdio.c:1638:					dhd_tcpack_suppress_set(bus->dhd, TCPACK_SUP_OFF);
+dhd_sdio.c:1641:				dhd_txcomplete(bus->dhd, pkt, FALSE);
+dhd_sdio.c:1648:		dhd_os_sdlock_txq(bus->dhd);
+dhd_sdio.c:1649:		pkq_len = pktq_len(&bus->txq);
+dhd_sdio.c:1650:		dhd_os_sdunlock_txq(bus->dhd);
+dhd_sdio.c:1654:			wlfc_enabled = (dhd_wlfc_flowcontrol(bus->dhd, ON, FALSE) !=
+dhd_sdio.c:1658:				dhd_txflowcontrol(bus->dhd, ALL_INTERFACES, ON);
+dhd_sdio.c:1663:		dhd_os_sdlock_txq(bus->dhd);
+dhd_sdio.c:1664:		if (pktq_plen(&bus->txq, prec) > qcount[prec])
+dhd_sdio.c:1665:			qcount[prec] = pktq_plen(&bus->txq, prec);
+dhd_sdio.c:1666:		dhd_os_sdunlock_txq(bus->dhd);
+dhd_sdio.c:1670:		if (dhd_deferred_tx && !bus->dpc_sched) {
+dhd_sdio.c:1671:			bus->dpc_sched = TRUE;
+dhd_sdio.c:1672:			dhd_sched_dpc(bus->dhd);
+dhd_sdio.c:1678:		chan = (bus->ext_loop ? SDPCM_TEST_CHANNEL : SDPCM_DATA_CHANNEL);
+dhd_sdio.c:1681:		dhd_os_sdlock(bus->dhd);
+dhd_sdio.c:1691:			bus->dhd->tx_errors++;
+dhd_sdio.c:1693:			bus->dhd->dstats.tx_bytes += datalen;
+dhd_sdio.c:1695:		if ((bus->idletime == DHD_IDLE_IMMEDIATE) && !bus->dpc_sched) {
+dhd_sdio.c:1696:			bus->activity = FALSE;
+dhd_sdio.c:1700:		dhd_os_sdunlock(bus->dhd);
+dhd_sdio.c:1733:	uint8 sdpcm_hdrlen = bus->txglom_enable ? SDPCM_HDRLEN_TXGLOM : SDPCM_HDRLEN;
+dhd_sdio.c:1736:	osh = bus->dhd->osh;
+dhd_sdio.c:1739:	if (dhd_tcpack_check_xmit(bus->dhd, pkt) == BCME_ERROR) {
+dhd_sdio.c:1742:		dhd_tcpack_suppress_set(bus->dhd, TCPACK_SUP_OFF);
+dhd_sdio.c:1759:			htsf_ts->t20 = dhd_get_htsf(bus->dhd->info, 0);
+dhd_sdio.c:1794:		if (last_chained_pkt && bus->blocksize != 0 &&
+dhd_sdio.c:1795:			(cur_chain_total_len > (int)bus->blocksize || prev_chain_total_len > 0)) {
+dhd_sdio.c:1796:			modulo = cur_chain_total_len % bus->blocksize;
+dhd_sdio.c:1797:			chain_tail_padding = modulo > 0 ? (bus->blocksize - modulo) : 0;
+dhd_sdio.c:1804:			bus->tx_tailpad_pktget++;
+dhd_sdio.c:1811:			if (bus->pad_pkt) {
+dhd_sdio.c:1813:				bus->tx_tailpad_chain++;
+dhd_sdio.c:1816:				bus->tx_tailpad_pktget++;
+dhd_sdio.c:1846:		if (last_chained_pkt && bus->blocksize != 0 &&
+dhd_sdio.c:1847:			(cur_total_len > (int)bus->blocksize || prev_chain_total_len > 0)) {
+dhd_sdio.c:1848:			modulo = cur_total_len % bus->blocksize;
+dhd_sdio.c:1849:			tail_padding = modulo > 0 ? (bus->blocksize - modulo) : 0;
+dhd_sdio.c:1856:		newpkt_size = PKTLEN(osh, pkt) + bus->blocksize + DHD_SDALIGN;
+dhd_sdio.c:1857:		bus->dhd->tx_realloc++;
+dhd_sdio.c:1908:	if (bus->txglom_enable) {
+dhd_sdio.c:1937:	int swhdr_offset = SDPCM_FRAMETAG_LEN + (bus->txglom_enable ? SDPCM_HWEXT_LEN : 0);
+dhd_sdio.c:1940:	osh = bus->dhd->osh;
+dhd_sdio.c:1951:	if (bus->txglom_enable) {
+dhd_sdio.c:1994:	if (bus->dhd->dongle_reset)
+dhd_sdio.c:1997:	sdh = bus->sdh;
+dhd_sdio.c:1998:	osh = bus->dhd->osh;
+dhd_sdio.c:2010:		pkt_len = dhdsdio_txpkt_preprocess(bus, pkt, chan, bus->tx_seq + i,
+dhd_sdio.c:2028:	if (bus->txglom_enable) {
+dhd_sdio.c:2041:		PKTSETLEN(osh, bus->pad_pkt, pad_pkt_len);
+dhd_sdio.c:2042:		PKTSETNEXT(osh, pkt, bus->pad_pkt);
+dhd_sdio.c:2054:		bus->tx_seq = (bus->tx_seq + num_pkt) % SDPCM_SEQUENCE_WRAP;
+dhd_sdio.c:2077:			wlfc_enabled = (dhd_wlfc_txcomplete(bus->dhd, pkt, ret == 0) !=
+dhd_sdio.c:2083:			dhd_txcomplete(bus->dhd, pkt, ret != 0);
+dhd_sdio.c:2105:	dhd_pub_t *dhd = bus->dhd;
+dhd_sdio.c:2106:	sdpcmd_regs_t *regs = bus->regs;
+dhd_sdio.c:2116:	tx_prec_map = ~bus->flowcontrol;
+dhd_sdio.c:2123:		dhd_os_sdlock_txq(bus->dhd);
+dhd_sdio.c:2124:		if (bus->txglom_enable) {
+dhd_sdio.c:2125:			num_pkt = MIN((uint32)DATABUFCNT(bus), (uint32)bus->txglomsize);
+dhd_sdio.c:2128:		num_pkt = MIN(num_pkt, pktq_mlen(&bus->txq, tx_prec_map));
+dhd_sdio.c:2130:			pkts[i] = pktq_mdeq(&bus->txq, ~bus->flowcontrol, &prec_out);
+dhd_sdio.c:2140:		dhd_os_sdunlock_txq(bus->dhd);
+dhd_sdio.c:2151:		if (!bus->intr && cnt)
+dhd_sdio.c:2155:			bus->f2txdata++;
+dhd_sdio.c:2156:			if (bcmsdh_regfail(bus->sdh))
+dhd_sdio.c:2158:			if (intstatus & bus->hostintmask)
+dhd_sdio.c:2159:				bus->ipend = TRUE;
+dhd_sdio.c:2164:	dhd_os_sdlock_txq(bus->dhd);
+dhd_sdio.c:2165:	txpktqlen = pktq_len(&bus->txq);
+dhd_sdio.c:2166:	dhd_os_sdunlock_txq(bus->dhd);
+dhd_sdio.c:2185:	bcmsdh_info_t *sdh = bus->sdh;
+dhd_sdio.c:2187:	uint8* frame_seq = bus->ctrl_frame_buf + SDPCM_FRAMETAG_LEN;
+dhd_sdio.c:2189:	if (bus->txglom_enable)
+dhd_sdio.c:2192:	if (*frame_seq != bus->tx_seq) {
+dhd_sdio.c:2194:			" frm_seq:%d != bus->tx_seq:%d, corrected\n",
+dhd_sdio.c:2195:			__FUNCTION__, *frame_seq, bus->tx_seq));
+dhd_sdio.c:2196:		*frame_seq = bus->tx_seq;
+dhd_sdio.c:2200:		(uint8 *)bus->ctrl_frame_buf, (uint32)bus->ctrl_frame_len,
+dhd_sdio.c:2203:		bus->tx_seq = (bus->tx_seq + 1) % SDPCM_SEQUENCE_WRAP;
+dhd_sdio.c:2205:	bus->ctrl_frame_stat = FALSE;
+dhd_sdio.c:2206:	dhd_wait_event_wakeup(bus->dhd);
+dhd_sdio.c:2216:	bcmsdh_info_t *sdh = bus->sdh;
+dhd_sdio.c:2219:	uint8 sdpcm_hdrlen = bus->txglom_enable ? SDPCM_HDRLEN_TXGLOM : SDPCM_HDRLEN;
+dhd_sdio.c:2223:	if (bus->dhd->dongle_reset)
+dhd_sdio.c:2243:	if (bus->roundup && bus->blocksize && (len > bus->blocksize)) {
+dhd_sdio.c:2244:		uint16 pad = bus->blocksize - (len % bus->blocksize);
+dhd_sdio.c:2245:		if ((pad <= bus->roundup) && (pad < bus->blocksize))
+dhd_sdio.c:2259:	dhd_os_sdlock(bus->dhd);
+dhd_sdio.c:2270:	if (bus->txglom_enable) {
+dhd_sdio.c:2274:				| bus->tx_seq
+dhd_sdio.c:2290:		        | bus->tx_seq | ((doff << SDPCM_DOFFSET_SHIFT) & SDPCM_DOFFSET_MASK);
+dhd_sdio.c:2295:		DHD_INFO(("%s: No bus credit bus->tx_max %d, bus->tx_seq %d\n",
+dhd_sdio.c:2296:			__FUNCTION__, bus->tx_max, bus->tx_seq));
+dhd_sdio.c:2297:		bus->ctrl_frame_stat = TRUE;
+dhd_sdio.c:2299:		bus->ctrl_frame_buf = frame;
+dhd_sdio.c:2300:		bus->ctrl_frame_len = len;
+dhd_sdio.c:2302:		if (!bus->dpc_sched) {
+dhd_sdio.c:2303:			bus->dpc_sched = TRUE;
+dhd_sdio.c:2304:			dhd_sched_dpc(bus->dhd);
+dhd_sdio.c:2306:		if (bus->ctrl_frame_stat) {
+dhd_sdio.c:2307:			dhd_wait_for_event(bus->dhd, &bus->ctrl_frame_stat);
+dhd_sdio.c:2310:		if (bus->ctrl_frame_stat == FALSE) {
+dhd_sdio.c:2314:			bus->dhd->txcnt_timeout++;
+dhd_sdio.c:2315:			if (!bus->dhd->hang_was_sent) {
+dhd_sdio.c:2317:					__FUNCTION__, bus->dhd->txcnt_timeout));
+dhd_sdio.c:2320:			bus->ctrl_frame_stat = FALSE;
+dhd_sdio.c:2325:	bus->dhd->txcnt_timeout = 0;
+dhd_sdio.c:2326:	bus->ctrl_frame_stat = TRUE;
+dhd_sdio.c:2339:			bus->tx_seq = (bus->tx_seq + 1) % SDPCM_SEQUENCE_WRAP;
+dhd_sdio.c:2341:	bus->ctrl_frame_stat = FALSE;
+dhd_sdio.c:2344:	if ((bus->idletime == DHD_IDLE_IMMEDIATE) && !bus->dpc_sched) {
+dhd_sdio.c:2345:		bus->activity = FALSE;
+dhd_sdio.c:2349:	dhd_os_sdunlock(bus->dhd);
+dhd_sdio.c:2352:		bus->dhd->tx_ctlerrs++;
+dhd_sdio.c:2354:		bus->dhd->tx_ctlpkts++;
+dhd_sdio.c:2356:	if (bus->dhd->txcnt_timeout >= MAX_CNTL_TX_TIMEOUT)
+dhd_sdio.c:2376:	if (bus->dhd->dongle_reset)
+dhd_sdio.c:2380:	timeleft = dhd_os_ioctl_resp_wait(bus->dhd, &bus->rxlen, &pending);
+dhd_sdio.c:2382:	dhd_os_sdlock(bus->dhd);
+dhd_sdio.c:2383:	rxlen = bus->rxlen;
+dhd_sdio.c:2384:	bcopy(bus->rxctl, msg, MIN(msglen, rxlen));
+dhd_sdio.c:2385:	bus->rxlen = 0;
+dhd_sdio.c:2386:	dhd_os_sdunlock(bus->dhd);
+dhd_sdio.c:2394:		R_SDREG(status, &bus->regs->intstatus, retry);
+dhd_sdio.c:2401:			dhd_os_sdlock(bus->dhd);
+dhd_sdio.c:2403:			dhd_os_sdunlock(bus->dhd);
+dhd_sdio.c:2413:		dhd_os_sdlock(bus->dhd);
+dhd_sdio.c:2415:		dhd_os_sdunlock(bus->dhd);
+dhd_sdio.c:2420:			bus->dhd->rxcnt_timeout++;
+dhd_sdio.c:2422:			bus->dhd->rxcnt_timeout, rxlen));
+dhd_sdio.c:2425:		bus->dhd->rxcnt_timeout = 0;
+dhd_sdio.c:2428:		bus->dhd->rx_ctlpkts++;
+dhd_sdio.c:2430:		bus->dhd->rx_ctlerrs++;
+dhd_sdio.c:2432:	if (bus->dhd->rxcnt_timeout >= MAX_CNTL_RX_TIMEOUT)
+dhd_sdio.c:2435:	if (bus->dhd->dongle_trap_occured)
+dhd_sdio.c:2570:	            bus->hostintmask, bus->intstatus, bus->sdpcm_ver);
+dhd_sdio.c:2572:	            bus->fcstate, pktq_len(&bus->txq), bus->tx_seq, bus->tx_max, bus->rxskip,
+dhd_sdio.c:2573:	            bus->rxlen, bus->rx_seq);
+dhd_sdio.c:2575:	            bus->intr, bus->intrcount, bus->lastintrs, bus->spurious);
+dhd_sdio.c:2577:	            bus->pollrate, bus->pollcnt, bus->regfails);
+dhd_sdio.c:2582:	            bus->tx_tailpad_chain, bus->tx_tailpad_pktget);
+dhd_sdio.c:2585:	            bus->tx_sderrs, bus->fcqueued, bus->rxrtx, bus->rx_toolong,
+dhd_sdio.c:2586:	            bus->rxc_errors);
+dhd_sdio.c:2588:	            bus->rx_hdrfail, bus->rx_badhdr, bus->rx_badseq);
+dhd_sdio.c:2590:	            bus->fc_rcvd, bus->fc_xoff, bus->fc_xon);
+dhd_sdio.c:2592:	            bus->rxglomfail, bus->rxglomframes, bus->rxglompkts);
+dhd_sdio.c:2594:	            (bus->f2rxhdrs + bus->f2rxdata), bus->f2rxhdrs, bus->f2rxdata,
+dhd_sdio.c:2595:	            bus->f2txdata, bus->f1regdata);
+dhd_sdio.c:2597:		dhd_dump_pct(strbuf, "\nRx: pkts/f2rd", bus->dhd->rx_packets,
+dhd_sdio.c:2598:		             (bus->f2rxhdrs + bus->f2rxdata));
+dhd_sdio.c:2599:		dhd_dump_pct(strbuf, ", pkts/f1sd", bus->dhd->rx_packets, bus->f1regdata);
+dhd_sdio.c:2600:		dhd_dump_pct(strbuf, ", pkts/sd", bus->dhd->rx_packets,
+dhd_sdio.c:2601:		             (bus->f2rxhdrs + bus->f2rxdata + bus->f1regdata));
+dhd_sdio.c:2602:		dhd_dump_pct(strbuf, ", pkts/int", bus->dhd->rx_packets, bus->intrcount);
+dhd_sdio.c:2605:		dhd_dump_pct(strbuf, "Rx: glom pct", (100 * bus->rxglompkts),
+dhd_sdio.c:2606:		             bus->dhd->rx_packets);
+dhd_sdio.c:2607:		dhd_dump_pct(strbuf, ", pkts/glom", bus->rxglompkts, bus->rxglomframes);
+dhd_sdio.c:2610:		dhd_dump_pct(strbuf, "Tx: pkts/f2wr", bus->dhd->tx_packets, bus->f2txdata);
+dhd_sdio.c:2611:		dhd_dump_pct(strbuf, ", pkts/f1sd", bus->dhd->tx_packets, bus->f1regdata);
+dhd_sdio.c:2612:		dhd_dump_pct(strbuf, ", pkts/sd", bus->dhd->tx_packets,
+dhd_sdio.c:2613:		             (bus->f2txdata + bus->f1regdata));
+dhd_sdio.c:2614:		dhd_dump_pct(strbuf, ", pkts/int", bus->dhd->tx_packets, bus->intrcount);
+dhd_sdio.c:2618:		             (bus->dhd->tx_packets + bus->dhd->rx_packets),
+dhd_sdio.c:2619:		             (bus->f2txdata + bus->f2rxhdrs + bus->f2rxdata));
+dhd_sdio.c:2621:		             (bus->dhd->tx_packets + bus->dhd->rx_packets), bus->f1regdata);
+dhd_sdio.c:2623:		             (bus->dhd->tx_packets + bus->dhd->rx_packets),
+dhd_sdio.c:2624:		             (bus->f2txdata + bus->f2rxhdrs + bus->f2rxdata + bus->f1regdata));
+dhd_sdio.c:2626:		             (bus->dhd->tx_packets + bus->dhd->rx_packets), bus->intrcount);
+dhd_sdio.c:2631:	if (bus->pktgen_count) {
+dhd_sdio.c:2634:		            bus->pktgen_freq, bus->pktgen_count, bus->pktgen_print,
+dhd_sdio.c:2635:		            bus->pktgen_total, bus->pktgen_minlen, bus->pktgen_maxlen);
+dhd_sdio.c:2637:		            bus->pktgen_sent, bus->pktgen_rcvd, bus->pktgen_fail);
+dhd_sdio.c:2642:	            bus->dpc_sched, (bcmsdh_intr_pending(bus->sdh) ? " " : " not "));
+dhd_sdio.c:2643:	bcm_bprintf(strbuf, "blocksize %u roundup %u\n", bus->blocksize, bus->roundup);
+dhd_sdio.c:2646:	            bus->clkstate, bus->activity, bus->idletime, bus->idlecount, bus->sleeping);
+dhd_sdio.c:2654:	bus->intrcount = bus->lastintrs = bus->spurious = bus->regfails = 0;
+dhd_sdio.c:2655:	bus->rxrtx = bus->rx_toolong = bus->rxc_errors = 0;
+dhd_sdio.c:2656:	bus->rx_hdrfail = bus->rx_badhdr = bus->rx_badseq = 0;
+dhd_sdio.c:2658:	bus->tx_tailpad_chain = bus->tx_tailpad_pktget = 0;
+dhd_sdio.c:2660:	bus->tx_sderrs = bus->fc_rcvd = bus->fc_xoff = bus->fc_xon = 0;
+dhd_sdio.c:2661:	bus->rxglomfail = bus->rxglomframes = bus->rxglompkts = 0;
+dhd_sdio.c:2662:	bus->f2rxhdrs = bus->f2rxdata = bus->f2txdata = bus->f1regdata = 0;
+dhd_sdio.c:2672:	pktgen.freq = bus->pktgen_freq;
+dhd_sdio.c:2673:	pktgen.count = bus->pktgen_count;
+dhd_sdio.c:2674:	pktgen.print = bus->pktgen_print;
+dhd_sdio.c:2675:	pktgen.total = bus->pktgen_total;
+dhd_sdio.c:2676:	pktgen.minlen = bus->pktgen_minlen;
+dhd_sdio.c:2677:	pktgen.maxlen = bus->pktgen_maxlen;
+dhd_sdio.c:2678:	pktgen.numsent = bus->pktgen_sent;
+dhd_sdio.c:2679:	pktgen.numrcvd = bus->pktgen_rcvd;
+dhd_sdio.c:2680:	pktgen.numfail = bus->pktgen_fail;
+dhd_sdio.c:2681:	pktgen.mode = bus->pktgen_mode;
+dhd_sdio.c:2682:	pktgen.stop = bus->pktgen_stop;
+dhd_sdio.c:2699:	oldcnt = bus->pktgen_count;
+dhd_sdio.c:2700:	oldmode = bus->pktgen_mode;
+dhd_sdio.c:2702:	bus->pktgen_freq = pktgen.freq;
+dhd_sdio.c:2703:	bus->pktgen_count = pktgen.count;
+dhd_sdio.c:2704:	bus->pktgen_print = pktgen.print;
+dhd_sdio.c:2705:	bus->pktgen_total = pktgen.total;
+dhd_sdio.c:2706:	bus->pktgen_minlen = pktgen.minlen;
+dhd_sdio.c:2707:	bus->pktgen_maxlen = pktgen.maxlen;
+dhd_sdio.c:2708:	bus->pktgen_mode = pktgen.mode;
+dhd_sdio.c:2709:	bus->pktgen_stop = pktgen.stop;
+dhd_sdio.c:2711:	bus->pktgen_tick = bus->pktgen_ptick = 0;
+dhd_sdio.c:2712:	bus->pktgen_prev_time = jiffies;
+dhd_sdio.c:2713:	bus->pktgen_len = MAX(bus->pktgen_len, bus->pktgen_minlen);
+dhd_sdio.c:2714:	bus->pktgen_len = MIN(bus->pktgen_len, bus->pktgen_maxlen);
+dhd_sdio.c:2717:	if (bus->pktgen_count && (!oldcnt || oldmode != bus->pktgen_mode)) {
+dhd_sdio.c:2718:		bus->pktgen_sent = bus->pktgen_prev_sent = bus->pktgen_rcvd = 0;
+dhd_sdio.c:2719:		bus->pktgen_prev_rcvd = bus->pktgen_fail = 0;
+dhd_sdio.c:2731:	si_socdevram(bus->sih, FALSE, &enable, &protect, &remap);
+dhd_sdio.c:2733:	si_socdevram(bus->sih, TRUE, &enable, &protect, &remap);
+dhd_sdio.c:2748:		address -= bus->orig_ramsize;
+dhd_sdio.c:2770:		if ((bcmerror = bcmsdh_rwdata(bus->sdh, write, sdaddr, data, dsize))) {
+dhd_sdio.c:2791:	if (dhdsdio_set_siaddr_window(bus, bcmsdh_cur_sbwad(bus->sdh))) {
+dhd_sdio.c:2793:			bcmsdh_cur_sbwad(bus->sdh)));
+dhd_sdio.c:2807:	if (CHIPID(bus->sih->chip) == BCM43430_CHIP_ID && !dhdsdio_sr_cap(bus))
+dhd_sdio.c:2808:		bus->srmemsize = 0;
+dhd_sdio.c:2810:	shaddr = bus->dongle_ram_base + bus->ramsize - 4;
+dhd_sdio.c:2826:			if ((bus->srmemsize > 0) && (i++ == 0)) {
+dhd_sdio.c:2827:				shaddr -= bus->srmemsize;
+dhd_sdio.c:2869:	dhd_console_t *c = &bus->console;
+dhd_sdio.c:2875:	if (bus->console_addr == 0)
+dhd_sdio.c:2882:	addr = bus->console_addr + OFFSETOF(hnd_cons_t, log);
+dhd_sdio.c:2889:		if ((c->buf = MALLOC(bus->dhd->osh, c->bufsize)) == NULL)
+dhd_sdio.c:2933:			dhd_sendup_log(bus->dhd, line, n);
+dhd_sdio.c:2970:		mbuffer = data = MALLOC(bus->dhd->osh, msize);
+dhd_sdio.c:2978:	if ((str = MALLOC(bus->dhd->osh, maxstrlen)) == NULL) {
+dhd_sdio.c:3036:			bus->dhd->dongle_trap_occured = TRUE;
+dhd_sdio.c:3073:				!(console_buffer = MALLOC(bus->dhd->osh, console_size)))
+dhd_sdio.c:3113:		MFREE(bus->dhd->osh, mbuffer, msize);
+dhd_sdio.c:3115:		MFREE(bus->dhd->osh, str, maxstrlen);
+dhd_sdio.c:3117:		MFREE(bus->dhd->osh, console_buffer, console_size);
+dhd_sdio.c:3132:	if (bus->dhd->up) {
+dhd_sdio.c:3142:	if (bus->vars)
+dhd_sdio.c:3143:		MFREE(bus->dhd->osh, bus->vars, bus->varsz);
+dhd_sdio.c:3145:	bus->vars = MALLOC(bus->dhd->osh, len);
+dhd_sdio.c:3146:	bus->varsz = bus->vars ? len : 0;
+dhd_sdio.c:3147:	if (bus->vars == NULL) {
+dhd_sdio.c:3153:	bcopy(arg, bus->vars, bus->varsz);
+dhd_sdio.c:3177:	bcmsdh_reg_write(bus->sdh, addr, 4, 1);
+dhd_sdio.c:3178:	if (bcmsdh_regfail(bus->sdh)) {
+dhd_sdio.c:3182:	int_val = bcmsdh_reg_read(bus->sdh, data, 4);
+dhd_sdio.c:3183:	if (bcmsdh_regfail(bus->sdh)) {
+dhd_sdio.c:3187:	if (bus->sih->chip == BCM4330_CHIP_ID) {
+dhd_sdio.c:3190:	else if (bus->sih->chip == BCM4334_CHIP_ID ||
+dhd_sdio.c:3191:		bus->sih->chip == BCM43340_CHIP_ID ||
+dhd_sdio.c:3192:		bus->sih->chip == BCM43341_CHIP_ID ||
+dhd_sdio.c:3193:		bus->sih->chip == BCM43342_CHIP_ID ||
+dhd_sdio.c:3212:	bcmsdh_reg_write(bus->sdh, data, 4, int_val);
+dhd_sdio.c:3213:	if (bcmsdh_regfail(bus->sdh)) {
+dhd_sdio.c:3217:	if (bus->sih->chip == BCM4330_CHIP_ID) {
+dhd_sdio.c:3220:		chipcontrol = bcmsdh_reg_read(bus->sdh, addr, 4);
+dhd_sdio.c:3226:		bcmsdh_reg_write(bus->sdh, addr, 4, chipcontrol);
+dhd_sdio.c:3254:	dhd_os_sdlock(bus->dhd);
+dhd_sdio.c:3257:	if (bus->dhd->dongle_reset && !(actionid == IOV_SVAL(IOV_DEVRESET) ||
+dhd_sdio.c:3272:			if (!SLPAUTO_ENAB(bus) && (bool_val == FALSE) && (bus->ipend)) {
+dhd_sdio.c:3274:					bus->dpc_sched));
+dhd_sdio.c:3275:				if (!bus->dpc_sched) {
+dhd_sdio.c:3276:					bus->dpc_sched = TRUE;
+dhd_sdio.c:3277:					dhd_sched_dpc(bus->dhd);
+dhd_sdio.c:3289:			int_val = (int32)bus->sleeping;
+dhd_sdio.c:3296:	if (!bus->dhd->dongle_reset) {
+dhd_sdio.c:3303:		int_val = (int32)bus->intr;
+dhd_sdio.c:3308:		bus->intr = bool_val;
+dhd_sdio.c:3309:		bus->intdis = FALSE;
+dhd_sdio.c:3310:		if (bus->dhd->up) {
+dhd_sdio.c:3311:			if (bus->intr) {
+dhd_sdio.c:3313:				bcmsdh_intr_enable(bus->sdh);
+dhd_sdio.c:3316:				bcmsdh_intr_disable(bus->sdh);
+dhd_sdio.c:3322:		int_val = (int32)bus->pollrate;
+dhd_sdio.c:3327:		bus->pollrate = (uint)int_val;
+dhd_sdio.c:3328:		bus->poll = (bus->pollrate != 0);
+dhd_sdio.c:3332:		int_val = bus->idletime;
+dhd_sdio.c:3340:			bus->idletime = int_val;
+dhd_sdio.c:3345:		int_val = (int32)bus->idleclock;
+dhd_sdio.c:3350:		bus->idleclock = int_val;
+dhd_sdio.c:3391:		if (si_setcore(bus->sih, ARMCR4_CORE_ID, 0)) {
+dhd_sdio.c:3396:			if (set && address == bus->dongle_ram_base) {
+dhd_sdio.c:3397:				bus->resetinstr = *(((uint32*)params) + 2);
+dhd_sdio.c:3401:		if ((bus->orig_ramsize) &&
+dhd_sdio.c:3402:		    ((address > bus->orig_ramsize) || (address + size > bus->orig_ramsize)))
+dhd_sdio.c:3405:			si_socdevram(bus->sih, FALSE, &enable, &protect, &remap);
+dhd_sdio.c:3408:					__FUNCTION__, bus->orig_ramsize, size, address));
+dhd_sdio.c:3416:				uint32 devramsize = si_socdevram_size(bus->sih);
+dhd_sdio.c:3453:		int_val = (int32)bus->ramsize;
+dhd_sdio.c:3458:		int_val = (int32)bus->dongle_ram_base;
+dhd_sdio.c:3469:		si_sdiod_drive_strength_init(bus->sih, bus->dhd->osh, dhd_sdiod_drive_strength);
+dhd_sdio.c:3491:			bus->nextlen = 0;
+dhd_sdio.c:3496:		int_val = (int32)bus->use_rxchain;
+dhd_sdio.c:3501:		if (bool_val && !bus->sd_rxchain)
+dhd_sdio.c:3504:			bus->use_rxchain = bool_val;
+dhd_sdio.c:3522:		if (bus->varsz < (uint)len)
+dhd_sdio.c:3523:			bcopy(bus->vars, arg, bus->varsz);
+dhd_sdio.c:3537:		addr = (uint32)((ulong)bus->regs + sd_ptr->offset);
+dhd_sdio.c:3539:		int_val = (int32)bcmsdh_reg_read(bus->sdh, addr, size);
+dhd_sdio.c:3540:		if (bcmsdh_regfail(bus->sdh))
+dhd_sdio.c:3553:		addr = (uint32)((ulong)bus->regs + sd_ptr->offset);
+dhd_sdio.c:3555:		bcmsdh_reg_write(bus->sdh, addr, size, sd_ptr->value);
+dhd_sdio.c:3556:		if (bcmsdh_regfail(bus->sdh))
+dhd_sdio.c:3571:		int_val = (int32)bcmsdh_reg_read(bus->sdh, addr, size);
+dhd_sdio.c:3572:		if (bcmsdh_regfail(bus->sdh))
+dhd_sdio.c:3587:		bcmsdh_reg_write(bus->sdh, addr, size, sdreg.value);
+dhd_sdio.c:3588:		if (bcmsdh_regfail(bus->sdh))
+dhd_sdio.c:3598:		bcmsdh_cis_read(bus->sdh, 0x10, (uint8 *)arg + strlen(arg), SBSDIO_CIS_SIZE_LIMIT);
+dhd_sdio.c:3600:		bcmsdh_cis_read(bus->sdh, 0x11, (uint8 *)arg + strlen(arg), SBSDIO_CIS_SIZE_LIMIT);
+dhd_sdio.c:3602:		bcmsdh_cis_read(bus->sdh, 0x12, (uint8 *)arg + strlen(arg), SBSDIO_CIS_SIZE_LIMIT);
+dhd_sdio.c:3660:		int_val = (int32)bus->ext_loop;
+dhd_sdio.c:3665:		bus->ext_loop = bool_val;
+dhd_sdio.c:3687:		bcmsdh_cfg_write(bus->sdh, SDIO_FUNC_1, SBSDIO_WATERMARK, (uint8)watermark, NULL);
+dhd_sdio.c:3700:		bcmsdh_cfg_write(bus->sdh, SDIO_FUNC_1, SBSDIO_FUNC1_MESBUSYCTRL,
+dhd_sdio.c:3707:		int_val = bus->dhd->dongle_isolation;
+dhd_sdio.c:3712:		bus->dhd->dongle_isolation = bool_val;
+dhd_sdio.c:3717:		           __FUNCTION__, bool_val, bus->dhd->dongle_reset,
+dhd_sdio.c:3718:		           bus->dhd->busstate));
+dhd_sdio.c:3720:		ASSERT(bus->dhd->osh);
+dhd_sdio.c:3721:		/* ASSERT(bus->cl_devid); */
+dhd_sdio.c:3723:		dhd_bus_devreset(bus->dhd, (uint8)bool_val);
+dhd_sdio.c:3734:		int_val = (bool) bus->dhd->dongle_reset;
+dhd_sdio.c:3753:		int_val = (int32)bus->txglomsize;
+dhd_sdio.c:3761:			bus->txglomsize = (uint)int_val;
+dhd_sdio.c:3765:		bus->dhd->hang_report = bool_val;
+dhd_sdio.c:3766:		DHD_ERROR(("%s: Set hang_report as %d\n", __FUNCTION__, bus->dhd->hang_report));
+dhd_sdio.c:3770:		int_val = (int32)bus->dhd->hang_report;
+dhd_sdio.c:3775:		int_val = bus->txinrx_thres;
+dhd_sdio.c:3782:			bus->txinrx_thres = int_val;
+dhd_sdio.c:3792:	if ((bus->idletime == DHD_IDLE_IMMEDIATE) && !bus->dpc_sched) {
+dhd_sdio.c:3793:		bus->activity = FALSE;
+dhd_sdio.c:3797:	dhd_os_sdunlock(bus->dhd);
+dhd_sdio.c:3815:	varsize = bus->varsz ? ROUNDUP(bus->varsz, 4) : 0;
+dhd_sdio.c:3816:	varaddr = (bus->ramsize - 4) - varsize;
+dhd_sdio.c:3818:	varaddr += bus->dongle_ram_base;
+dhd_sdio.c:3820:	if (bus->vars) {
+dhd_sdio.c:3821:		if ((bus->sih->buscoretype == SDIOD_CORE_ID) && (bus->sdpcmrev == 7)) {
+dhd_sdio.c:3829:		vbuffer = (uint8 *)MALLOC(bus->dhd->osh, varsize);
+dhd_sdio.c:3834:		bcopy(bus->vars, vbuffer, bus->varsz);
+dhd_sdio.c:3841:		nvram_ularray = (uint8*)MALLOC(bus->dhd->osh, varsize);
+dhd_sdio.c:3861:		MFREE(bus->dhd->osh, nvram_ularray, varsize);
+dhd_sdio.c:3864:		MFREE(bus->dhd->osh, vbuffer, varsize);
+dhd_sdio.c:3867:	phys_size = REMAP_ENAB(bus) ? bus->ramsize : bus->orig_ramsize;
+dhd_sdio.c:3869:	phys_size += bus->dongle_ram_base;
+dhd_sdio.c:3873:		phys_size, bus->ramsize));
+dhd_sdio.c:3906:	if (!bus->sih)
+dhd_sdio.c:3912:		bus->alp_only = TRUE;
+dhd_sdio.c:3914:		if (!(si_setcore(bus->sih, ARM7S_CORE_ID, 0)) &&
+dhd_sdio.c:3915:		    !(si_setcore(bus->sih, ARMCM3_CORE_ID, 0))) {
+dhd_sdio.c:3916:			if (si_setcore(bus->sih, ARMCR4_CORE_ID, 0)) {
+dhd_sdio.c:3926:			si_core_disable(bus->sih, 0);
+dhd_sdio.c:3927:			if (bcmsdh_regfail(bus->sdh)) {
+dhd_sdio.c:3932:			if (!(si_setcore(bus->sih, SOCRAM_CORE_ID, 0))) {
+dhd_sdio.c:3938:			si_core_reset(bus->sih, 0, 0);
+dhd_sdio.c:3939:			if (bcmsdh_regfail(bus->sdh)) {
+dhd_sdio.c:3947:			if (REMAP_ENAB(bus) && si_socdevram_remap_isenb(bus->sih))
+dhd_sdio.c:3950:			if (CHIPID(bus->sih->chip) == BCM43430_CHIP_ID) {
+dhd_sdio.c:3952:				si_socram_set_bankpda(bus->sih, 0x3, 0x0);
+dhd_sdio.c:3956:			if (bus->ramsize) {
+dhd_sdio.c:3958:				if (dhdsdio_membytes(bus, TRUE, bus->ramsize - 4,
+dhd_sdio.c:3974:			si_core_reset(bus->sih, SICF_CPUHALT, SICF_CPUHALT);
+dhd_sdio.c:3977:		if (!si_setcore(bus->sih, ARMCR4_CORE_ID, 0)) {
+dhd_sdio.c:3978:			if (!(si_setcore(bus->sih, SOCRAM_CORE_ID, 0))) {
+dhd_sdio.c:3984:			if (!si_iscoreup(bus->sih)) {
+dhd_sdio.c:3998:			if (REMAP_ENAB(bus) && !si_socdevram_remap_isenb(bus->sih))
+dhd_sdio.c:4001:			if (!si_setcore(bus->sih, PCMCIA_CORE_ID, 0) &&
+dhd_sdio.c:4002:			    !si_setcore(bus->sih, SDIOD_CORE_ID, 0)) {
+dhd_sdio.c:4007:			W_SDREG(0xFFFFFFFF, &bus->regs->intstatus, retries);
+dhd_sdio.c:4010:			if (!(si_setcore(bus->sih, ARM7S_CORE_ID, 0)) &&
+dhd_sdio.c:4011:			    !(si_setcore(bus->sih, ARMCM3_CORE_ID, 0))) {
+dhd_sdio.c:4024:			if (!si_setcore(bus->sih, PCMCIA_CORE_ID, 0) &&
+dhd_sdio.c:4025:			    !si_setcore(bus->sih, SDIOD_CORE_ID, 0)) {
+dhd_sdio.c:4030:			W_SDREG(0xFFFFFFFF, &bus->regs->intstatus, retries);
+dhd_sdio.c:4033:			if (!(si_setcore(bus->sih, ARMCR4_CORE_ID, 0))) {
+dhd_sdio.c:4040:				(uint8 *)&bus->resetinstr, sizeof(bus->resetinstr));
+dhd_sdio.c:4045:		si_core_reset(bus->sih, 0, 0);
+dhd_sdio.c:4046:		if (bcmsdh_regfail(bus->sdh)) {
+dhd_sdio.c:4053:		bus->alp_only = FALSE;
+dhd_sdio.c:4055:		bus->dhd->busstate = DHD_BUS_LOAD;
+dhd_sdio.c:4060:	if (!si_setcore(bus->sih, PCMCIA_CORE_ID, 0))
+dhd_sdio.c:4061:		si_setcore(bus->sih, SDIOD_CORE_ID, 0);
+dhd_sdio.c:4089:		dhd_os_sdlock(bus->dhd);
+dhd_sdio.c:4096:		bcmerror = bcmsdh_iovar_op(bus->sdh, name, params, plen, arg, len, set);
+dhd_sdio.c:4102:			if (bcmsdh_iovar_op(bus->sdh, "sd_divisor", NULL, 0,
+dhd_sdio.c:4103:			                    &bus->sd_divisor, sizeof(int32), FALSE) != BCME_OK) {
+dhd_sdio.c:4104:				bus->sd_divisor = -1;
+dhd_sdio.c:4108:				          __FUNCTION__, name, bus->sd_divisor));
+dhd_sdio.c:4113:			if (bcmsdh_iovar_op(bus->sdh, "sd_mode", NULL, 0,
+dhd_sdio.c:4114:			                    &bus->sd_mode, sizeof(int32), FALSE) != BCME_OK) {
+dhd_sdio.c:4115:				bus->sd_mode = -1;
+dhd_sdio.c:4119:				          __FUNCTION__, name, bus->sd_mode));
+dhd_sdio.c:4125:			if (bcmsdh_iovar_op(bus->sdh, "sd_blocksize", &fnum, sizeof(int32),
+dhd_sdio.c:4126:			                    &bus->blocksize, sizeof(int32), FALSE) != BCME_OK) {
+dhd_sdio.c:4127:				bus->blocksize = 0;
+dhd_sdio.c:4131:				          __FUNCTION__, "sd_blocksize", bus->blocksize));
+dhd_sdio.c:4136:		bus->roundup = MIN(max_roundup, bus->blocksize);
+dhd_sdio.c:4138:		if ((bus->idletime == DHD_IDLE_IMMEDIATE) && !bus->dpc_sched) {
+dhd_sdio.c:4139:			bus->activity = FALSE;
+dhd_sdio.c:4143:		dhd_os_sdunlock(bus->dhd);
+dhd_sdio.c:4183:	if (!bus->dhd)
+dhd_sdio.c:4186:	osh = bus->dhd->osh;
+dhd_sdio.c:4189:	bcmsdh_waitlockfree(bus->sdh);
+dhd_sdio.c:4192:		dhd_os_sdlock(bus->dhd);
+dhd_sdio.c:4194:	if ((bus->dhd->busstate == DHD_BUS_DOWN) || bus->dhd->hang_was_sent) {
+dhd_sdio.c:4196:		bus->dhd->busstate = DHD_BUS_DOWN;
+dhd_sdio.c:4197:		bus->hostintmask = 0;
+dhd_sdio.c:4198:		bcmsdh_intr_disable(bus->sdh);
+dhd_sdio.c:4204:		bus->dhd->busstate = DHD_BUS_DOWN;
+dhd_sdio.c:4212:		W_SDREG(0, &bus->regs->hostintmask, retries);
+dhd_sdio.c:4213:		local_hostintmask = bus->hostintmask;
+dhd_sdio.c:4214:		bus->hostintmask = 0;
+dhd_sdio.c:4217:		saveclk = bcmsdh_cfg_read(bus->sdh, SDIO_FUNC_1, SBSDIO_FUNC1_CHIPCLKCSR, &err);
+dhd_sdio.c:4219:			bcmsdh_cfg_write(bus->sdh, SDIO_FUNC_1, SBSDIO_FUNC1_CHIPCLKCSR,
+dhd_sdio.c:4230:		bcmsdh_intr_disable(bus->sdh);
+dhd_sdio.c:4232:		bcmsdh_cfg_write(bus->sdh, SDIO_FUNC_0, SDIOD_CCCR_IOEN, SDIO_FUNC_ENABLE_1, NULL);
+dhd_sdio.c:4235:		W_SDREG(local_hostintmask, &bus->regs->intstatus, retries);
+dhd_sdio.c:4243:	wlfc_enabled = (dhd_wlfc_cleanup_txq(bus->dhd, NULL, 0) != WLFC_UNSUPPORTED);
+dhd_sdio.c:4250:		dhd_tcpack_info_tbl_clean(bus->dhd);
+dhd_sdio.c:4253:		pktq_flush(osh, &bus->txq, TRUE, NULL, 0);
+dhd_sdio.c:4257:	if (bus->glomd)
+dhd_sdio.c:4258:		PKTFREE(osh, bus->glomd, FALSE);
+dhd_sdio.c:4260:	if (bus->glom)
+dhd_sdio.c:4261:		PKTFREE(osh, bus->glom, FALSE);
+dhd_sdio.c:4263:	bus->glom = bus->glomd = NULL;
+dhd_sdio.c:4266:	bus->rxlen = 0;
+dhd_sdio.c:4267:	dhd_os_ioctl_resp_wake(bus->dhd);
+dhd_sdio.c:4270:	bus->rxskip = FALSE;
+dhd_sdio.c:4271:	bus->tx_seq = bus->rx_seq = 0;
+dhd_sdio.c:4273:	bus->tx_max = 4;
+dhd_sdio.c:4276:		dhd_os_sdunlock(bus->dhd);
+dhd_sdio.c:4308:			bus->txglom_enable = TRUE;
+dhd_sdio.c:4313:			bus->txglom_enable = FALSE;
+dhd_sdio.c:4317:		bus->txglom_enable = FALSE;
+dhd_sdio.c:4332:	ASSERT(bus->dhd);
+dhd_sdio.c:4333:	if (!bus->dhd)
+dhd_sdio.c:4337:		dhd_os_sdlock(bus->dhd);
+dhd_sdio.c:4341:	if (bus->clkstate != CLK_AVAIL) {
+dhd_sdio.c:4342:		DHD_ERROR(("%s: clock state is wrong. state = %d\n", __FUNCTION__, bus->clkstate));
+dhd_sdio.c:4349:	saveclk = bcmsdh_cfg_read(bus->sdh, SDIO_FUNC_1, SBSDIO_FUNC1_CHIPCLKCSR, &err);
+dhd_sdio.c:4351:		bcmsdh_cfg_write(bus->sdh, SDIO_FUNC_1, SBSDIO_FUNC1_CHIPCLKCSR,
+dhd_sdio.c:4362:	        &bus->regs->tosbmailboxdata, retries);
+dhd_sdio.c:4365:	bcmsdh_cfg_write(bus->sdh, SDIO_FUNC_0, SDIOD_CCCR_IOEN, enable, NULL);
+dhd_sdio.c:4372:	        ready = bcmsdh_cfg_read(bus->sdh, SDIO_FUNC_0, SDIOD_CCCR_IORDY, NULL);
+dhd_sdio.c:4381:		if (!(bus->regs = si_setcore(bus->sih, PCMCIA_CORE_ID, 0)))
+dhd_sdio.c:4382:			bus->regs = si_setcore(bus->sih, SDIOD_CORE_ID, 0);
+dhd_sdio.c:4383:		ASSERT(bus->regs != NULL);
+dhd_sdio.c:4386:		bus->hostintmask = HOSTINTMASK;
+dhd_sdio.c:4388:		if ((bus->sih->buscoretype == SDIOD_CORE_ID) && (bus->sdpcmrev == 4) &&
+dhd_sdio.c:4389:			(bus->rxint_mode != SDIO_DEVICE_HMB_RXINT)) {
+dhd_sdio.c:4390:			bus->hostintmask &= ~I_HMB_FRAME_IND;
+dhd_sdio.c:4391:			bus->hostintmask |= I_XMTDATA_AVAIL;
+dhd_sdio.c:4393:		W_SDREG(bus->hostintmask, &bus->regs->hostintmask, retries);
+dhd_sdio.c:4395:		if (bus->sih->buscorerev < 15) {
+dhd_sdio.c:4396:			bcmsdh_cfg_write(bus->sdh, SDIO_FUNC_1, SBSDIO_WATERMARK,
+dhd_sdio.c:4403:		/* bcmsdh_intr_unmask(bus->sdh); */
+dhd_sdio.c:4405:		bus->intdis = FALSE;
+dhd_sdio.c:4406:		if (bus->intr) {
+dhd_sdio.c:4408:			bcmsdh_intr_enable(bus->sdh);
+dhd_sdio.c:4411:			bcmsdh_intr_disable(bus->sdh);
+dhd_sdio.c:4420:		bcmsdh_cfg_write(bus->sdh, SDIO_FUNC_0, SDIOD_CCCR_IOEN, enable, NULL);
+dhd_sdio.c:4426:		bus->hostintmask &= ~I_CHIPACTIVE;
+dhd_sdio.c:4427:		W_SDREG(bus->hostintmask, &bus->regs->hostintmask, retries);
+dhd_sdio.c:4429:		__FUNCTION__, bus->hostintmask));
+dhd_sdio.c:4432:		bcmsdh_cfg_write(bus->sdh, SDIO_FUNC_1,
+dhd_sdio.c:4441:		dhd_os_sdunlock(bus->dhd);
+dhd_sdio.c:4449:	bcmsdh_info_t *sdh = bus->sdh;
+dhd_sdio.c:4450:	sdpcmd_regs_t *regs = bus->regs;
+dhd_sdio.c:4473:	bus->f1regdata++;
+dhd_sdio.c:4484:		bus->f1regdata += 2;
+dhd_sdio.c:4503:		bus->rxrtx++;
+dhd_sdio.c:4505:		bus->f1regdata++;
+dhd_sdio.c:4507:			bus->rxskip = TRUE;
+dhd_sdio.c:4512:	bus->nextlen = 0;
+dhd_sdio.c:4517:		bus->dhd->busstate = DHD_BUS_DOWN;
+dhd_sdio.c:4523:	bcmsdh_info_t *sdh = bus->sdh;
+dhd_sdio.c:4531:	if ((bus->bus == SPI_BUS) && (!bus->usebufpool))
+dhd_sdio.c:4534:	ASSERT(bus->rxbuf);
+dhd_sdio.c:4536:	bus->rxctl = bus->rxbuf;
+dhd_sdio.c:4538:		bus->rxctl += firstread;
+dhd_sdio.c:4539:		if ((pad = ((uintptr)bus->rxctl % DHD_SDALIGN)))
+dhd_sdio.c:4540:			bus->rxctl += (DHD_SDALIGN - pad);
+dhd_sdio.c:4541:		bus->rxctl -= firstread;
+dhd_sdio.c:4543:	ASSERT(bus->rxctl >= bus->rxbuf);
+dhd_sdio.c:4546:	bcopy(hdr, bus->rxctl, firstread);
+dhd_sdio.c:4551:	if (bus->bus == SPI_BUS) {
+dhd_sdio.c:4552:		bcopy(hdr, bus->rxctl, len);
+dhd_sdio.c:4558:	if (bus->roundup && bus->blocksize && (rdlen > bus->blocksize)) {
+dhd_sdio.c:4559:		pad = bus->blocksize - (rdlen % bus->blocksize);
+dhd_sdio.c:4560:		if ((pad <= bus->roundup) && (pad < bus->blocksize) &&
+dhd_sdio.c:4561:		    ((len + pad) < bus->dhd->maxctl))
+dhd_sdio.c:4572:	if ((rdlen + firstread) > bus->dhd->maxctl) {
+dhd_sdio.c:4574:		           __FUNCTION__, rdlen, bus->dhd->maxctl));
+dhd_sdio.c:4575:		bus->dhd->rx_errors++;
+dhd_sdio.c:4580:	if ((len - doff) > bus->dhd->maxctl) {
+dhd_sdio.c:4582:		           __FUNCTION__, len, (len - doff), bus->dhd->maxctl));
+dhd_sdio.c:4583:		bus->dhd->rx_errors++; bus->rx_toolong++;
+dhd_sdio.c:4591:	                            (bus->rxctl + firstread), rdlen, NULL, NULL, NULL);
+dhd_sdio.c:4592:	bus->f2rxdata++;
+dhd_sdio.c:4598:		bus->rxc_errors++; /* dhd.rx_ctlerrs is higher level */
+dhd_sdio.c:4607:		prhex("RxCtrl", bus->rxctl, len);
+dhd_sdio.c:4612:	bus->rxctl += doff;
+dhd_sdio.c:4613:	bus->rxlen = len - doff;
+dhd_sdio.c:4617:	dhd_os_ioctl_resp_wake(bus->dhd);
+dhd_sdio.c:4634:	osl_t *osh = bus->dhd->osh;
+dhd_sdio.c:4643:	bool usechain = bus->use_rxchain;
+dhd_sdio.c:4648:	DHD_TRACE(("dhdsdio_rxglom: start: glomd %p glom %p\n", bus->glomd, bus->glom));
+dhd_sdio.c:4651:	if (bus->glomd) {
+dhd_sdio.c:4652:		dhd_os_sdlock_rxq(bus->dhd);
+dhd_sdio.c:4655:		dlen = (uint16)PKTLEN(osh, bus->glomd);
+dhd_sdio.c:4656:		dptr = PKTDATA(osh, bus->glomd);
+dhd_sdio.c:4684:				sublen += (ROUNDUP(totlen, bus->blocksize) - totlen);
+dhd_sdio.c:4685:				totlen = ROUNDUP(totlen, bus->blocksize);
+dhd_sdio.c:4712:			if (DHD_GLOM_ON() && bus->nextlen) {
+dhd_sdio.c:4713:				if (totlen != bus->nextlen) {
+dhd_sdio.c:4715:					          "rxseq %d\n", __FUNCTION__, bus->nextlen,
+dhd_sdio.c:4719:			bus->glom = pfirst;
+dhd_sdio.c:4724:			bus->glom = NULL;
+dhd_sdio.c:4729:		PKTFREE(osh, bus->glomd, FALSE);
+dhd_sdio.c:4730:		bus->glomd = NULL;
+dhd_sdio.c:4731:		bus->nextlen = 0;
+dhd_sdio.c:4733:		dhd_os_sdunlock_rxq(bus->dhd);
+dhd_sdio.c:4737:	if (bus->glom) {
+dhd_sdio.c:4740:			for (pnext = bus->glom; pnext; pnext = PKTNEXT(osh, pnext)) {
+dhd_sdio.c:4747:		pfirst = bus->glom;
+dhd_sdio.c:4756:			                              bcmsdh_cur_sbwad(bus->sdh), SDIO_FUNC_2,
+dhd_sdio.c:4759:		} else if (bus->dataptr) {
+dhd_sdio.c:4761:			                              bcmsdh_cur_sbwad(bus->sdh), SDIO_FUNC_2,
+dhd_sdio.c:4762:			                              F2SYNC, bus->dataptr,
+dhd_sdio.c:4764:			sublen = (uint16)pktfrombuf(osh, pfirst, 0, dlen, bus->dataptr);
+dhd_sdio.c:4775:		bus->f2rxdata++;
+dhd_sdio.c:4782:			bus->dhd->rx_errors++;
+dhd_sdio.c:4784:			if (bus->glomerr++ < 3) {
+dhd_sdio.c:4787:				bus->glomerr = 0;
+dhd_sdio.c:4789:				dhd_os_sdlock_rxq(bus->dhd);
+dhd_sdio.c:4790:				PKTFREE(osh, bus->glom, FALSE);
+dhd_sdio.c:4791:				dhd_os_sdunlock_rxq(bus->dhd);
+dhd_sdio.c:4792:				bus->rxglomfail++;
+dhd_sdio.c:4793:				bus->glom = NULL;
+dhd_sdio.c:4813:		bus->nextlen = dptr[SDPCM_FRAMETAG_LEN + SDPCM_NEXTLEN_OFFSET];
+dhd_sdio.c:4814:		if ((bus->nextlen << 4) > MAX_RX_DATASZ) {
+dhd_sdio.c:4816:			          __FUNCTION__, bus->nextlen, seq));
+dhd_sdio.c:4817:			bus->nextlen = 0;
+dhd_sdio.c:4827:		} else if (ROUNDUP(sublen, bus->blocksize) != dlen) {
+dhd_sdio.c:4829:			           __FUNCTION__, sublen, ROUNDUP(sublen, bus->blocksize), dlen));
+dhd_sdio.c:4850:			bus->rx_badseq++;
+dhd_sdio.c:4855:		if ((uint8)(txmax - bus->tx_seq) > 0x70) {
+dhd_sdio.c:4857:			           __FUNCTION__, txmax, bus->tx_seq));
+dhd_sdio.c:4858:			txmax = bus->tx_max;
+dhd_sdio.c:4860:		bus->tx_max = txmax;
+dhd_sdio.c:4905:			if (bus->glomerr++ < 3) {
+dhd_sdio.c:4910:				bus->glomerr = 0;
+dhd_sdio.c:4912:				dhd_os_sdlock_rxq(bus->dhd);
+dhd_sdio.c:4913:				PKTFREE(osh, bus->glom, FALSE);
+dhd_sdio.c:4914:				dhd_os_sdunlock_rxq(bus->dhd);
+dhd_sdio.c:4915:				bus->rxglomfail++;
+dhd_sdio.c:4916:				bus->glom = NULL;
+dhd_sdio.c:4918:			bus->nextlen = 0;
+dhd_sdio.c:4923:		bus->glom = NULL;
+dhd_sdio.c:4926:		dhd_os_sdlock_rxq(bus->dhd);
+dhd_sdio.c:4946:				bus->rx_badseq++;
+dhd_sdio.c:4962:				PKTFREE(bus->dhd->osh, pfirst, FALSE);
+dhd_sdio.c:4964:			} else if (dhd_prot_hdrpull(bus->dhd, &ifidx, pfirst, reorder_info_buf,
+dhd_sdio.c:4967:				bus->dhd->rx_errors++;
+dhd_sdio.c:4977:				dhd_process_pkt_reorder_info(bus->dhd, reorder_info_buf,
+dhd_sdio.c:5024:		dhd_os_sdunlock_rxq(bus->dhd);
+dhd_sdio.c:5036:					dhd_os_sdunlock(bus->dhd);
+dhd_sdio.c:5037:					dhd_rx_frame(bus->dhd, idx, list_head[idx], cnt, 0);
+dhd_sdio.c:5038:					dhd_os_sdlock(bus->dhd);
+dhd_sdio.c:5042:		bus->rxglomframes++;
+dhd_sdio.c:5043:		bus->rxglompkts += num;
+dhd_sdio.c:5053:	osl_t *osh = bus->dhd->osh;
+dhd_sdio.c:5054:	bcmsdh_info_t *sdh = bus->sdh;
+dhd_sdio.c:5082:	bus->readframes = TRUE;
+dhd_sdio.c:5086:		bus->readframes = FALSE;
+dhd_sdio.c:5094:	if (bus->pktgen_count && (bus->pktgen_mode == DHD_PKTGEN_RECV)) {
+dhd_sdio.c:5095:		maxframes = bus->pktgen_count;
+dhd_sdio.c:5104:	for (rxseq = bus->rx_seq, rxleft = maxframes;
+dhd_sdio.c:5105:	     !bus->rxskip && rxleft && bus->dhd->busstate != DHD_BUS_DOWN;
+dhd_sdio.c:5108:		if (bus->dhd->tcpack_sup_mode != TCPACK_SUP_DELAYTX) {
+dhd_sdio.c:5109:			if (bus->dotxinrx == FALSE)
+dhd_sdio.c:5111:					__FUNCTION__, __LINE__, bus->dhd->tcpack_sup_mode));
+dhd_sdio.c:5114:		else if (pktq_mlen(&bus->txq, ~bus->flowcontrol) > 0) {
+dhd_sdio.c:5115:			tack_tbl.cnt[bus->dotxinrx ? 6 : 7]++;
+dhd_sdio.c:5120:		if (TXCTLOK(bus) && bus->ctrl_frame_stat && (bus->clkstate == CLK_AVAIL)) {
+dhd_sdio.c:5122:		} else if (bus->dotxinrx && (bus->clkstate == CLK_AVAIL) &&
+dhd_sdio.c:5123:			!bus->fcstate && DATAOK(bus) &&
+dhd_sdio.c:5124:			(pktq_mlen(&bus->txq, ~bus->flowcontrol) > bus->txinrx_thres)) {
+dhd_sdio.c:5132:			bus->dotxinrx = (bus->dhd->tcpack_sup_mode == TCPACK_SUP_DELAYTX) ?
+dhd_sdio.c:5138:		if (bus->glom || bus->glomd) {
+dhd_sdio.c:5141:			          __FUNCTION__, bus->glomd, bus->glom));
+dhd_sdio.c:5150:		if (dhd_readahead && bus->nextlen) {
+dhd_sdio.c:5151:			uint16 nextlen = bus->nextlen;
+dhd_sdio.c:5152:			bus->nextlen = 0;
+dhd_sdio.c:5154:			if (bus->bus == SPI_BUS) {
+dhd_sdio.c:5161:				if (bus->roundup && bus->blocksize && (rdlen > bus->blocksize)) {
+dhd_sdio.c:5162:					pad = bus->blocksize - (rdlen % bus->blocksize);
+dhd_sdio.c:5163:					if ((pad <= bus->roundup) && (pad < bus->blocksize) &&
+dhd_sdio.c:5171:			/* We use bus->rxctl buffer in WinXP for initial control pkt receives.
+dhd_sdio.c:5178:			dhd_os_sdlock_rxq(bus->dhd);
+dhd_sdio.c:5180:				if (bus->bus == SPI_BUS) {
+dhd_sdio.c:5181:					bus->usebufpool = FALSE;
+dhd_sdio.c:5182:					bus->rxctl = bus->rxbuf;
+dhd_sdio.c:5184:						bus->rxctl += firstread;
+dhd_sdio.c:5185:						if ((pad = ((uintptr)bus->rxctl % DHD_SDALIGN)))
+dhd_sdio.c:5186:							bus->rxctl += (DHD_SDALIGN - pad);
+dhd_sdio.c:5187:						bus->rxctl -= firstread;
+dhd_sdio.c:5189:					ASSERT(bus->rxctl >= bus->rxbuf);
+dhd_sdio.c:5190:					rxbuf = bus->rxctl;
+dhd_sdio.c:5197:					bus->f2rxdata++;
+dhd_sdio.c:5206:						bus->rxc_errors++;
+dhd_sdio.c:5207:						dhd_os_sdunlock_rxq(bus->dhd);
+dhd_sdio.c:5209:						    (bus->bus == SPI_BUS) ? FALSE : TRUE);
+dhd_sdio.c:5218:					dhd_os_sdunlock_rxq(bus->dhd);
+dhd_sdio.c:5222:				if (bus->bus == SPI_BUS)
+dhd_sdio.c:5223:					bus->usebufpool = TRUE;
+dhd_sdio.c:5233:				bus->f2rxdata++;
+dhd_sdio.c:5239:					PKTFREE(bus->dhd->osh, pkt, FALSE);
+dhd_sdio.c:5240:					bus->dhd->rx_errors++;
+dhd_sdio.c:5241:					dhd_os_sdunlock_rxq(bus->dhd);
+dhd_sdio.c:5246:					      (bus->bus == SPI_BUS) ? FALSE : TRUE);
+dhd_sdio.c:5250:			dhd_os_sdunlock_rxq(bus->dhd);
+dhd_sdio.c:5253:			bcopy(rxbuf, bus->rxhdr, SDPCM_HDRLEN);
+dhd_sdio.c:5256:			len = ltoh16_ua(bus->rxhdr);
+dhd_sdio.c:5257:			check = ltoh16_ua(bus->rxhdr + sizeof(uint16));
+dhd_sdio.c:5263:				dhd_os_sdlock_rxq(bus->dhd);
+dhd_sdio.c:5265:				dhd_os_sdunlock_rxq(bus->dhd);
+dhd_sdio.c:5275:				dhd_os_sdlock_rxq(bus->dhd);
+dhd_sdio.c:5277:				dhd_os_sdunlock_rxq(bus->dhd);
+dhd_sdio.c:5278:				bus->rx_badhdr++;
+dhd_sdio.c:5288:				dhd_os_sdlock_rxq(bus->dhd);
+dhd_sdio.c:5290:				dhd_os_sdunlock_rxq(bus->dhd);
+dhd_sdio.c:5302:				dhd_os_sdlock_rxq(bus->dhd);
+dhd_sdio.c:5304:				dhd_os_sdunlock_rxq(bus->dhd);
+dhd_sdio.c:5305:				dhdsdio_rxfail(bus, TRUE, (bus->bus == SPI_BUS) ? FALSE : TRUE);
+dhd_sdio.c:5312:			chan = SDPCM_PACKET_CHANNEL(&bus->rxhdr[SDPCM_FRAMETAG_LEN]);
+dhd_sdio.c:5313:			seq = SDPCM_PACKET_SEQUENCE(&bus->rxhdr[SDPCM_FRAMETAG_LEN]);
+dhd_sdio.c:5314:			doff = SDPCM_DOFFSET_VALUE(&bus->rxhdr[SDPCM_FRAMETAG_LEN]);
+dhd_sdio.c:5315:			txmax = SDPCM_WINDOW_VALUE(&bus->rxhdr[SDPCM_FRAMETAG_LEN]);
+dhd_sdio.c:5317:				bus->nextlen =
+dhd_sdio.c:5318:				         bus->rxhdr[SDPCM_FRAMETAG_LEN + SDPCM_NEXTLEN_OFFSET];
+dhd_sdio.c:5319:				if ((bus->nextlen << 4) > MAX_RX_DATASZ) {
+dhd_sdio.c:5321:					          " (%d), seq %d\n", __FUNCTION__, bus->nextlen,
+dhd_sdio.c:5323:					bus->nextlen = 0;
+dhd_sdio.c:5326:				bus->dhd->rx_readahead_cnt ++;
+dhd_sdio.c:5328:			fcbits = SDPCM_FCMASK_VALUE(&bus->rxhdr[SDPCM_FRAMETAG_LEN]);
+dhd_sdio.c:5331:			if (~bus->flowcontrol & fcbits) {
+dhd_sdio.c:5332:				bus->fc_xoff++;
+dhd_sdio.c:5335:			if (bus->flowcontrol & ~fcbits) {
+dhd_sdio.c:5336:				bus->fc_xon++;
+dhd_sdio.c:5341:				bus->fc_rcvd++;
+dhd_sdio.c:5342:				bus->flowcontrol = fcbits;
+dhd_sdio.c:5349:				bus->rx_badseq++;
+dhd_sdio.c:5354:			if ((uint8)(txmax - bus->tx_seq) > 0x70) {
+dhd_sdio.c:5356:						__FUNCTION__, txmax, bus->tx_seq));
+dhd_sdio.c:5357:					txmax = bus->tx_max;
+dhd_sdio.c:5359:			bus->tx_max = txmax;
+dhd_sdio.c:5365:				prhex("RxHdr", bus->rxhdr, SDPCM_HDRLEN);
+dhd_sdio.c:5370:				if (bus->bus == SPI_BUS) {
+dhd_sdio.c:5372:					if (bus->usebufpool) {
+dhd_sdio.c:5373:						dhd_os_sdlock_rxq(bus->dhd);
+dhd_sdio.c:5374:						PKTFREE(bus->dhd->osh, pkt, FALSE);
+dhd_sdio.c:5375:						dhd_os_sdunlock_rxq(bus->dhd);
+dhd_sdio.c:5382:					bus->nextlen = 0;
+dhd_sdio.c:5384:					dhd_os_sdlock_rxq(bus->dhd);
+dhd_sdio.c:5386:					dhd_os_sdunlock_rxq(bus->dhd);
+dhd_sdio.c:5391:			if ((bus->bus == SPI_BUS) && !bus->usebufpool) {
+dhd_sdio.c:5401:				dhd_os_sdlock_rxq(bus->dhd);
+dhd_sdio.c:5403:				dhd_os_sdunlock_rxq(bus->dhd);
+dhd_sdio.c:5413:		if (bus->bus == SPI_BUS) {
+dhd_sdio.c:5419:		                            bus->rxhdr, firstread, NULL, NULL, NULL);
+dhd_sdio.c:5420:		bus->f2rxhdrs++;
+dhd_sdio.c:5425:			bus->rx_hdrfail++;
+dhd_sdio.c:5432:			prhex("RxHdr", bus->rxhdr, SDPCM_HDRLEN);
+dhd_sdio.c:5437:		len = ltoh16_ua(bus->rxhdr);
+dhd_sdio.c:5438:		check = ltoh16_ua(bus->rxhdr + sizeof(uint16));
+dhd_sdio.c:5450:			bus->rx_badhdr++;
+dhd_sdio.c:5462:		chan = SDPCM_PACKET_CHANNEL(&bus->rxhdr[SDPCM_FRAMETAG_LEN]);
+dhd_sdio.c:5463:		seq = SDPCM_PACKET_SEQUENCE(&bus->rxhdr[SDPCM_FRAMETAG_LEN]);
+dhd_sdio.c:5464:		doff = SDPCM_DOFFSET_VALUE(&bus->rxhdr[SDPCM_FRAMETAG_LEN]);
+dhd_sdio.c:5465:		txmax = SDPCM_WINDOW_VALUE(&bus->rxhdr[SDPCM_FRAMETAG_LEN]);
+dhd_sdio.c:5471:			bus->rx_badhdr++;
+dhd_sdio.c:5478:		bus->nextlen = bus->rxhdr[SDPCM_FRAMETAG_LEN + SDPCM_NEXTLEN_OFFSET];
+dhd_sdio.c:5479:		if ((bus->nextlen << 4) > MAX_RX_DATASZ) {
+dhd_sdio.c:5481:			          __FUNCTION__, bus->nextlen, seq));
+dhd_sdio.c:5482:			bus->nextlen = 0;
+dhd_sdio.c:5486:		fcbits = SDPCM_FCMASK_VALUE(&bus->rxhdr[SDPCM_FRAMETAG_LEN]);
+dhd_sdio.c:5489:		if (~bus->flowcontrol & fcbits) {
+dhd_sdio.c:5490:			bus->fc_xoff++;
+dhd_sdio.c:5493:		if (bus->flowcontrol & ~fcbits) {
+dhd_sdio.c:5494:			bus->fc_xon++;
+dhd_sdio.c:5499:			bus->fc_rcvd++;
+dhd_sdio.c:5500:			bus->flowcontrol = fcbits;
+dhd_sdio.c:5506:			bus->rx_badseq++;
+dhd_sdio.c:5511:		if ((uint8)(txmax - bus->tx_seq) > 0x70) {
+dhd_sdio.c:5513:			           __FUNCTION__, txmax, bus->tx_seq));
+dhd_sdio.c:5514:			txmax = bus->tx_max;
+dhd_sdio.c:5516:		bus->tx_max = txmax;
+dhd_sdio.c:5520:			dhdsdio_read_control(bus, bus->rxhdr, len, doff);
+dhd_sdio.c:5531:		if (bus->roundup && bus->blocksize && (rdlen > bus->blocksize)) {
+dhd_sdio.c:5532:			pad = bus->blocksize - (rdlen % bus->blocksize);
+dhd_sdio.c:5533:			if ((pad <= bus->roundup) && (pad < bus->blocksize) &&
+dhd_sdio.c:5547:			bus->dhd->rx_errors++; bus->rx_toolong++;
+dhd_sdio.c:5552:		dhd_os_sdlock_rxq(bus->dhd);
+dhd_sdio.c:5557:			bus->dhd->rx_dropped++;
+dhd_sdio.c:5558:			dhd_os_sdunlock_rxq(bus->dhd);
+dhd_sdio.c:5562:		dhd_os_sdunlock_rxq(bus->dhd);
+dhd_sdio.c:5574:		bus->f2rxdata++;
+dhd_sdio.c:5581:			dhd_os_sdlock_rxq(bus->dhd);
+dhd_sdio.c:5582:			PKTFREE(bus->dhd->osh, pkt, FALSE);
+dhd_sdio.c:5583:			dhd_os_sdunlock_rxq(bus->dhd);
+dhd_sdio.c:5584:			bus->dhd->rx_errors++;
+dhd_sdio.c:5591:		bcopy(bus->rxhdr, PKTDATA(osh, pkt), firstread);
+dhd_sdio.c:5602:			if (SDPCM_GLOMDESC(&bus->rxhdr[SDPCM_FRAMETAG_LEN])) {
+dhd_sdio.c:5613:				bus->glomd = pkt;
+dhd_sdio.c:5634:			dhd_os_sdlock_rxq(bus->dhd);
+dhd_sdio.c:5635:			PKTFREE(bus->dhd->osh, pkt, FALSE);
+dhd_sdio.c:5636:			dhd_os_sdunlock_rxq(bus->dhd);
+dhd_sdio.c:5638:		} else if (dhd_prot_hdrpull(bus->dhd, &ifidx, pkt, reorder_info_buf,
+dhd_sdio.c:5641:			dhd_os_sdlock_rxq(bus->dhd);
+dhd_sdio.c:5642:			PKTFREE(bus->dhd->osh, pkt, FALSE);
+dhd_sdio.c:5643:			dhd_os_sdunlock_rxq(bus->dhd);
+dhd_sdio.c:5644:			bus->dhd->rx_errors++;
+dhd_sdio.c:5649:			dhd_process_pkt_reorder_info(bus->dhd, reorder_info_buf, reorder_info_len,
+dhd_sdio.c:5658:		dhd_os_sdunlock(bus->dhd);
+dhd_sdio.c:5659:		dhd_rx_frame(bus->dhd, ifidx, pkt, pkt_count, chan);
+dhd_sdio.c:5660:		dhd_os_sdlock(bus->dhd);
+dhd_sdio.c:5671:	if (bus->rxskip)
+dhd_sdio.c:5673:	bus->rx_seq = rxseq;
+dhd_sdio.c:5675:	if (bus->reqbussleep)
+dhd_sdio.c:5678:		bus->reqbussleep = FALSE;
+dhd_sdio.c:5680:	bus->readframes = FALSE;
+dhd_sdio.c:5688:	sdpcmd_regs_t *regs = bus->regs;
+dhd_sdio.c:5700:	bus->f1regdata += 2;
+dhd_sdio.c:5704:		DHD_INFO(("Dongle reports NAK handled, expect rtx of %d\n", bus->rx_seq));
+dhd_sdio.c:5705:		if (!bus->rxskip) {
+dhd_sdio.c:5708:		bus->rxskip = FALSE;
+dhd_sdio.c:5716:		bus->sdpcm_ver = (hmb_data & HMB_DATA_VERSION_MASK) >> HMB_DATA_VERSION_SHIFT;
+dhd_sdio.c:5717:		if (bus->sdpcm_ver != SDPCM_PROT_VERSION)
+dhd_sdio.c:5719:			           bus->sdpcm_ver, SDPCM_PROT_VERSION));
+dhd_sdio.c:5721:			DHD_INFO(("Dongle ready, protocol version %d\n", bus->sdpcm_ver));
+dhd_sdio.c:5723:		if ((bus->sih->buscoretype == SDIOD_CORE_ID) && (bus->sdpcmrev >= 4) &&
+dhd_sdio.c:5724:		    (bus->rxint_mode  == SDIO_DEVICE_RXDATAINT_MODE_1)) {
+dhd_sdio.c:5727:			val = R_REG(bus->dhd->osh, &bus->regs->corecontrol);
+dhd_sdio.c:5730:			W_REG(bus->dhd->osh, &bus->regs->corecontrol, val);
+dhd_sdio.c:5732:			val = R_REG(bus->dhd->osh, &bus->regs->corecontrol);
+dhd_sdio.c:5740:				bus->console_addr = shared.console_addr;
+dhd_sdio.c:5753:		if (fcbits & ~bus->flowcontrol)
+dhd_sdio.c:5754:			bus->fc_xoff++;
+dhd_sdio.c:5755:		if (bus->flowcontrol & ~fcbits)
+dhd_sdio.c:5756:			bus->fc_xon++;
+dhd_sdio.c:5758:		bus->fc_rcvd++;
+dhd_sdio.c:5759:		bus->flowcontrol = fcbits;
+dhd_sdio.c:5767:		bus->dhd->busstate = DHD_BUS_DOWN;
+dhd_sdio.c:5788:	bcmsdh_info_t *sdh = bus->sdh;
+dhd_sdio.c:5789:	sdpcmd_regs_t *regs = bus->regs;
+dhd_sdio.c:5799:	dhd_os_sdlock(bus->dhd);
+dhd_sdio.c:5801:	if (bus->dhd->busstate == DHD_BUS_DOWN) {
+dhd_sdio.c:5803:		bus->intstatus = 0;
+dhd_sdio.c:5804:		dhd_os_sdunlock(bus->dhd);
+dhd_sdio.c:5809:	intstatus = bus->intstatus;
+dhd_sdio.c:5817:	if (!SLPAUTO_ENAB(bus) && (bus->clkstate == CLK_PENDING)) {
+dhd_sdio.c:5826:			bus->dhd->busstate = DHD_BUS_DOWN;
+dhd_sdio.c:5836:			bus->dhd->busstate = DHD_BUS_DOWN;
+dhd_sdio.c:5846:				bus->dhd->busstate = DHD_BUS_DOWN;
+dhd_sdio.c:5853:				bus->dhd->busstate = DHD_BUS_DOWN;
+dhd_sdio.c:5855:			bus->clkstate = CLK_AVAIL;
+dhd_sdio.c:5865:	if (bus->clkstate != CLK_AVAIL)
+dhd_sdio.c:5869:	if (bus->ipend) {
+dhd_sdio.c:5870:		bus->ipend = FALSE;
+dhd_sdio.c:5872:		bus->f1regdata++;
+dhd_sdio.c:5873:		if (bcmsdh_regfail(bus->sdh))
+dhd_sdio.c:5875:		newstatus &= bus->hostintmask;
+dhd_sdio.c:5876:		bus->fcstate = !!(newstatus & I_HMB_FC_STATE);
+dhd_sdio.c:5878:			bus->f1regdata++;
+dhd_sdio.c:5879:			if ((bus->rxint_mode == SDIO_DEVICE_RXDATAINT_MODE_0) &&
+dhd_sdio.c:5889:	bus->intstatus = 0;
+dhd_sdio.c:5899:		bus->f1regdata += 2;
+dhd_sdio.c:5900:		bus->fcstate = !!(newstatus & (I_HMB_FC_STATE | I_HMB_FC_CHANGE));
+dhd_sdio.c:5901:		intstatus |= (newstatus & bus->hostintmask);
+dhd_sdio.c:5906:		/* ASSERT(bus->clkstate == CLK_AVAIL); */
+dhd_sdio.c:5944:	if (bus->rxskip) {
+dhd_sdio.c:5951:		if (rxdone || bus->rxskip)
+dhd_sdio.c:5957:	bus->intstatus = intstatus;
+dhd_sdio.c:5964:	if (bus->intr && bus->intdis && !bcmsdh_regfail(sdh)) {
+dhd_sdio.c:5967:		bus->intdis = FALSE;
+dhd_sdio.c:5969:		bcmsdh_oob_intr_set(bus->sdh, TRUE);
+dhd_sdio.c:5984:	if (bcmsdh_regfail(bus->sdh))
+dhd_sdio.c:5986:	if (newstatus & bus->hostintmask) {
+dhd_sdio.c:5987:		bus->ipend = TRUE;
+dhd_sdio.c:5993:	dhd_wlfc_commit_packets(bus->dhd, (f_commitpkt_t)dhd_bus_txdata, (void *)bus, NULL, FALSE);
+dhd_sdio.c:5996:	if (TXCTLOK(bus) && bus->ctrl_frame_stat && (bus->clkstate == CLK_AVAIL))
+dhd_sdio.c:6000:	else if ((bus->clkstate == CLK_AVAIL) && !bus->fcstate &&
+dhd_sdio.c:6001:	    pktq_mlen(&bus->txq, ~bus->flowcontrol) && txlimit && DATAOK(bus)) {
+dhd_sdio.c:6007:	if (bus->ctrl_frame_stat)
+dhd_sdio.c:6012:	if ((bus->dhd->busstate == DHD_BUS_DOWN) || bcmsdh_regfail(sdh)) {
+dhd_sdio.c:6013:		if ((bus->sih && bus->sih->buscorerev >= 12) && !(dhdsdio_sleepcsr_get(bus) &
+dhd_sdio.c:6017:			bus->kso = FALSE;
+dhd_sdio.c:6021:			bus->dhd->busstate = DHD_BUS_DOWN;
+dhd_sdio.c:6022:			bus->intstatus = 0;
+dhd_sdio.c:6024:	} else if (bus->clkstate == CLK_PENDING) {
+dhd_sdio.c:6026:	} else if (bus->intstatus || bus->ipend ||
+dhd_sdio.c:6027:	           (!bus->fcstate && pktq_mlen(&bus->txq, ~bus->flowcontrol) && DATAOK(bus)) ||
+dhd_sdio.c:6028:			PKT_AVAILABLE(bus, bus->intstatus)) {  /* Read multiple frames */
+dhd_sdio.c:6032:	bus->dpc_sched = resched;
+dhd_sdio.c:6035:	if ((bus->idletime == DHD_IDLE_IMMEDIATE) && (bus->clkstate != CLK_PENDING)) {
+dhd_sdio.c:6036:		bus->activity = FALSE;
+dhd_sdio.c:6047:	dhd_os_sdunlock(bus->dhd);
+dhd_sdio.c:6075:	sdh = bus->sdh;
+dhd_sdio.c:6077:	if (bus->dhd->busstate == DHD_BUS_DOWN) {
+dhd_sdio.c:6085:	bus->intrcount++;
+dhd_sdio.c:6086:	bus->ipend = TRUE;
+dhd_sdio.c:6090:		if (bus->sleeping) {
+dhd_sdio.c:6099:	if (bus->intr) {
+dhd_sdio.c:6108:	bus->intdis = TRUE;
+dhd_sdio.c:6112:	DHD_OS_WAKE_LOCK(bus->dhd);
+dhd_sdio.c:6114:	DHD_OS_WAKE_UNLOCK(bus->dhd);
+dhd_sdio.c:6118:	bus->dpc_sched = TRUE;
+dhd_sdio.c:6119:	dhd_sched_dpc(bus->dhd);
+dhd_sdio.c:6132:		bus->pktgen_maxlen = MIN(dhd_pktgen_len, MAX_PKTGEN_LEN);
+dhd_sdio.c:6133:		bus->pktgen_minlen = bus->pktgen_maxlen;
+dhd_sdio.c:6135:		bus->pktgen_maxlen = MAX_PKTGEN_LEN;
+dhd_sdio.c:6136:		bus->pktgen_minlen = 0;
+dhd_sdio.c:6138:	bus->pktgen_len = (uint16)bus->pktgen_minlen;
+dhd_sdio.c:6141:	bus->pktgen_freq = 1;
+dhd_sdio.c:6142:	bus->pktgen_print = dhd_watchdog_ms ? (10000 / dhd_watchdog_ms) : 0;
+dhd_sdio.c:6143:	bus->pktgen_count = (dhd_pktgen * dhd_watchdog_ms + 999) / 1000;
+dhd_sdio.c:6146:	bus->pktgen_mode = DHD_PKTGEN_ECHO;
+dhd_sdio.c:6147:	bus->pktgen_stop = 1;
+dhd_sdio.c:6157:	osl_t *osh = bus->dhd->osh;
+dhd_sdio.c:6164:	if (bus->pktgen_print && (++bus->pktgen_ptick >= bus->pktgen_print)) {
+dhd_sdio.c:6165:		bus->pktgen_ptick = 0;
+dhd_sdio.c:6167:		       __FUNCTION__, bus->pktgen_sent, bus->pktgen_rcvd, bus->pktgen_fail);
+dhd_sdio.c:6170:		if (bus->pktgen_minlen == bus->pktgen_maxlen) {
+dhd_sdio.c:6171:			time_lapse = jiffies - bus->pktgen_prev_time;
+dhd_sdio.c:6172:			bus->pktgen_prev_time = jiffies;
+dhd_sdio.c:6173:			sent_pkts = bus->pktgen_sent - bus->pktgen_prev_sent;
+dhd_sdio.c:6174:			bus->pktgen_prev_sent = bus->pktgen_sent;
+dhd_sdio.c:6175:			rcvd_pkts = bus->pktgen_rcvd - bus->pktgen_prev_rcvd;
+dhd_sdio.c:6176:			bus->pktgen_prev_rcvd = bus->pktgen_rcvd;
+dhd_sdio.c:6180:			  (sent_pkts * bus->pktgen_len / jiffies_to_msecs(time_lapse)) * 8,
+dhd_sdio.c:6181:			  (rcvd_pkts * bus->pktgen_len  / jiffies_to_msecs(time_lapse)) * 8);
+dhd_sdio.c:6186:	if (bus->pktgen_mode == DHD_PKTGEN_RECV) {
+dhd_sdio.c:6187:		if (bus->pktgen_rcv_state == PKTGEN_RCV_IDLE) {
+dhd_sdio.c:6188:			bus->pktgen_rcv_state = PKTGEN_RCV_ONGOING;
+dhd_sdio.c:6189:			dhdsdio_sdtest_set(bus, bus->pktgen_total);
+dhd_sdio.c:6195:	for (pktcount = 0; pktcount < bus->pktgen_count; pktcount++) {
+dhd_sdio.c:6197:		if (bus->pktgen_total && (bus->pktgen_sent >= bus->pktgen_total)) {
+dhd_sdio.c:6198:			bus->pktgen_count = 0;
+dhd_sdio.c:6203:		if (bus->pktgen_mode == DHD_PKTGEN_RXBURST) {
+dhd_sdio.c:6206:			len = bus->pktgen_len;
+dhd_sdio.c:6217:		switch (bus->pktgen_mode) {
+dhd_sdio.c:6220:			*data++ = (uint8)bus->pktgen_sent;
+dhd_sdio.c:6225:			*data++ = (uint8)bus->pktgen_sent;
+dhd_sdio.c:6230:			*data++ = (uint8)bus->pktgen_count; /* Just for backward compatability */
+dhd_sdio.c:6234:			DHD_ERROR(("Unrecognized pktgen mode %d\n", bus->pktgen_mode));
+dhd_sdio.c:6236:			bus->pktgen_count = 0;
+dhd_sdio.c:6241:		*data++ = (bus->pktgen_len >> 0);
+dhd_sdio.c:6242:		*data++ = (bus->pktgen_len >> 8);
+dhd_sdio.c:6247:		if (bus->pktgen_mode == DHD_PKTGEN_RXBURST) {
+dhd_sdio.c:6248:			*data++ = (uint8)(bus->pktgen_count >> 0);
+dhd_sdio.c:6249:			*data++ = (uint8)(bus->pktgen_count >> 8);
+dhd_sdio.c:6250:			*data++ = (uint8)(bus->pktgen_count >> 16);
+dhd_sdio.c:6251:			*data++ = (uint8)(bus->pktgen_count >> 24);
+dhd_sdio.c:6256:				*data++ = SDPCM_TEST_FILL(fillbyte, (uint8)bus->pktgen_sent);
+dhd_sdio.c:6268:			bus->pktgen_fail++;
+dhd_sdio.c:6269:			if (bus->pktgen_stop && bus->pktgen_stop == bus->pktgen_fail)
+dhd_sdio.c:6270:				bus->pktgen_count = 0;
+dhd_sdio.c:6272:		bus->pktgen_sent++;
+dhd_sdio.c:6275:		if (++bus->pktgen_len > bus->pktgen_maxlen)
+dhd_sdio.c:6276:			bus->pktgen_len = (uint16)bus->pktgen_minlen;
+dhd_sdio.c:6279:		if (bus->pktgen_mode == DHD_PKTGEN_RXBURST)
+dhd_sdio.c:6289:	osl_t *osh = bus->dhd->osh;
+dhd_sdio.c:6304:	*data++ = (bus->pktgen_maxlen >> 0);
+dhd_sdio.c:6305:	*data++ = (bus->pktgen_maxlen >> 8);
+dhd_sdio.c:6313:		bus->pktgen_fail++;
+dhd_sdio.c:6320:	osl_t *osh = bus->dhd->osh;
+dhd_sdio.c:6358:			bus->pktgen_sent++;
+dhd_sdio.c:6360:			bus->pktgen_fail++;
+dhd_sdio.c:6363:		bus->pktgen_rcvd++;
+dhd_sdio.c:6367:		if (bus->ext_loop) {
+dhd_sdio.c:6369:			bus->pktgen_rcvd++;
+dhd_sdio.c:6382:		bus->pktgen_rcvd++;
+dhd_sdio.c:6393:						i, bus->pktgen_rcvd_rcvsession, testval, *prn));
+dhd_sdio.c:6399:		bus->pktgen_rcvd++;
+dhd_sdio.c:6412:	if (bus->pktgen_mode == DHD_PKTGEN_RECV) {
+dhd_sdio.c:6413:		if (bus->pktgen_rcv_state != PKTGEN_RCV_IDLE) {
+dhd_sdio.c:6414:			bus->pktgen_rcvd_rcvsession++;
+dhd_sdio.c:6416:			if (bus->pktgen_total &&
+dhd_sdio.c:6417:				(bus->pktgen_rcvd_rcvsession >= bus->pktgen_total)) {
+dhd_sdio.c:6418:			bus->pktgen_count = 0;
+dhd_sdio.c:6420:			bus->pktgen_rcv_state = PKTGEN_RCV_IDLE;
+dhd_sdio.c:6422:				bus->pktgen_rcvd_rcvsession = 0;
+dhd_sdio.c:6434:	err = bcmsdh_oob_intr_register(dhdp->bus->sdh, dhdsdio_isr, dhdp->bus);
+dhd_sdio.c:6442:	bcmsdh_oob_intr_unregister(dhdp->bus->sdh);
+dhd_sdio.c:6449:	bcmsdh_oob_intr_set(dhdp->bus->sdh, enable);
+dhd_sdio.c:6455:	bcmsdh_dev_pm_stay_awake(dhdpub->bus->sdh);
+dhd_sdio.c:6460:	bcmsdh_dev_relax(dhdpub->bus->sdh);
+dhd_sdio.c:6467:	enabled = bcmsdh_dev_pm_enabled(dhdpub->bus->sdh);
+dhd_sdio.c:6480:	if (bus->dhd->dongle_reset)
+dhd_sdio.c:6483:	if (bus->dhd->hang_was_sent) {
+dhd_sdio.c:6484:		dhd_os_wd_timer(bus->dhd, 0);
+dhd_sdio.c:6489:	if (!SLPAUTO_ENAB(bus) && bus->sleeping)
+dhd_sdio.c:6495:	dhd_os_sdlock(bus->dhd);
+dhd_sdio.c:6498:	if (!SLPAUTO_ENAB(bus) && (bus->poll && (++bus->polltick >= bus->pollrate))) {
+dhd_sdio.c:6502:		bus->polltick = 0;
+dhd_sdio.c:6505:		if (!bus->intr || (bus->intrcount == bus->lastintrs)) {
+dhd_sdio.c:6507:			if (!bus->dpc_sched) {
+dhd_sdio.c:6509:				devpend = bcmsdh_cfg_read(bus->sdh, SDIO_FUNC_0,
+dhd_sdio.c:6516:				bus->pollcnt++;
+dhd_sdio.c:6517:				bus->ipend = TRUE;
+dhd_sdio.c:6518:				if (bus->intr) {
+dhd_sdio.c:6519:					bcmsdh_intr_disable(bus->sdh);
+dhd_sdio.c:6521:				bus->dpc_sched = TRUE;
+dhd_sdio.c:6522:				dhd_sched_dpc(bus->dhd);
+dhd_sdio.c:6527:		bus->lastintrs = bus->intrcount;
+dhd_sdio.c:6533:		bus->console.count += dhd_watchdog_ms;
+dhd_sdio.c:6534:		if (bus->console.count >= dhd_console_ms) {
+dhd_sdio.c:6535:			bus->console.count -= dhd_console_ms;
+dhd_sdio.c:6549:	if (bus->pktgen_count && (++bus->pktgen_tick >= bus->pktgen_freq)) {
+dhd_sdio.c:6555:		bus->pktgen_tick = 0;
+dhd_sdio.c:6562:	if (bus->activity)
+dhd_sdio.c:6563:		bus->activity = FALSE;
+dhd_sdio.c:6565:		bus->idlecount++;
+dhd_sdio.c:6567:		if ((bus->idletime > 0) && (bus->idlecount >= bus->idletime)) {
+dhd_sdio.c:6571:					dhd_os_wd_timer(bus->dhd, 0);
+dhd_sdio.c:6575:			bus->idlecount = 0;
+dhd_sdio.c:6579:	if ((bus->idletime > 0) && (bus->clkstate == CLK_AVAIL)) {
+dhd_sdio.c:6580:		if (++bus->idlecount >= bus->idletime) {
+dhd_sdio.c:6581:			bus->idlecount = 0;
+dhd_sdio.c:6582:			if (bus->activity) {
+dhd_sdio.c:6583:				bus->activity = FALSE;
+dhd_sdio.c:6585:					if (!bus->readframes)
+dhd_sdio.c:6588:						bus->reqbussleep = TRUE;
+dhd_sdio.c:6597:	dhd_os_sdunlock(bus->dhd);
+dhd_sdio.c:6599:	return bus->ipend;
+dhd_sdio.c:6612:	if (bus->console_addr == 0)
+dhd_sdio.c:6616:	dhd_os_sdlock(bus->dhd);
+dhd_sdio.c:6619:	if (bus->dhd->dongle_reset) {
+dhd_sdio.c:6620:		dhd_os_sdunlock(bus->dhd);
+dhd_sdio.c:6630:	addr = bus->console_addr + OFFSETOF(hnd_cons_t, cbuf_idx);
+dhd_sdio.c:6636:	addr = bus->console_addr + OFFSETOF(hnd_cons_t, cbuf);
+dhd_sdio.c:6641:	addr = bus->console_addr + OFFSETOF(hnd_cons_t, vcons_in);
+dhd_sdio.c:6649:	if ((pkt = PKTGET(bus->dhd->osh, 4 + SDPCM_RESERVE, TRUE)) != NULL)
+dhd_sdio.c:6653:	if ((bus->idletime == DHD_IDLE_IMMEDIATE) && !bus->dpc_sched) {
+dhd_sdio.c:6654:		bus->activity = FALSE;
+dhd_sdio.c:6658:	dhd_os_sdunlock(bus->dhd);
+dhd_sdio.c:6861:	bus->sdh = sdh;
+dhd_sdio.c:6862:	bus->cl_devid = (uint16)devid;
+dhd_sdio.c:6863:	bus->bus = DHD_BUS;
+dhd_sdio.c:6864:	bus->bus_num = bus_no;
+dhd_sdio.c:6865:	bus->slot_num = slot;
+dhd_sdio.c:6866:	bus->tx_seq = SDPCM_SEQUENCE_WRAP - 1;
+dhd_sdio.c:6867:	bus->usebufpool = FALSE; /* Use bufpool if allocated, else use locally malloced rxbuf */
+dhd_sdio.c:6876:	if (!(bus->dhd = dhd_attach(osh, bus, SDPCM_RESERVE))) {
+dhd_sdio.c:6892:	if (bus->intr) {
+dhd_sdio.c:6910:	bus->dhd->hang_report  = TRUE;
+dhd_sdio.c:6912:		if ((ret = dhd_bus_start(bus->dhd)) != 0) {
+dhd_sdio.c:6918:	if (dhd_register_if(bus->dhd, 0, TRUE) != 0) {
+dhd_sdio.c:6931:	init_waitqueue_head(&bus->bus_sleep);
+dhd_sdio.c:6955:	temp = bcmsdh_reg_read(bus->sdh, 0x180021e0, 4);
+dhd_sdio.c:6959:	bcmsdh_reg_write(bus->sdh, 0x18000644, 4, 0x6000005);
+dhd_sdio.c:6962:	bcmsdh_reg_write(bus->sdh, 0x18000630, 4, 0xC8FFC8);
+dhd_sdio.c:6965:	bcmsdh_reg_write(bus->sdh, 0x180021e0, 4, 0x41);
+dhd_sdio.c:6968:	bcmsdh_reg_write(bus->sdh, 0x18004400, 4, 0xf92f1);
+dhd_sdio.c:6970:	bcmsdh_reg_write(bus->sdh, 0x18000650, 4, 0x3);
+dhd_sdio.c:6971:	bcmsdh_reg_write(bus->sdh, 0x18000654, 4, 0x0);
+dhd_sdio.c:6974:	bcmsdh_reg_write(bus->sdh, 0x18004400, 4, 0xf9af1);
+dhd_sdio.c:6977:	bcmsdh_reg_write(bus->sdh, 0x18004408, 4, 0x0);
+dhd_sdio.c:6980:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:6981:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:6982:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:6983:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:6984:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:6985:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:6986:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:6987:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0xc0002000);
+dhd_sdio.c:6988:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:6989:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:6990:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:6991:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:6992:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:6993:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:6994:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:6995:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:6996:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:6997:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:6998:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:6999:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:7000:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:7001:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:7002:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:7003:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:7004:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:7005:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:7006:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:7007:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:7008:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:7009:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:7010:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:7011:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:7012:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x80008000);
+dhd_sdio.c:7013:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x1051f080);
+dhd_sdio.c:7014:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x80008000);
+dhd_sdio.c:7015:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x1050f080);
+dhd_sdio.c:7016:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x80008000);
+dhd_sdio.c:7017:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x1050f080);
+dhd_sdio.c:7018:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x80008000);
+dhd_sdio.c:7019:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x1050f080);
+dhd_sdio.c:7020:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000004);
+dhd_sdio.c:7021:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x30a00000);
+dhd_sdio.c:7022:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000604);
+dhd_sdio.c:7023:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x30a00000);
+dhd_sdio.c:7024:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00001604);
+dhd_sdio.c:7025:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x30a00000);
+dhd_sdio.c:7026:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00001404);
+dhd_sdio.c:7027:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x30a08c80);
+dhd_sdio.c:7028:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00010001);
+dhd_sdio.c:7029:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x14a00000);
+dhd_sdio.c:7030:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00011404);
+dhd_sdio.c:7031:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x30a00000);
+dhd_sdio.c:7032:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00002000);
+dhd_sdio.c:7033:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x04a00000);
+dhd_sdio.c:7034:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00002000);
+dhd_sdio.c:7035:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0xf8000000);
+dhd_sdio.c:7036:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00002000);
+dhd_sdio.c:7037:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x04a00000);
+dhd_sdio.c:7038:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00002000);
+dhd_sdio.c:7039:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0xf8000000);
+dhd_sdio.c:7040:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00011604);
+dhd_sdio.c:7041:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x30a00000);
+dhd_sdio.c:7042:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00010604);
+dhd_sdio.c:7043:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x30a00000);
+dhd_sdio.c:7044:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00010004);
+dhd_sdio.c:7045:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x30a00000);
+dhd_sdio.c:7046:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00010000);
+dhd_sdio.c:7047:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x14a00000);
+dhd_sdio.c:7048:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000004);
+dhd_sdio.c:7049:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x30a00000);
+dhd_sdio.c:7050:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00010001);
+dhd_sdio.c:7051:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x14a00000);
+dhd_sdio.c:7052:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00010004);
+dhd_sdio.c:7053:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x30a00000);
+dhd_sdio.c:7054:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00010000);
+dhd_sdio.c:7055:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x30a00000);
+dhd_sdio.c:7056:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00010000);
+dhd_sdio.c:7057:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x14a00000);
+dhd_sdio.c:7058:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000000);
+dhd_sdio.c:7059:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x30a00000);
+dhd_sdio.c:7060:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000008);
+dhd_sdio.c:7061:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x04a00000);
+dhd_sdio.c:7062:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0x00000008);
+dhd_sdio.c:7063:	bcmsdh_reg_write(bus->sdh, 0x1800440c, 4, 0xfc000000);
+dhd_sdio.c:7067:	bcmsdh_reg_write(bus->sdh, 0x18004400, 4, 0xf92f1);
+dhd_sdio.c:7070:	bcmsdh_reg_write(bus->sdh, 0x18000650, 4, 0x3);
+dhd_sdio.c:7071:	bcmsdh_reg_write(bus->sdh, 0x18000654, 4, 0x0);
+dhd_sdio.c:7072:	bcmsdh_reg_write(bus->sdh, 0x18000650, 4, 0x3);
+dhd_sdio.c:7073:	bcmsdh_reg_write(bus->sdh, 0x18000654, 4, 0x2);
+dhd_sdio.c:7074:	bcmsdh_reg_write(bus->sdh, 0x18000650, 4, 0x3);
+dhd_sdio.c:7075:	bcmsdh_reg_write(bus->sdh, 0x18000654, 4, 0x3);
+dhd_sdio.c:7076:	bcmsdh_reg_write(bus->sdh, 0x18000650, 4, 0x3);
+dhd_sdio.c:7077:	bcmsdh_reg_write(bus->sdh, 0x18000654, 4, 0x37);
+dhd_sdio.c:7078:	bcmsdh_reg_write(bus->sdh, 0x18000650, 4, 0x3);
+dhd_sdio.c:7079:	temp = bcmsdh_reg_read(bus->sdh, 0x18000654, 4);
+dhd_sdio.c:7081:	bcmsdh_reg_write(bus->sdh, 0x18000654, 4, 0x800037);
+dhd_sdio.c:7084:	bcmsdh_reg_write(bus->sdh, 0x18000644, 4, 0x0);
+dhd_sdio.c:7085:	bcmsdh_reg_write(bus->sdh, 0x18000630, 4, 0xC800C8);
+dhd_sdio.c:7087:	bcmsdh_reg_write(bus->sdh, 0x180021e0, 4, 0x40);
+dhd_sdio.c:7096:	bcmsdh_reg_write(bus->sdh, 0x18101408, 4, 0x3);
+dhd_sdio.c:7097:	bcmsdh_reg_write(bus->sdh, 0x18101800, 4, 0x0);
+dhd_sdio.c:7098:	bcmsdh_reg_write(bus->sdh, 0x18101408, 4, 0x1);
+dhd_sdio.c:7100:	bcmsdh_reg_write(bus->sdh, 0x180013D8, 2, 0xD1);
+dhd_sdio.c:7101:	bcmsdh_reg_write(bus->sdh, 0x180013DA, 2, 0x12);
+dhd_sdio.c:7102:	bcmsdh_reg_write(bus->sdh, 0x180013D8, 2, 0x2D0);
+dhd_sdio.c:7104:	temp = bcmsdh_reg_read(bus->sdh, 0x180013DA, 2);
+dhd_sdio.c:7106:	temp2 = bcmsdh_reg_read(bus->sdh, 0x1800002C, 4);
+dhd_sdio.c:7122:		bcmsdh_reg_write(bus->sdh, 0x180013D8, 2, 0x2D0);
+dhd_sdio.c:7123:		temp = bcmsdh_reg_read(bus->sdh, 0x180013DA, 2);
+dhd_sdio.c:7124:		temp2 = bcmsdh_reg_read(bus->sdh, 0x1800002C, 4);
+dhd_sdio.c:7144:			"\n", __LINE__, bcmsdh_reg_read(bus->sdh, 0x18104808, 4)));
+dhd_sdio.c:7146:			"\n", __LINE__, bcmsdh_reg_read(bus->sdh, 0x1810480C, 4)));
+dhd_sdio.c:7148:			"\n", __LINE__, bcmsdh_reg_read(bus->sdh, 0x18106808, 4)));
+dhd_sdio.c:7150:			"\n", __LINE__, bcmsdh_reg_read(bus->sdh, 0x1810680C, 4)));
+dhd_sdio.c:7152:			"\n", __LINE__, bcmsdh_reg_read(bus->sdh, 0x18107808, 4)));
+dhd_sdio.c:7154:			"\n", __LINE__, bcmsdh_reg_read(bus->sdh, 0x1810780C, 4)));
+dhd_sdio.c:7156:			"\n", __LINE__, bcmsdh_reg_read(bus->sdh, 0x18108808, 4)));
+dhd_sdio.c:7158:			"\n", __LINE__, bcmsdh_reg_read(bus->sdh, 0x1810880C, 4)));
+dhd_sdio.c:7160:			"\n", __LINE__, bcmsdh_reg_read(bus->sdh, 0x18109808, 4)));
+dhd_sdio.c:7162:			"\n", __LINE__, bcmsdh_reg_read(bus->sdh, 0x1810980C, 4)));
+dhd_sdio.c:7164:			"\n", __LINE__, bcmsdh_reg_read(bus->sdh, 0x1810c808, 4)));
+dhd_sdio.c:7166:			"\n", __LINE__, bcmsdh_reg_read(bus->sdh, 0x1810c80C, 4)));
+dhd_sdio.c:7168:	while ((bcmsdh_reg_read(bus->sdh, 0x18104808, 4) == 5) ||
+dhd_sdio.c:7169:		(bcmsdh_reg_read(bus->sdh, 0x1810480C, 4) == 5) ||
+dhd_sdio.c:7170:		(bcmsdh_reg_read(bus->sdh, 0x18106808, 4) == 5) ||
+dhd_sdio.c:7171:		(bcmsdh_reg_read(bus->sdh, 0x1810680C, 4) == 5) ||
+dhd_sdio.c:7172:		(bcmsdh_reg_read(bus->sdh, 0x1810780C, 4) == 5) ||
+dhd_sdio.c:7173:		(bcmsdh_reg_read(bus->sdh, 0x1810780C, 4) == 5) ||
+dhd_sdio.c:7174:		(bcmsdh_reg_read(bus->sdh, 0x1810880C, 4) == 5) ||
+dhd_sdio.c:7175:		(bcmsdh_reg_read(bus->sdh, 0x1810880C, 4) == 5) ||
+dhd_sdio.c:7176:		(bcmsdh_reg_read(bus->sdh, 0x1810980C, 4) == 5) ||
+dhd_sdio.c:7177:		(bcmsdh_reg_read(bus->sdh, 0x1810980C, 4) == 5) ||
+dhd_sdio.c:7178:		(bcmsdh_reg_read(bus->sdh, 0x1810C80C, 4) == 5) ||
+dhd_sdio.c:7179:		(bcmsdh_reg_read(bus->sdh, 0x1810C80C, 4) == 5))
+dhd_sdio.c:7194:				"\n", __LINE__, bcmsdh_reg_read(bus->sdh, 0x18104808, 4)));
+dhd_sdio.c:7196:				"\n", __LINE__, bcmsdh_reg_read(bus->sdh, 0x1810480C, 4)));
+dhd_sdio.c:7198:				"\n", __LINE__, bcmsdh_reg_read(bus->sdh, 0x18106808, 4)));
+dhd_sdio.c:7200:				"\n", __LINE__, bcmsdh_reg_read(bus->sdh, 0x1810680C, 4)));
+dhd_sdio.c:7202:				"\n", __LINE__, bcmsdh_reg_read(bus->sdh, 0x18107808, 4)));
+dhd_sdio.c:7204:				"\n", __LINE__, bcmsdh_reg_read(bus->sdh, 0x1810780C, 4)));
+dhd_sdio.c:7206:				"\n", __LINE__, bcmsdh_reg_read(bus->sdh, 0x18108808, 4)));
+dhd_sdio.c:7208:				"\n", __LINE__, bcmsdh_reg_read(bus->sdh, 0x1810880C, 4)));
+dhd_sdio.c:7210:				"\n", __LINE__, bcmsdh_reg_read(bus->sdh, 0x18109808, 4)));
+dhd_sdio.c:7212:				"\n", __LINE__, bcmsdh_reg_read(bus->sdh, 0x1810980C, 4)));
+dhd_sdio.c:7214:				"\n", __LINE__, bcmsdh_reg_read(bus->sdh, 0x1810c808, 4)));
+dhd_sdio.c:7216:				"\n", __LINE__, bcmsdh_reg_read(bus->sdh, 0x1810c80C, 4)));
+dhd_sdio.c:7220:	bcmsdh_reg_write(bus->sdh, 0x18000658, 4, 0x3);
+dhd_sdio.c:7221:	temp = bcmsdh_reg_read(bus->sdh, 0x1800065c, 4);
+dhd_sdio.c:7223:	bcmsdh_reg_write(bus->sdh, 0x1800065c, 4, temp);
+dhd_sdio.c:7234:	bus->alp_only = TRUE;
+dhd_sdio.c:7235:	bus->sih = NULL;
+dhd_sdio.c:7244:		bcmsdh_reg_read(bus->sdh, SI_ENUM_BASE, 4)));
+dhd_sdio.c:7309:	if (!(bus->sih = si_attach((uint)devid, osh, regsva, DHD_BUS, sdh,
+dhd_sdio.c:7310:	                           &bus->vars, &bus->varsz))) {
+dhd_sdio.c:7317:		bus->sih->socitype, bus->sih->chip, bus->sih->chiprev, bus->sih->chippkg));
+dhd_sdio.c:7322:	if (((uint16)bus->sih->chip == BCM4324_CHIP_ID) && (bus->sih->chiprev < 3))
+dhd_sdio.c:7326:	bcmsdh_chipinfo(sdh, bus->sih->chip, bus->sih->chiprev);
+dhd_sdio.c:7328:	if (!dhdsdio_chipmatch((uint16)bus->sih->chip)) {
+dhd_sdio.c:7330:		           __FUNCTION__, bus->sih->chip));
+dhd_sdio.c:7334:	if (bus->sih->buscorerev >= 12)
+dhd_sdio.c:7337:		bus->kso = TRUE;
+dhd_sdio.c:7339:	if (CST4330_CHIPMODE_SDIOD(bus->sih->chipst)) {
+dhd_sdio.c:7342:	si_sdiod_drive_strength_init(bus->sih, osh, dhd_sdiod_drive_strength);
+dhd_sdio.c:7347:		if ((si_setcore(bus->sih, ARM7S_CORE_ID, 0)) ||
+dhd_sdio.c:7348:		    (si_setcore(bus->sih, ARMCM3_CORE_ID, 0)) ||
+dhd_sdio.c:7349:		    (si_setcore(bus->sih, ARMCR4_CORE_ID, 0))) {
+dhd_sdio.c:7350:			bus->armrev = si_corerev(bus->sih);
+dhd_sdio.c:7356:		if (!si_setcore(bus->sih, ARMCR4_CORE_ID, 0)) {
+dhd_sdio.c:7357:			if (!(bus->orig_ramsize = si_socram_size(bus->sih))) {
+dhd_sdio.c:7363:			if (!(bus->orig_ramsize = si_tcm_size(bus->sih))) {
+dhd_sdio.c:7368:			switch ((uint16)bus->sih->chip) {
+dhd_sdio.c:7372:				bus->dongle_ram_base = CR4_4335_RAM_BASE;
+dhd_sdio.c:7378:				bus->dongle_ram_base = CR4_4350_RAM_BASE;
+dhd_sdio.c:7381:				bus->dongle_ram_base = CR4_4360_RAM_BASE;
+dhd_sdio.c:7384:				bus->dongle_ram_base = (bus->sih->chiprev < 6)  /* from 4345C0 */
+dhd_sdio.c:7388:				bus->dongle_ram_base = CR4_4349_RAM_BASE;
+dhd_sdio.c:7391:				bus->dongle_ram_base = 0;
+dhd_sdio.c:7393:				           __FUNCTION__, bus->dongle_ram_base));
+dhd_sdio.c:7396:		bus->ramsize = bus->orig_ramsize;
+dhd_sdio.c:7401:		           bus->ramsize, bus->orig_ramsize, bus->dongle_ram_base));
+dhd_sdio.c:7403:		bus->srmemsize = si_socram_srmem_size(bus->sih);
+dhd_sdio.c:7407:	if (!(bus->regs = si_setcore(bus->sih, PCMCIA_CORE_ID, 0)) &&
+dhd_sdio.c:7408:	    !(bus->regs = si_setcore(bus->sih, SDIOD_CORE_ID, 0))) {
+dhd_sdio.c:7412:	bus->sdpcmrev = si_corerev(bus->sih);
+dhd_sdio.c:7415:	OR_REG(osh, &bus->regs->corecontrol, CC_BPRESEN);
+dhd_sdio.c:7416:	bus->rxint_mode = SDIO_DEVICE_HMB_RXINT;
+dhd_sdio.c:7418:	if ((bus->sih->buscoretype == SDIOD_CORE_ID) && (bus->sdpcmrev >= 4) &&
+dhd_sdio.c:7419:		(bus->rxint_mode  == SDIO_DEVICE_RXDATAINT_MODE_1))
+dhd_sdio.c:7423:		val = R_REG(osh, &bus->regs->corecontrol);
+dhd_sdio.c:7426:		W_REG(osh, &bus->regs->corecontrol, val);
+dhd_sdio.c:7430:	pktq_init(&bus->txq, (PRIOMASK + 1), QLEN);
+dhd_sdio.c:7433:	bus->rxhdr = (uint8 *)ROUNDUP((uintptr)&bus->hdrbuf[0], DHD_SDALIGN);
+dhd_sdio.c:7436:	bus->intr = (bool)dhd_intr;
+dhd_sdio.c:7437:	if ((bus->poll = (bool)dhd_poll))
+dhd_sdio.c:7438:		bus->pollrate = 1;
+dhd_sdio.c:7441:	bus->txglomsize = SDPCM_DEFGLOM_SIZE;
+dhd_sdio.c:7446:	if (bus->sih != NULL) {
+dhd_sdio.c:7447:		si_detach(bus->sih);
+dhd_sdio.c:7448:		bus->sih = NULL;
+dhd_sdio.c:7458:	if (bus->dhd->maxctl) {
+dhd_sdio.c:7459:		bus->rxblen = ROUNDUP((bus->dhd->maxctl+SDPCM_HDRLEN), ALIGNMENT) + DHD_SDALIGN;
+dhd_sdio.c:7460:		if (!(bus->rxbuf = DHD_OS_PREALLOC(bus->dhd, DHD_PREALLOC_RXBUF, bus->rxblen))) {
+dhd_sdio.c:7462:			           __FUNCTION__, bus->rxblen));
+dhd_sdio.c:7467:	if (!(bus->databuf = DHD_OS_PREALLOC(bus->dhd, DHD_PREALLOC_DATABUF, MAX_DATA_BUF))) {
+dhd_sdio.c:7471:		if (!bus->rxblen)
+dhd_sdio.c:7472:			DHD_OS_PREFREE(bus->dhd, bus->rxbuf, bus->rxblen);
+dhd_sdio.c:7477:	if ((uintptr)bus->databuf % DHD_SDALIGN)
+dhd_sdio.c:7478:		bus->dataptr = bus->databuf + (DHD_SDALIGN - ((uintptr)bus->databuf % DHD_SDALIGN));
+dhd_sdio.c:7480:		bus->dataptr = bus->databuf;
+dhd_sdio.c:7495:	bus->_srenab = FALSE;
+dhd_sdio.c:7504:	bus->dhd->busstate = DHD_BUS_DOWN;
+dhd_sdio.c:7505:	bus->sleeping = FALSE;
+dhd_sdio.c:7506:	bus->rxflow = FALSE;
+dhd_sdio.c:7507:	bus->prev_rxlim_hit = 0;
+dhd_sdio.c:7513:	bus->clkstate = CLK_SDONLY;
+dhd_sdio.c:7514:	bus->idletime = (int32)dhd_idletime;
+dhd_sdio.c:7515:	bus->idleclock = DHD_IDLE_ACTIVE;
+dhd_sdio.c:7519:	                    &bus->sd_divisor, sizeof(int32), FALSE) != BCME_OK) {
+dhd_sdio.c:7521:		bus->sd_divisor = -1;
+dhd_sdio.c:7524:		          __FUNCTION__, "sd_divisor", bus->sd_divisor));
+dhd_sdio.c:7529:	                    &bus->sd_mode, sizeof(int32), FALSE) != BCME_OK) {
+dhd_sdio.c:7531:		bus->sd_mode = -1;
+dhd_sdio.c:7534:		          __FUNCTION__, "sd_mode", bus->sd_mode));
+dhd_sdio.c:7540:	                    &bus->blocksize, sizeof(int32), FALSE) != BCME_OK) {
+dhd_sdio.c:7541:		bus->blocksize = 0;
+dhd_sdio.c:7545:		          __FUNCTION__, "sd_blocksize", bus->blocksize));
+dhd_sdio.c:7549:	bus->roundup = MIN(max_roundup, bus->blocksize);
+dhd_sdio.c:7552:	if (bus->pad_pkt)
+dhd_sdio.c:7553:		PKTFREE(osh, bus->pad_pkt, FALSE);
+dhd_sdio.c:7554:	bus->pad_pkt = PKTGET(osh, SDIO_MAX_BLOCK_SIZE, FALSE);
+dhd_sdio.c:7555:	if (bus->pad_pkt == NULL)
+dhd_sdio.c:7559:		uintptr pktprt = (uintptr)PKTDATA(osh, bus->pad_pkt);
+dhd_sdio.c:7561:			PKTPUSH(osh, bus->pad_pkt, alignment_offset);
+dhd_sdio.c:7562:		PKTSETNEXT(osh, bus->pad_pkt, NULL);
+dhd_sdio.c:7568:	                    &bus->sd_rxchain, sizeof(int32), FALSE) != BCME_OK) {
+dhd_sdio.c:7569:		bus->sd_rxchain = FALSE;
+dhd_sdio.c:7572:		          __FUNCTION__, (bus->sd_rxchain ? "supports" : "does not support")));
+dhd_sdio.c:7574:	bus->use_rxchain = (bool)bus->sd_rxchain;
+dhd_sdio.c:7575:	bus->txinrx_thres = CUSTOM_TXINRX_THRES;
+dhd_sdio.c:7577:	bus->dotxinrx = TRUE;
+dhd_sdio.c:7588:	bus->fw_path = pfw_path;
+dhd_sdio.c:7589:	bus->nv_path = pnv_path;
+dhd_sdio.c:7591:	ret = dhdsdio_download_firmware(bus, osh, bus->sdh);
+dhd_sdio.c:7604:		__FUNCTION__, bus->fw_path, bus->nv_path));
+dhd_sdio.c:7605:	DHD_OS_WAKE_LOCK(bus->dhd);
+dhd_sdio.c:7614:	DHD_OS_WAKE_UNLOCK(bus->dhd);
+dhd_sdio.c:7628:		if (bus->dhd) {
+dhd_sdio.c:7629:			dongle_isolation = bus->dhd->dongle_isolation;
+dhd_sdio.c:7630:			dhd_detach(bus->dhd);
+dhd_sdio.c:7634:		bcmsdh_intr_disable(bus->sdh);
+dhd_sdio.c:7635:		bcmsdh_intr_dereg(bus->sdh);
+dhd_sdio.c:7637:		if (bus->dhd) {
+dhd_sdio.c:7639:			dhd_free(bus->dhd);
+dhd_sdio.c:7640:			bus->dhd = NULL;
+dhd_sdio.c:7646:		if (bus->console.buf != NULL)
+dhd_sdio.c:7647:			MFREE(osh, bus->console.buf, bus->console.bufsize);
+dhd_sdio.c:7651:		if (bus->pad_pkt)
+dhd_sdio.c:7652:			PKTFREE(osh, bus->pad_pkt, FALSE);
+dhd_sdio.c:7666:	if (bus->dhd && bus->dhd->dongle_reset)
+dhd_sdio.c:7669:	if (bus->rxbuf) {
+dhd_sdio.c:7671:		MFREE(osh, bus->rxbuf, bus->rxblen);
+dhd_sdio.c:7673:		bus->rxctl = bus->rxbuf = NULL;
+dhd_sdio.c:7674:		bus->rxlen = 0;
+dhd_sdio.c:7677:	if (bus->databuf) {
+dhd_sdio.c:7679:		MFREE(osh, bus->databuf, MAX_DATA_BUF);
+dhd_sdio.c:7681:		bus->databuf = NULL;
+dhd_sdio.c:7684:	if (bus->vars && bus->varsz) {
+dhd_sdio.c:7685:		MFREE(osh, bus->vars, bus->varsz);
+dhd_sdio.c:7686:		bus->vars = NULL;
+dhd_sdio.c:7695:	DHD_TRACE(("%s: Enter bus->dhd %p bus->dhd->dongle_reset %d \n", __FUNCTION__,
+dhd_sdio.c:7696:		bus->dhd, bus->dhd->dongle_reset));
+dhd_sdio.c:7698:	if ((bus->dhd && bus->dhd->dongle_reset) && reset_flag)
+dhd_sdio.c:7701:	if (bus->sih) {
+dhd_sdio.c:7703:		if (bus->dhd) {
+dhd_sdio.c:7707:			si_watchdog(bus->sih, 4);
+dhd_sdio.c:7709:		if (bus->dhd) {
+dhd_sdio.c:7712:		si_detach(bus->sih);
+dhd_sdio.c:7713:		bus->sih = NULL;
+dhd_sdio.c:7714:		if (bus->vars && bus->varsz)
+dhd_sdio.c:7715:			MFREE(osh, bus->vars, bus->varsz);
+dhd_sdio.c:7716:		bus->vars = NULL;
+dhd_sdio.c:7743:		ASSERT(bus->dhd);
+dhd_sdio.c:7744:		dhdsdio_release(bus, bus->dhd->osh);
+dhd_sdio.c:7765:	if (bus->idletime > 0) {
+dhd_sdio.c:7766:		wait_time = msecs_to_jiffies(bus->idletime * dhd_watchdog_ms);
+dhd_sdio.c:7769:	ret = dhd_os_check_wakelock(bus->dhd);
+dhd_sdio.c:7770:	if ((!ret) && (bus->dhd->up)) {
+dhd_sdio.c:7771:		if (wait_event_timeout(bus->bus_sleep, bus->sleeping, wait_time) == 0) {
+dhd_sdio.c:7772:			if (!bus->sleeping) {
+dhd_sdio.c:7786:	if (dhd_os_check_if_up(bus->dhd))
+dhd_sdio.c:7787:		bcmsdh_oob_intr_set(bus->sdh, TRUE);
+dhd_sdio.c:7847:		if (si_setcore(bus->sih, ARMCR4_CORE_ID, 0)) {
+dhd_sdio.c:7851:				bus->resetinstr = *(((uint32*)dlarray));
+dhd_sdio.c:7853:				offset += bus->dongle_ram_base;
+dhd_sdio.c:7881:		ularray = MALLOC(bus->dhd->osh, bus->ramsize);
+dhd_sdio.c:7884:		memset(ularray, 0xaa, bus->ramsize);
+dhd_sdio.c:7919:		MFREE(bus->dhd->osh, ularray, bus->ramsize);
+dhd_sdio.c:7939:	memptr = memblock = MALLOC(bus->dhd->osh, MEMBLOCK + DHD_SDALIGN);
+dhd_sdio.c:7955:		if (si_setcore(bus->sih, ARMCR4_CORE_ID, 0)) {
+dhd_sdio.c:7959:				bus->resetinstr = *(((uint32*)memptr));
+dhd_sdio.c:7961:				offset += bus->dongle_ram_base;
+dhd_sdio.c:7977:		MFREE(bus->dhd->osh, memblock, MEMBLOCK + DHD_SDALIGN);
+dhd_sdio.c:8002:	bus->nvram_params = nvram_params;
+dhd_sdio.c:8016:	pnv_path = bus->nv_path;
+dhd_sdio.c:8019:	if (!nvram_file_exists && (bus->nvram_params == NULL))
+dhd_sdio.c:8028:	memblock = MALLOC(bus->dhd->osh, MAX_NVRAMBUF_SIZE);
+dhd_sdio.c:8040:		len = strlen(bus->nvram_params);
+dhd_sdio.c:8042:		memcpy(memblock, bus->nvram_params, len);
+dhd_sdio.c:8068:		MFREE(bus->dhd->osh, memblock, MAX_NVRAMBUF_SIZE);
+dhd_sdio.c:8085:	if ((bus->fw_path == NULL) || (bus->fw_path[0] == '\0')) {
+dhd_sdio.c:8100:	if ((bus->fw_path != NULL) && (bus->fw_path[0] != '\0')) {
+dhd_sdio.c:8101:		if (dhdsdio_download_code_file(bus, bus->fw_path)) {
+dhd_sdio.c:8166:	status = bcmsdh_recv_buf(bus->sdh, addr, fn, flags, buf, nbytes, pkt, complete, handle);
+dhd_sdio.c:8185:	sdh = bus->sdh;
+dhd_sdio.c:8187:		ret = bcmsdh_send_buf(bus->sdh, addr, fn, flags, buf, nbytes,
+dhd_sdio.c:8190:		bus->f2txdata++;
+dhd_sdio.c:8199:			bus->tx_sderrs++;
+dhd_sdio.c:8200:			bus->f1regdata++;
+dhd_sdio.c:8201:			bus->dhd->tx_errors++;
+dhd_sdio.c:8211:				bus->f1regdata += 2;
+dhd_sdio.c:8224:	ASSERT(bus->sih != NULL);
+dhd_sdio.c:8225:	return bus->sih->chip;
+dhd_sdio.c:8232:	ASSERT(bus->sih != NULL);
+dhd_sdio.c:8233:	return bus->sih->chiprev;
+dhd_sdio.c:8239:	return bus->dhd;
+dhd_sdio.c:8245:	return (void *)bus->sih;
+dhd_sdio.c:8251:	return &bus->txq;
+dhd_sdio.c:8257:	return (bus->txglom_enable) ? SDPCM_HDRLEN_TXGLOM : SDPCM_HDRLEN;
+dhd_sdio.c:8263:	bus->dotxinrx = val;
+dhd_sdio.c:8275:		if (!bus->dhd->dongle_reset) {
+dhd_sdio.c:8280:			dhd_txflowcontrol(bus->dhd, ALL_INTERFACES, ON);
+dhd_sdio.c:8289:			bcmsdh_oob_intr_set(bus->sdh, FALSE);
+dhd_sdio.c:8290:			bcmsdh_oob_intr_unregister(bus->sdh);
+dhd_sdio.c:8294:			dhdsdio_release_dongle(bus, bus->dhd->osh, TRUE, TRUE);
+dhd_sdio.c:8296:			bus->dhd->dongle_reset = TRUE;
+dhd_sdio.c:8297:			bus->dhd->up = FALSE;
+dhd_sdio.c:8310:		if (bus->dhd->dongle_reset) {
+dhd_sdio.c:8314:			bcmsdh_reset(bus->sdh);
+dhd_sdio.c:8317:			if (dhdsdio_probe_attach(bus, bus->dhd->osh, bus->sdh,
+dhd_sdio.c:8319:				bus->cl_devid)) {
+dhd_sdio.c:8321:				if (dhdsdio_probe_init(bus, bus->dhd->osh, bus->sdh) &&
+dhd_sdio.c:8322:				    dhdsdio_download_firmware(bus, bus->dhd->osh, bus->sdh) >= 0) {
+dhd_sdio.c:8325:					bcmerror = dhd_bus_init((dhd_pub_t *) bus->dhd, FALSE);
+dhd_sdio.c:8329:						bcmsdh_oob_intr_register(bus->sdh,
+dhd_sdio.c:8331:						bcmsdh_oob_intr_set(bus->sdh, TRUE);
+dhd_sdio.c:8334:						bus->dhd->dongle_reset = FALSE;
+dhd_sdio.c:8335:						bus->dhd->up = TRUE;
+dhd_sdio.c:8339:						dhd_txflowcontrol(bus->dhd, ALL_INTERFACES, OFF);
+dhd_sdio.c:8346:						dhdsdio_release_dongle(bus, bus->dhd->osh,
+dhd_sdio.c:8371:	return bcmsdh_stop(dhdpub->bus->sdh);
+dhd_sdio.c:8376:	return bcmsdh_start(dhdpub->bus->sdh, stage);
+dhd_sdio.c:8384:	return  bus->sih->chip;
+dhd_sdio.c:8392:	return bus->sih->chiprev;
+dhd_sdio.c:8400:	return bus->sih->chippkg;
+dhd_sdio.c:8405:	*bus_type = bus->bus;
+dhd_sdio.c:8406:	*bus_num = bus->bus_num;
+dhd_sdio.c:8407:	*slot_num = bus->slot_num;
+dhd_sdio.c:8427:	bcmsdh_reject_ioreqs(dhdp->bus->sdh, reject);
+dhd_sdio.c:8436:	bcmsdh_waitfor_iodrain(dhdp->bus->sdh);
+dhd_sdio.c:8443:	bus->fw_path = pfw_path;
+dhd_sdio.c:8444:	bus->nv_path = pnv_path;
+dhd_sdio.c:8451:	sdpcmd_regs_t *regs = bus->regs;
+dhd_sdio.c:8496:		dhd_tcpack_info_tbl_clean(bus->dhd);
+dhd_sdio.c:8499:		pktq_flush(dhdp->osh, &bus->txq, TRUE, NULL, 0);
+dhd_sdio.c:8509:	if (!bus->_srenab)
+dhd_sdio.c:8520:	if (bus && bus->sih)
+dhd_sdio.c:8521:		return (uint16)bus->sih->chip;
+dhd_sdio.c:8533:	dhd_os_sdlock(bus->dhd);
+dhd_sdio.c:8539:	rval = bcmsdh_reg_read(bus->sdh, addr, 4);
+dhd_sdio.c:8541:	dhd_os_sdunlock(bus->dhd);
+dhd_sdio.c:8550:	dhd_os_sdlock(bus->dhd);
+dhd_sdio.c:8556:	bcmsdh_reg_write(bus->sdh, addr, 4, val);
+dhd_sdio.c:8558:	dhd_os_sdunlock(bus->dhd);
+dhd_sdio.c:8569:	dhdp->bus->idletime = idle_time;
+dhd_sdio.c:8583:	*idle_time = dhdp->bus->idletime;
+Binary file dhd_sdio.o matches
+dhd_wlfc.c:1570:	/* flush bus->txq */
+dhd_wlfc.c:1607:		. flush remained pkt in hanger queue, not in bus->txq nor psq.
+dhd_wlfc.c:2747:				/* suppress all packets for this mac entry from bus->txq */
+include/pcicfg.h:32:/* Convert between bus-slot-function-register and config addresses */
+linux_osl.c:1281:	return ((struct pci_dev *)osh->pdev)->bus->number;
+linux_osl.c:1313:	return ((struct pci_dev *)osh->pdev)->bus->number;

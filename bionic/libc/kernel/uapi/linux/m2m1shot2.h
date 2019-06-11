@@ -1,0 +1,186 @@
+/****************************************************************************
+ ****************************************************************************
+ ***
+ ***   This header was automatically generated from a Linux kernel header
+ ***   of the same name, to make information necessary for userspace to
+ ***   call into the kernel available to libc.  It contains only constants,
+ ***   structures, and macros generated from the original header, and thus,
+ ***   contains no copyrightable information.
+ ***
+ ***   To edit the content of this header, modify the corresponding
+ ***   source file (e.g. under external/kernel-headers/original/) then
+ ***   run bionic/libc/kernel/tools/update_all.py
+ ***
+ ***   Any manual change here will be lost the next time this script will
+ ***   be run. You've been warned!
+ ***
+ ****************************************************************************
+ ****************************************************************************/
+#ifndef _UAPI__M2M1SHOT2_H_
+#define _UAPI__M2M1SHOT2_H_
+#include <linux/ioctl.h>
+#include <linux/types.h>
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#include <linux/videodev2.h>
+#define M2M1SHOT2_IMGTRFORM_ROT90 (1 << 0)
+#define M2M1SHOT2_IMGTRFORM_ROT270CCW M2M1SHOT2_IMGTRFORM_ROT90
+#define M2M1SHOT2_IMGTRFORM_ROT180 (1 << 1)
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define M2M1SHOT2_IMGTRFORM_ROT270   (M2M1SHOT2_IMGTRFORM_ROT90 + M2M1SHOT2_IMGTRFORM_ROT180)
+#define M2M1SHOT2_IMGTRFORM_ROT90CCW M2M1SHOT2_IMGTRFORM_ROT270
+#define M2M1SHOT2_IMGTRFORM_XFLIP (1 << 4)
+#define M2M1SHOT2_IMGTRFORM_YFLIP (1 << 5)
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define M2M1SHOT2_IMGTRFORM_ROTVAL(val) ((val) & 0xF)
+#define M2M1SHOT2_IMGTRFORM_SET_ROTVAL(var, val)   ((var) = ((val) & 0xF) | ((val) & ~0xF))
+#define M2M1SHOT2_SCFILTER_DEFAULT 0
+#define M2M1SHOT2_SCFILTER_NONE 1
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define M2M1SHOT2_SCFILTER_NEAREST 2
+#define M2M1SHOT2_SCFILTER_BILINEAR 3
+#define M2M1SHOT2_SCFILTER_BICUBIC 4
+#define M2M1SHOT2_REPEAT_NONE 0
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define M2M1SHOT2_REPEAT_REPEAT 1
+#define M2M1SHOT2_REPEAT_PAD 2
+#define M2M1SHOT2_REPEAT_REFLECT 3
+#define M2M1SHOT2_REPEAT_CLAMP 4
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define M2M1SHOT2_BLEND_NONE 0
+#define M2M1SHOT2_BLEND_CLEAR 1
+#define M2M1SHOT2_BLEND_SRC 2
+#define M2M1SHOT2_BLEND_DST 3
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define M2M1SHOT2_BLEND_SRCOVER 4
+#define M2M1SHOT2_BLEND_DSTOVER 5
+#define M2M1SHOT2_BLEND_SRCIN 6
+#define M2M1SHOT2_BLEND_DSTIN 7
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define M2M1SHOT2_BLEND_SRCOUT 8
+#define M2M1SHOT2_BLEND_DSTOUT 9
+#define M2M1SHOT2_BLEND_SRCATOP 10
+#define M2M1SHOT2_BLEND_DSTATOP 11
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define M2M1SHOT2_BLEND_XOR 12
+#define M2M1SHOT2_BLEND_PLUS 13
+#define M2M1SHOT2_BLEND_MULTIPLY 14
+#define M2M1SHOT2_BLEND_SCREEN 15
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define M2M1SHOT2_BLEND_DARKEN 16
+#define M2M1SHOT2_BLEND_LIGHTEN 17
+#define M2M1SHOT2_BLEND_SRCOVER_DISJ 18
+#define M2M1SHOT2_BLEND_DSTOVER_DISJ 19
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define M2M1SHOT2_BLEND_SRCIN_DISJ 20
+#define M2M1SHOT2_BLEND_DSTIN_DISJ 21
+#define M2M1SHOT2_BLEND_SRCOUT_DISJ 22
+#define M2M1SHOT2_BLEND_DSTOUT_DISJ 23
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define M2M1SHOT2_BLEND_SRCATOP_DISJ 24
+#define M2M1SHOT2_BLEND_DSTATOP_DISJ 25
+#define M2M1SHOT2_BLEND_XOR_DISJ 26
+#define M2M1SHOT2_BLEND_SRCOVER_CONJ 27
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define M2M1SHOT2_BLEND_DSTOVER_CONJ 28
+#define M2M1SHOT2_BLEND_SRCIN_CONJ 29
+#define M2M1SHOT2_BLEND_DSTIN_CONJ 30
+#define M2M1SHOT2_BLEND_SRCOUT_CONJ 31
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define M2M1SHOT2_BLEND_DSTOUT_CONJ 32
+#define M2M1SHOT2_BLEND_SRCATOP_CONJ 33
+#define M2M1SHOT2_BLEND_DSTATOP_CONJ 34
+#define M2M1SHOT2_BLEND_XOR_CONJ 35
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+struct m2m1shot2_extra {
+ __u32 horizontal_factor;
+ __u32 vertical_factor;
+ __u32 fillcolor;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+ __u16 transform;
+ __u16 composit_mode;
+ __u8 galpha;
+ __u8 galpha_red;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+ __u8 galpha_green;
+ __u8 galpha_blue;
+ __u8 xrepeat;
+ __u8 yrepeat;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+ __u8 scaler_filter;
+};
+#define M2M1SHOT2_MAX_PLANES 4
+#define M2M1SHOT2_MAX_IMAGES 8
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define M2M1SHOT2_BUFTYPE_NONE 0
+#define M2M1SHOT2_BUFTYPE_EMPTY 1
+#define M2M1SHOT2_BUFTYPE_USERPTR 2
+#define M2M1SHOT2_BUFTYPE_DMABUF 3
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define M2M1SHOT2_BUFTYPE_VALID(type) (((type) > 0) && ((type) < 4))
+struct m2m1shot2_buffer {
+ union {
+ unsigned long userptr;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+ __s32 fd;
+ };
+ __u32 offset;
+ __u32 length;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+ __u32 payload;
+ unsigned long reserved;
+};
+struct m2m1shot2_format {
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+ __u32 width;
+ __u32 height;
+ __u32 pixelformat;
+ struct v4l2_rect crop;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+ struct v4l2_rect window;
+};
+#define M2M1SHOT2_IMGFLAG_ACQUIRE_FENCE (1 << 1)
+#define M2M1SHOT2_IMGFLAG_RELEASE_FENCE (1 << 2)
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define M2M1SHOT2_IMGFLAG_PREMUL_ALPHA (1 << 4)
+#define M2M1SHOT2_IMGFLAG_GLOBAL_ALPHA (1 << 5)
+#define M2M1SHOT2_IMGFLAG_COMPRESSED (1 << 7)
+#define M2M1SHOT2_IMGFLAG_NO_RESCALING (1 << 8)
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define M2M1SHOT2_IMGFLAG_XSCALE_FACTOR (1 << 9)
+#define M2M1SHOT2_IMGFLAG_YSCALE_FACTOR (1 << 10)
+#define M2M1SHOT2_IMGFLAG_COLORFILL (1 << 11)
+#define M2M1SHOT2_IMGFLAG_NO_CACHECLEAN (1 << 16)
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define M2M1SHOT2_IMGFLAG_NO_CACHEINV (1 << 17)
+struct m2m1shot2_image {
+ __u32 flags;
+ __s32 fence;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+ __u8 memory;
+ __u8 num_planes;
+ struct m2m1shot2_buffer plane[M2M1SHOT2_MAX_PLANES];
+ struct m2m1shot2_format fmt;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+ struct m2m1shot2_extra ext;
+ __u32 reserved[4];
+};
+#define M2M1SHOT2_FLAG_DITHER (1 << 1)
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define M2M1SHOT2_FLAG_NONBLOCK (1 << 2)
+#define M2M1SHOT2_FLAG_ERROR (1 << 4)
+struct m2m1shot2 {
+ struct m2m1shot2_image *sources;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+ struct m2m1shot2_image target;
+ __u8 num_sources;
+ __u32 flags;
+ __u32 reserved1;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+ __u32 reserved2;
+ unsigned long reserved3;
+ unsigned long reserved4;
+};
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define M2M1SHOT2_IOC_PROCESS _IOWR('M', 4, struct m2m1shot2)
+#define M2M1SHOT2_IOC_WAIT_PROCESS _IOR('M', 5, struct m2m1shot2)
+#endif

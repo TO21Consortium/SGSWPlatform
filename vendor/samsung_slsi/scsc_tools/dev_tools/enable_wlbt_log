@@ -1,0 +1,22 @@
+#!/system/bin/sh
+# to put out debugging messages on all layers
+
+# First all levels to 0
+wlan_debug_level.sh 0
+if [ $? -ne 0 ]; then
+	echo "WARNING: is WLAN on?"
+fi
+
+# These WLAN f/w groups to these levels
+slsi_wlan_mib 5029=15
+slsi_wlan_mib 5029.1=15
+slsi_wlan_mib 5029.4=15
+slsi_wlan_mib 5029.7=15
+slsi_wlan_mib 5029.22=1
+slsi_wlan_mib 5029.25=15
+slsi_wlan_mib 5029.26=1
+slsi_wlan_mib 5029.30=2
+slsi_wlan_mib 5029.37=1
+
+# Driver logging enable
+echo -1 > /sys/module/scsc_logring/parameters/scsc_droplevel_all

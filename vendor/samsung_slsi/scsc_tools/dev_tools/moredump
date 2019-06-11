@@ -1,0 +1,39 @@
+#!/system/bin/sh
+# Invoke the moredump.bin tool building appropriate filename.
+#
+# The output is redirected to /dev/null because when called
+# from the call_usermode_helper() kernel API on Android
+# garbage gets written into the output file.
+#
+base_dir=`cat /sys/module/scsc_mx/parameters/base_dir`
+fw_var=`cat /sys/module/scsc_mx/parameters/firmware_variant`
+fw_suffix=`cat /sys/module/scsc_mx/parameters/firmware_hw_ver`
+
+if [ "$fw_suffix" = "manual" ];
+then
+        fw_suffix=""
+fi
+
+xml_dir=$base_dir/$fw_var$fw_suffix/debug/hardware/moredump
+log_strings=$base_dir/$fw_var$fw_suffix/debug/common/log-strings.bin
+moredump_dir=/sdcard/log
+
+if [ ! -d $moredump_dir ]
+then
+       mkdir -p $moredump_dir
+fi
+out_name=$moredump_dir/moredump_`date +%Y_%m_%d__%H_%M_%S`
+
+## Dump LogRing
+mx_logger_dump.sh -d $moredump_dir || true
+## Dump Kernel Log
+dmesg >$out_name-dmesg.log
+## Trigger Moredump itself
+moredump.bin $out_name.cmm -xml_path $xml_dir -log_strings $log_strings 2>/dev/null >/dev/null
+
+exit_code=$?
+
+sync
+
+exit $exit_code
+

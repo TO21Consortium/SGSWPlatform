@@ -1,0 +1,5 @@
+#!/system/bin/sh
+# This script enables/disables the automatic coredump
+#
+
+echo $1 > /sys/module/scsc_mx/parameters/disable_auto_coredump

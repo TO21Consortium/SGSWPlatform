@@ -1,0 +1,47 @@
+#!/system/bin/sh
+# Invoke the moredump.bin tool from user request
+# This script invokes the dump manually
+#
+# parameters
+#   $1 - output file name (.cmm)
+#
+base_dir=`cat /sys/module/scsc_mx/parameters/base_dir`
+fw_var=`cat /sys/module/scsc_mx/parameters/firmware_variant`
+fw_suffix=`cat /sys/module/scsc_mx/parameters/firmware_hw_ver`
+
+if [ "$fw_suffix" = "manual" ];
+then
+	fw_suffix=""
+fi
+
+xml_dir=$base_dir/$fw_var$fw_suffix/debug/hardware/moredump
+log_strings=$base_dir/$fw_var$fw_suffix/debug/common/log-strings.bin
+
+
+out_name=$1
+
+echo "halting mx140"
+echo 1 > /proc/driver/mxman_ctrl0/mx_freeze
+if [ "$?" -ne "0" ];
+then
+	echo "mx140 is off, unable to dump"
+	exit 1
+fi
+
+echo "Manually invoking moredump.bin $out_name -xml_path $xml_dir"
+
+moredump.bin $out_name -xml_path $xml_dir -log_strings $log_strings
+
+exit_code=$?
+
+sync
+
+if [ "$exit_code" -eq 0 ]
+then
+  echo "Successfully finished. To restart mx140 the platform has to be rebooted."
+else
+  echo "Failed ($exit_code). To restart mx140 the platform has to be rebooted."
+fi
+
+exit $exit_code
+

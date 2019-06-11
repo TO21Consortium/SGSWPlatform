@@ -1,0 +1,128 @@
+# GPU device (world r/w open)
+/dev/mali0                      u:object_r:gpu_device:s0
+
+# Video device
+/dev/v4l-subdev[0-9]*           u:object_r:video_device:s0
+/dev/fimg2d                     u:object_r:fimg2d_video_device:s0
+/dev/media1                     u:object_r:video_device:s0
+
+# gscaler
+/dev/video23                    u:object_r:video_device:s0
+/dev/video24                    u:object_r:video_device:s0
+/dev/video26                    u:object_r:video_device:s0
+/dev/video27                    u:object_r:video_device:s0
+/dev/video29                    u:object_r:video_device:s0
+/dev/video30                    u:object_r:video_device:s0
+/dev/video31                    u:object_r:video_device:s0
+
+# MFC
+/dev/video6                     u:object_r:video_device:s0
+/dev/video7                     u:object_r:video_device:s0
+/dev/video8                     u:object_r:video_device:s0
+/dev/video9                     u:object_r:video_device:s0
+
+# Secmem device
+/dev/s5p-smem                   u:object_r:secmem_device:s0
+
+# UMP device
+/dev/ump                        u:object_r:ump_device:s0
+
+# TEE device (depends on AOSP policy)
+/dev/mobicore                   u:object_r:tee_device:s0
+/dev/mobicore-user              u:object_r:tee_device:s0
+
+## Mobicore daemon (depends on AOSP policy)
+/system/bin/mcDriverDaemon      u:object_r:tee_exec:s0
+
+# Camera device
+/dev/media0                     u:object_r:camera_device:s0
+/dev/media2                     u:object_r:camera_device:s0
+/dev/video0                     u:object_r:camera_device:s0
+/dev/video1                     u:object_r:camera_device:s0
+/dev/video2                     u:object_r:camera_device:s0
+/dev/video3                     u:object_r:camera_device:s0
+/dev/video20                    u:object_r:camera_device:s0
+/dev/video1[0-9]{2}             u:object_r:camera_device:s0
+
+# MMC Block device
+/dev/block/mmcblk0p1            u:object_r:emmcblk_device:s0
+/dev/block/mmcblk0p2            u:object_r:emmcblk_device:s0
+/dev/block/mmcblk0p3            u:object_r:emmcblk_device:s0
+/dev/block/mmcblk0p4            u:object_r:emmcblk_device:s0
+/dev/block/mmcblk0p5            u:object_r:emmcblk_device:s0
+/dev/block/mmcblk0p6            u:object_r:emmcblk_device:s0
+
+# UFS fstab target
+/dev/block/sda2                 u:object_r:systemdata_block_device:s0
+/dev/block/sda3                 u:object_r:userdata_block_device:s0
+/dev/block/sda4                 u:object_r:cachedata_block_device:s0
+/dev/block/sda5                 u:object_r:cpboot_block_device:s0
+/dev/block/sda6                 u:object_r:metadata_block_device:s0
+
+# RPMBD block device
+/dev/block/sdb                  u:object_r:rpmbd_block_device:s0
+
+# Serial device
+/dev/ttyGS[0-3]*                u:object_r:serial_device:s0
+/dev/ttySAC[0-5]*               u:object_r:serial_device:s0
+
+# CP device
+/dev/multipdp                   u:object_r:radio_device:s0
+
+# DM tools device
+/dev/umts_router                u:object_r:radio_device:s0
+/dev/umts_dm0                   u:object_r:radio_device:s0
+
+# SIPC RIL device
+/dev/umts_boot0                 u:object_r:radio_device:s0
+/dev/umts_rfs0                  u:object_r:radio_device:s0
+/dev/umts_ipc0                  u:object_r:radio_device:s0
+/dev/umts_ipc1                  u:object_r:radio_device:s0
+
+# mscalers device
+/dev/video50                    u:object_r:video_device:s0
+/dev/video51                    u:object_r:video_device:s0
+/dev/m2m1shot_scaler0           u:object_r:m2m1shot_scaler_device:s0
+/dev/m2m1shot_scaler1           u:object_r:m2m1shot_scaler_device:s0
+
+# jpeg
+/dev/m2m1shot_jpeg              u:object_r:video_device:s0
+/dev/video12                    u:object_r:video_device:s0
+
+# audio
+/dev/seiren                     u:object_r:audio_device:s0
+
+# watchdog
+/dev/watchdog0                  u:object_r:watchdog_device:s0
+
+## CP daemon
+/system/bin/rild_exynos         u:object_r:rild_exec:s0
+/system/bin/cbd                 u:object_r:cbd_exec:s0
+/system/bin/dmd                 u:object_r:dmd_exec:s0
+/system/bin/vcd                 u:object_r:vcd_exec:s0
+/system/bin/sced                u:object_r:sced_exec:s0
+/system/bin/rild_SIPC           u:object_r:rild_exec:s0
+/system/bin/diagexe             u:object_r:dmd_exec:s0
+
+# RPMBD daemon
+/system/bin/rpmbd               u:object_r:rpmbd_exec:s0
+
+# Modem bootloader
+/data/modem.bin                 u:object_r:modem_data_file:s0
+
+# RILD_SIPC LOG
+/data/misc/radio(/._*0-9)?      u:object_r:rild_log_data:s0
+
+# CBD LOG
+/data/log(/._*0-9)?             u:object_r:cbd_log_data:s0
+/efs/nv_data.bin                u:object_r:cbd_log_data:s0
+/efs/nv.log                     u:object_r:cbd_log_data:s0
+
+# DMD LOG
+/data/local/slog(/._*0-9)?      u:object_r:dmd_log_data:s0
+
+# RILD LOG
+/data/data/com.android.providers.telephony/opname.db        u:object_r:ril_db_file:s0
+
+# CBD LOG
+/data/local/log(/._*0-9)?       u:object_r:cbd_log_data:s0

@@ -1,0 +1,303 @@
+z  dot11RSNAStatsSTAAddress
+z  dot11RSNAStatsTKIPICVErrors
+z  dot11RSNAStatsTKIPLocalMICFailures
+z  dot11RSNAStatsTKIPRemoteMICFailures
+z  dot11RSNAStatsCCMPReplays
+z  dot11RSNAStatsCCMPDecryptErrors
+z  dot11RSNAStatsTKIPReplays
+z  dot11RSNAStatsRobustMgmtCCMPReplays
+z  dot11TDLSPeerUAPSDIndicationWindow
+z  dot11AssociationSAQueryMaximumTimeout
+z  dot11AssociationSAQueryRetryTimeout
+z  dot11PowerCapabilityMaxImplemented
+z  dot11PowerCapabilityMinImplemented
+ p dot11RTSThreshold
+ p dot11ShortRetryLimit
+ p dot11LongRetryLimit
+ p dot11FragmentationThreshold
+ p dot11RTSSuccessCount
+ p dot11ACKFailureCount
+ p dot11MulticastReceivedFrameCount
+ p dot11FCSErrorCount
+ p dot11WEPUndecryptableCount
+z  dot11manufacturerProductVersion
+ p unifiMLMEConnectionTimeOut
+z  unifiMLMEScanChannelMaxScanTime
+z  unifiMLMEScanChannelProbeInterval
+z  unifiMLMEDataReferenceTimeout
+z  unifiMLMEScanProbeInterval
+z  unifiMLMEScanHighRSSIThreshold
+z  unifiMLMEScanDeltaRSSIThreshold
+z  unifiMLMEScanHighSNRThreshold
+z  unifiMLMEScanDeltaSNRThreshold
+z  unifiMLMEScanMaximumAge
+z  unifiMLMEScanMaximumResults
+z  unifiMLMEAutonomousScanNoisy
+z  unifiFirmwareBuildID
+z  unifiChipVersion
+z  unifiFirmwarePatchBuildID
+z  unifiBasicCapabilities
+z  unifiExtendedCapabilities
+z  unifiHtCapabilities
+z  unifiRsnCapabilities
+z  unifi24G40MHZChannels
+z  unifiSupportedDataRates
+z  unifiRadioMeasurementActivated
+z  unifiRadioMeasurementCapabilities
+z  unifiVhtActivated
+z  unifiHtActivated
+z  unifiRoamingEnabled
+z  unifiRssiRoamScanTrigger
+z  unifiRssiRoamDeltaTrigger
+z  unifiCachedChannelScanPeriod
+z  unifiFullRoamScanPeriod
+z  unifiRoamScanBand
+z  unifiRoamScanMaxActiveChannelTime
+z  unifiRoamMode
+z  unifiRoamOkcEnable
+z  unifiRoamScanBackgroundPeriod
+z  unifiRssiRoamScanNoCandidateDeltaTrigger
+z  unifiRoamEAPTimeout
+z  unifiRoamScanControl
+z  unifiDfsScanMode
+z  unifiRoamScanHomeTime
+z  unifiRoamScanHomeAwayTime
+z  unifiRoamScanNProbe
+z  unifiVS2RoamingCount
+z  unifiVS2RoamingDelay
+z  unifiApOlbcDuration
+z  unifiApOlbcInterval
+z  unifiFrameResponseTimeOut
+z  unifiConnectionFailureTimeout
+z  unifiConnectingProbeTimeout
+z  unifiDisconnectTimeout
+z  unifiFrameResponseCfmTxLifetimeTimeOut
+z  unifiFrameResponseCfmFailureTimeOut
+z  unifiDisconnectAllTimeout
+z  unifiMLMEScanMaxNumberOfProbeSets
+z  unifiMLMEScanStopIfLessThanXFrames
+z  unifiRoamingTriggerTime
+z  unifiRoamingStartTime
+z  unifiRoamingOnchipEndTime
+z  unifiRoamingEndTime
+z  unifiUartConfigure
+z  unifiUartPios
+z  unifiClockFrequency
+z  unifiCrystalFrequencyTrim
+z  unifiEnableDorm
+z  unifiDisableDormWhenBtOn
+z  unifiExternalClockDetect
+z  unifiExternalFastClockRequest
+z  unifiWatchdogTimeout
+z  unifiExternalFastClockRequestPIO
+ p unifiRSSI
+ p unifiSNR
+z  unifiSwTxTimeout
+z  unifiHwTxTimeout
+ p unifiTxDataRate
+z  unifiSNRExtraOffsetCCK
+z  unifiRSSIMaxAveragingPeriod
+z  unifiRSSIMinReceivedFrames
+ p unifiDiscardedFrameCount
+ p unifiIBSSBeaconRateStart
+ p unifiIBSSBeaconRateOnGoing
+ p unifiReceiverLeaderTimeout
+ p unifiCurrentTSFTime
+ p unifiTxFailureThreshold
+z  unifiRMCActionPeriod
+z  unifiRMCLeaderReselectPeriod
+ p unifiRMCFailureThreshold
+ p unifiIbssShortRetryLimit
+ p unifiIbssLongRetryLimit
+z  unifiBaConfig
+ p unifiBeaconReceived
+z  unifiRadioOnTime
+z  unifiRadioTxTime
+z  unifiRadioRxTime
+z  unifiRadioScanTime
+ p unifiPSLeakyAP
+z  unifiTqamActivated
+z  unifiNoAckActivationCount
+z  unifiRxFcsErrorCount
+ p unifiBeaconsReceivedPercentage
+ p unifiQueueStatsEnable
+z  unifiDpdMasterSwitch
+z  unifiDpdPredistortGains
+z  unifiGoogleMaxNumberOfPeriodicScans
+z  unifiGoogleMaxRSSISampleSize
+z  unifiGoogleMaxHotlistAPs
+z  unifiGoogleMaxSignificantWifiChangeAPs
+z  unifiGoogleMaxBssidHistoryEntries
+z  unifiMacBeaconTimeout
+z  unifiCSROnlyEIFSDuration
+z  unifiOverrideDefaultBETXOPForHT
+z  unifiOverrideDefaultBETXOP
+z  unifiRXABBTrimSettings
+z  unifiRadioTrimsEnable
+z  unifiRadioCCAThresholds
+z  unifiHardwarePlatform
+z  unifiForceChannelBW
+z  unifiDPDTrainingDuration
+z  unifiCoexCDLConfig
+z  unifiHighTemperatureCutOffThreshold
+z  unifiLowTemperatureResumeThreshold
+z  unifiFastPowerSaveTimeout
+z  unifiIBSSKeepAlivePeriod
+z  unifiSTAKeepAlivePeriod
+z  unifiAPKeepAlivePeriod
+z  unifiGOKeepAlivePeriod
+z  unifiSTARouterAdvertisementMinimumIntervalToForward
+z  unifiConnectionQualityCheckWaitAfterConnect
+z  unifiApBeaconMaxDrift
+z  unifiVifIdleMonitorTime
+z  unifiDisableLegacyPowerSave
+z  unifiForceActive
+z  unifiPowerManagementDelayTimeout
+ p unifiAPSDServicePeriodTimeout
+z  unifiConcurrentPowerManagementDelayTimeout
+z  unifiStationQosInfo
+z  unifiListenIntervalSkippingDTIM
+z  unifiListenInterval
+ p unifiLegacyPsPollTimeout
+z  unifiRadioCalibrationMode
+z  unifiTogglePowerDomain
+z  unifiP2PListenIntervalSkippingDTIM
+ p unifiFragmentationDuration
+z  unifiIdleModeLiteEnabled
+z  unifiDTIMWaitTimeout
+z  unifiListenIntervalMaxTime
+z  unifiScanMaxProbeTransmitLifetime
+z  unifiPowerSaveTransitionPacketThreshold
+z  unifiProbeResponseLifetime
+z  unifiProbeResponseMaxRetry
+z  unifiExitPowerSavePeriod
+z  unifiAggressivePowerSaveTransitionPeriod
+z  unifiActiveTimeAfterMoreBit
+ p unifiForcedScheduleDuration
+z  unifiVhtCapabilities
+z  unifiMAXVifScheduleDuration
+z  unifiVifLongIntervalTime
+z  unifiDisallowSchedRelinquish
+z  unifiRameDplaneOperationTimeout
+z  unifiMaxClient
+ p unifiNoaDuration
+ p unifiNoaCount
+ p unifiNoaInterval
+ p unifiNoaStartOffset
+z  unifiTdlsInP2pActivated
+ p unifiCtWindow
+z  unifiTdlsActivated
+z  unifiTdlsTPThresholdPktSecs
+z  unifiTdlsRssiThreshold
+z  unifiTdlsMaximumRetry
+z  unifiTdlsTPMonitorSecs
+z  unifiTdlsBasicHtMcsSet
+z  unifiTdlsBasicVhtMcsSet
+z  dot11TDLSDiscoveryRequestWindow
+z  dot11TDLSResponseTimeout
+z  dot11TDLSChannelSwitchActivated
+z  unifiTdlsDesignForTestMode
+z  unifiTdlsKeyLifeTimeInterval
+z  unifiOxygenDesignForTestMode
+z  unifiChannelAnnouncementCount
+z  unifiRATestStoredSA
+z  unifiRATestStoreFrame
+z  dot11TDLSPeerUAPSDBufferSTAActivated
+z  unifiCSROnlyMIBShield
+z  unifiPrivateBbbTxFilterConfig
+z  unifiPrivateSWAGCFrontEndGain
+z  unifiPrivateSWAGCFrontEndLoss
+z  unifiPrivateSWAGCExtThresh
+z  unifiCSROnlyPowerCalDelay
+z  unifiRxAgcControl
+z  unifiCSROnlyWapiQosMask
+z  unifiRaaSpeculationInterval
+z  unifiRaaSpeculationPeriod
+z  unifiRaaNumbSpeculationFrames
+z  unifiRaaTxHostRate
+z  unifiFallbackShortFrameRetryDistribution
+ p unifiCSROnlyPreEBRTWindow
+ p unifiCSROnlyPostEBRTWindow
+ p unifiCSROnlySignalQualityAveragingEnabled
+ p unifiCSROnlyPsPollThreshold
+z  unifiCoexCMEBTCDLPriorityTable
+z  unifiCoexAllowAnaDisable
+z  unifiTxUsingLdpcEnabled
+z  unifiTxOfdmSelect
+z  unifiTxDigGain
+z  unifiChipTemperature
+z  UnifiBatteryVoltage
+z  unifiTxPowerTrimConfig
+z  unifiForceShortSlotTime
+z  unifiTPCEnabled
+ p unifiCurrentTxpowerLevel
+z  unifiUserSetTxpowerLevel
+z  unifiTPCMaxPowerRSSIThreshold
+z  unifiTPCMinPowerRSSIThreshold
+z  unifiTPCMinPower2G
+z  unifiTPCMinPower5G
+z  unifiSarBackoffEnable
+z  unifiCCXSupportedVersion
+z  unifiCCXLiteFoundationSupportedServices
+z  unifiCCXLiteVoiceSupportedServices
+z  unifiCCXLiteLocationSupportedServices
+z  unifiCCXVoiceFailureThreshold
+z  unifiPMFAssociationComebackTimeDelta
+z  unifiDebugInstantDelivery
+z  unifiDebugEnable
+z  unifiDPlaneDebug
+z  unifiSupportedChannels
+z  unifiCountryList
+z  unifiNoCellMaxPowerEna
+z  unifiNoCellMaxPower
+z  unifiNoCellMaxPowerChannels
+ p unifiACRetries
+z  unifiTxDataConfirm
+z  unifiCSROnlyPatchIntValue
+z  unifiCSROnlyPatchIntFunction
+z  unifiCSROnlyPatchStringValue
+z  unifiCSROnlyPatchStringFunction
+z  unifiCSROnlyRawDataMemoryValue
+z  unifiCSROnlyRawRegisterFlags
+z  unifiCSROnlyRawRegisterAddress
+z  unifiCSROnlyRawRegisterMask
+z  unifiCSROnlyRawRegisterValue
+z  unifiCSROnlyRawRegisterStatus
+z  unifiDebugModuleControl
+z  unifiDefaultCountry
+z  unifiLoadDpdLut
+z  unifiOperatingClassParamters
+ p unifiPeerAverageTxDataRate
+ p unifiPeerRSSI
+ p unifiSwToHwQueueStats
+ p unifiHostToSwQueueStats
+ p unifiRateStatsRxSuccessCount
+ p unifiRateStatsTxSuccessCount
+z  unifiRateStatsRate
+ p unifiRaaTxSuccessesCount
+ p unifiRaaTxFailuresCount
+ p unifiRaaTxPer
+ p unifiRaaResetStats
+ p unifiRaaTxMTPer
+z  unifiReadReg
+z  unifiRegulatoryParameters
+z  unifiRxExternalGainFrequency
+z  unifiRxExternalGain
+z  unifiSarBackoff
+z  unifiScanParameters
+ p unifiThroughputDebug
+z  unifiTxAntennaConnectionLossFrequency
+z  unifiTxAntennaConnectionLoss
+z  unifiTxAntennaMaxGainFrequency
+z  unifiTxAntennaMaxGain
+z  unifiTxDetectorFrequencyCompensation
+z  unifiTxDetectorTemperatureCompensation
+z  unifiTxGainSettings
+z  unifiTxOOBConstraints
+z  unifiTxOpenLoopFrequencyCompensation
+z  unifiTxOpenLoopTemperatureCompensation
+z  unifiTxPowerAdjustFrequency
+z  unifiTxPowerAdjustTemperature
+z  unifiTxPowerAdjustDelta
+z  unifiTxPowerDetectorResponse
+z  unifiTxSettings

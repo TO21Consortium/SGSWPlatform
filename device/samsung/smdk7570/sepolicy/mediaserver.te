@@ -1,0 +1,4 @@
+allow mediaserver system_prop:property_service set;
+allow mediaserver m2m1shot_scaler_device:chr_file { read write };
+allow mediaserver m2m1shot_scaler_device:chr_file { open };
+allow mediaserver m2m1shot_scaler_device:chr_file { ioctl };

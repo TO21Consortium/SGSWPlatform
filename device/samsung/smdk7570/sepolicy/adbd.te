@@ -1,0 +1,2 @@
+allow adbd cbd_log_data:dir { getattr };
+allow adbd tombstone_data_file:dir { getattr };

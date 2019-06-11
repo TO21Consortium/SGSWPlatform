@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<sllconfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="sllconfig.xsd">
+  <!-- J1MINI PHONE CONFIG FILE -->
+  <StartupConfiguration>
+    <!-- Set this to No, for normal operation -->
+    <cpColdStartEnable>No</cpColdStartEnable>
+    <DebugFlag>0x3</DebugFlag>
+    <DataPort>/dev/ttySAC4</DataPort>
+    <OnOffPort>/sys/class/rfkill/rfkill1/state</OnOffPort>
+    <ResetPort>/sys/class/rfkill/rfkill2/state</ResetPort>
+  </StartupConfiguration>
+  
+  <Log>
+    <AgpsLogSize>1</AgpsLogSize>
+    <AgpsLogName>/data/system/gps/AGPSLog.txt</AgpsLogName>
+    <TextLogName>/data/system/gps/sll.txt</TextLogName>
+    <NavLogName>/data/system/gps/nav.gps</NavLogName>
+    <CtLogName>/data/system/gps/fw_ct.txt</CtLogName>
+    <GlLogName>/data/system/gps/glue_layer.txt</GlLogName>
+  </Log>
+
+  <SETCaps>
+    <!-- Enable this and disable <isSupl20> to run SUPL1 -->
+    <IsSupl10>Yes</IsSupl10>
+    <!-- Enable this and disable <isSupl10> to run SUPL2 -->
+    <IsSupl20>No</IsSupl20>
+    <IsGlo>No</IsGlo>
+    <IsBds>No</IsBds>
+  </SETCaps>
+  
+  <GlueLayer>
+    <IsAngryGpsConfigEnable>Yes</IsAngryGpsConfigEnable>
+  </GlueLayer>
+
+ </sllconfig>

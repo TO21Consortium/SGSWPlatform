@@ -1,0 +1,14 @@
+allow rild cbd_log_data:dir { write add_name };
+allow rild cbd_log_data:file { create open getattr append setattr read };
+allow rild logcat_exec:file { read execute open execute_no_trans };
+allow rild logd:unix_stream_socket connectto;
+allow rild logdr_socket:sock_file write;
+allow rild proc_net:file write;
+allow rild self:capability dac_read_search;
+allow rild system_data_file:dir { write add_name };
+allow rild rild_log_data:dir { write remove_name getattr add_name };
+allow rild rild_log_data:file { getattr unlink read write create open setattr };
+allow rild rild_log_data:dir search;
+allow rild cbd_log_data:dir search;
+allow rild cbd_log_data:file write;
+allow rild rild_prop:property_service { set };

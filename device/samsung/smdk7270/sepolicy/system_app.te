@@ -1,0 +1,1 @@
+allow system_app fimg2d_video_device:chr_file { ioctl open };

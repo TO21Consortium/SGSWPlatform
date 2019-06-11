@@ -1,0 +1,6 @@
+type modem_data_file, file_type;
+type cbd_log_data, file_type, data_file_type;
+type rild_log_data, file_type, data_file_type;
+type dmd_log_data, file_type, data_file_type;
+
+type ril_db_file, file_type, data_file_type;

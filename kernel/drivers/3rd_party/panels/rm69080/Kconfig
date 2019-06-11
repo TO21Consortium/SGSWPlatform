@@ -1,0 +1,3 @@
+config EXYNOS_DECON_LCD_RM69080
+        depends on EXYNOS_DECON_LCD && EXYNOS_MIPI_DSI
+        tristate "RM69080 AMOLED HD LCD driver(400 x 400)"

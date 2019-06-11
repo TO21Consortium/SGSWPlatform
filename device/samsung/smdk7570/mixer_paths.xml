@@ -1,0 +1,351 @@
+<mixer>
+<!-- Do not remove -->
+<!-- Mixer reset Configuration -->
+    <ctl name="AudioMixer Mixer En" value="On" />
+    <ctl name="AudioMixer SRC2 En" value="Off" />
+    <ctl name="AudioMixer SRC3 En" value="Off" />
+    <ctl name="AudioMixer CH1 Mixer En" value="On" />
+    <ctl name="AudioMixer CH2 Mixer En" value="Off" />
+    <ctl name="AudioMixer CH3 Mixer En" value="Off" />
+    <ctl name="AudioMixer CH4 Mixer En" value="Off" />
+    <ctl name="AudioMixer CH1 DOUT Select" value="AIF4IN" />
+    <ctl name="MonoMix Mode" value="Disable" />
+<!-- Common -->
+  <path name="gain-calling-in">
+    <ctl name="MIC1 Boost Volume" value="1" />
+    <ctl name="MIC2 Boost Volume" value="1" />
+    <ctl name="MIC3 Boost Volume" value="1" />
+    <ctl name="MIC1 Volume" value="11" />
+    <ctl name="MIC2 Volume" value="11" />
+    <ctl name="MIC3 Volume" value="11" />
+    <ctl name="ADC Left Gain" value="150" />
+    <ctl name="ADC Right Gain" value="150" />
+  </path>
+
+  <path name="gain-calling-out">
+    <ctl name="DAC Gain" value="133" />
+  </path>
+
+
+  <path name="gain-multimedia-in">
+    <ctl name="MIC1 Boost Volume" value="2" />
+    <ctl name="MIC2 Boost Volume" value="2" />
+    <ctl name="MIC3 Boost Volume" value="2" />
+    <ctl name="MIC1 Volume" value="26" />
+    <ctl name="MIC2 Volume" value="26" />
+    <ctl name="MIC3 Volume" value="26" />
+    <ctl name="ADC Left Gain" value="127" />
+    <ctl name="ADC Right Gain" value="127" />
+  </path>
+
+  <path name="gain-multimedia-out">
+    <ctl name="DAC Gain" value="112" />
+  </path>
+
+  <path name="route-ap">
+    <ctl name="AudioMixer Mixer En" value="On" />
+    <ctl name="AudioMixer SRC2 En" value="Off" />
+    <ctl name="AudioMixer SRC3 En" value="Off" />
+    <ctl name="AudioMixer CH1 Mixer En" value="On" />
+    <ctl name="AudioMixer CH2 Mixer En" value="Off" />
+    <ctl name="AudioMixer CH3 Mixer En" value="Off" />
+    <ctl name="AudioMixer CH4 Mixer En" value="Off" />
+    <ctl name="AudioMixer CH1 DOUT Select" value="AIF4IN" />
+    <ctl name="MonoMix Mode" value="Disable" />
+  </path>
+
+  <path name="route-cp">
+    <ctl name="AudioMixer Mixer En" value="On" />
+    <ctl name="AudioMixer SRC2 En" value="On" />
+    <ctl name="AudioMixer SRC3 En" value="Off" />
+    <ctl name="AudioMixer CH1 Mixer En" value="On" />
+    <ctl name="AudioMixer CH2 Mixer En" value="On" />
+    <ctl name="AudioMixer CH3 Mixer En" value="Off" />
+    <ctl name="AudioMixer CH4 Mixer En" value="Off" />
+    <ctl name="AudioMixer RMIX1 En" value="On" />
+    <ctl name="AudioMixer RMIX2 En" value="On" />
+    <ctl name="AudioMixer CH3 Rec En" value="Off" />
+    <ctl name="AudioMixer CH1 DOUT Select" value="RMIX_OUT" />
+    <ctl name="AudioMixer CH2 DOUT Select" value="AIF4IN" />
+    <ctl name="MonoMix Mode" value="L" />
+  </path>
+
+  <path name="route-ap-bt">
+    <ctl name="AudioMixer Mixer En" value="On" />
+    <ctl name="AudioMixer SRC2 En" value="Off" />
+    <ctl name="AudioMixer SRC3 En" value="On" />
+    <ctl name="AudioMixer CH1 Mixer En" value="On" />
+    <ctl name="AudioMixer CH2 Mixer En" value="Off" />
+    <ctl name="AudioMixer CH3 Mixer En" value="Off" />
+    <ctl name="AudioMixer CH4 Mixer En" value="Off" />
+    <ctl name="AudioMixer RMIX1 En" value="Off" />
+    <ctl name="AudioMixer RMIX2 En" value="On" />
+    <ctl name="AudioMixer CH3 Rec En" value="On" />
+    <ctl name="AudioMixer CH1 DOUT Select" value="RMIX_OUT" />
+    <ctl name="AudioMixer CH3 DOUT Select" value="DMIX_OUT" />
+  </path>
+
+  <path name="route-cp-bt">
+    <ctl name="AudioMixer Mixer En" value="On" />
+    <ctl name="AudioMixer SRC2 En" value="On" />
+    <ctl name="AudioMixer SRC3 En" value="On" />
+    <ctl name="AudioMixer CH1 Mixer En" value="On" />
+    <ctl name="AudioMixer CH2 Mixer En" value="On" />
+    <ctl name="AudioMixer CH3 Mixer En" value="Off" />
+    <ctl name="AudioMixer CH4 Mixer En" value="Off" />
+    <ctl name="AudioMixer RMIX1 En" value="On" />
+    <ctl name="AudioMixer RMIX2 En" value="On" />
+    <ctl name="AudioMixer CH3 Rec En" value="On" />
+    <ctl name="AudioMixer CH1 DOUT Select" value="RMIX_OUT" />
+    <ctl name="AudioMixer CH2 DOUT Select" value="AIF3IN" />
+    <ctl name="AudioMixer CH3 DOUT Select" value="DMIX_OUT" />
+  </path>
+
+  <path name="dev-speaker">
+    <ctl name="HP HP On" value="0" />
+    <ctl name="EP EP On" value="0" />
+    <ctl name="SPK SPK On" value="1" />
+  </path>
+
+  <path name="dev-handset">
+    <ctl name="HP HP On" value="0" />
+    <ctl name="SPK SPK On" value="0" />
+    <ctl name="EP EP On" value="1" />
+  </path>
+
+  <path name="dev-headset">
+    <ctl name="EP EP On" value="0" />
+    <ctl name="SPK SPK On" value="0" />
+    <ctl name="HP HP On" value="1" />
+  </path>
+
+  <path name="dev-speaker-headset">
+    <ctl name="EP EP On" value="0" />
+    <ctl name="HP HP On" value="1" />
+    <ctl name="SPK SPK On" value="1" />
+  </path>
+
+  <path name="dev-codec-out-disable">
+    <ctl name="HP HP On" value="0" />
+    <ctl name="EP EP On" value="0" />
+    <ctl name="SPK SPK On" value="0" />
+  </path>
+
+  <path name="dev-bt-headset">
+    <path name="dev-codec-out-disable" />
+  </path>
+
+  <path name="dev-main-mic">
+    <ctl name="ADCL Mixer MIC1L Switch" value="1" />
+    <ctl name="ADCL Mixer MIC2L Switch" value="0" />
+    <ctl name="ADCL Mixer MIC3L Switch" value="0" />
+    <ctl name="ADCL Mixer LINELL Switch" value="0" />
+    <ctl name="ADCL Mixer LINERL Switch" value="0" />
+    <ctl name="ADCR Mixer MIC1R Switch" value="1" />
+    <ctl name="ADCR Mixer MIC2R Switch" value="0" />
+    <ctl name="ADCR Mixer MIC3R Switch" value="0" />
+    <ctl name="ADCR Mixer LINELR Switch" value="0" />
+    <ctl name="ADCR Mixer LINERR Switch" value="0" />
+    <ctl name="MIC1 MIC1 On" value="1" />
+    <ctl name="MIC2 MIC2 On" value="0" />
+    <ctl name="MIC3 MIC3 On" value="0" />
+    <ctl name="LINEIN LINEIN On" value="0" />
+  </path>
+
+  <path name="dev-headset-mic">
+    <ctl name="ADCL Mixer MIC2L Switch" value="0" />
+    <ctl name="ADCL Mixer MIC3L Switch" value="1" />
+    <ctl name="ADCL Mixer LINELL Switch" value="0" />
+    <ctl name="ADCL Mixer LINERL Switch" value="0" />
+    <ctl name="ADCR Mixer MIC2R Switch" value="0" />
+    <ctl name="ADCR Mixer MIC3R Switch" value="1" />
+    <ctl name="ADCR Mixer LINELR Switch" value="0" />
+    <ctl name="ADCR Mixer LINERR Switch" value="0" />
+    <ctl name="MIC2 MIC2 On" value="0" />
+    <ctl name="MIC3 MIC3 On" value="1" />
+    <ctl name="LINEIN LINEIN On" value="0" />
+  </path>
+
+  <path name="dev-codec-in-disable">
+    <ctl name="ADCL Mixer MIC2L Switch" value="0" />
+    <ctl name="ADCL Mixer MIC3L Switch" value="0" />
+    <ctl name="ADCL Mixer LINELL Switch" value="0" />
+    <ctl name="ADCL Mixer LINERL Switch" value="0" />
+    <ctl name="ADCR Mixer MIC2R Switch" value="0" />
+    <ctl name="ADCR Mixer MIC3R Switch" value="0" />
+    <ctl name="ADCR Mixer LINELR Switch" value="0" />
+    <ctl name="ADCR Mixer LINERR Switch" value="0" />
+    <ctl name="MIC2 MIC2 On" value="0" />
+    <ctl name="MIC3 MIC3 On" value="0" />
+    <ctl name="LINEIN LINEIN On" value="0" />
+  </path>
+
+  <path name="dev-bt-mic">
+    <path name="dev-codec-in-disable" />
+  </path>
+
+<!-- Playback paths -->
+
+  <path name="media-speaker">
+    <path name="route-ap" />
+    <path name="dev-speaker" />
+    <path name="gain-multimedia-out" />
+  </path>
+
+  <path name="media-headset">
+    <path name="route-ap" />
+    <path name="dev-headset" />
+    <path name="gain-multimedia-out" />
+  </path>
+
+  <path name="media-handset">
+    <path name="route-ap" />
+    <path name="dev-handset" />
+    <path name="gain-multimedia-out" />
+  </path>
+
+  <path name="media-speaker-headset">
+    <path name="route-ap" />
+    <path name="dev-speaker-headset" />
+    <path name="gain-multimedia-out" />
+  </path>
+
+  <path name="media-bt-sco-headset">
+    <path name="route-ap-bt" />
+    <path name="dev-bt-headset" />
+    <path name="gain-multimedia-out" />
+  </path>
+
+  <path name="incall-handset">
+    <path name="route-cp" />
+    <path name="gain-calling-out" />
+    <path name="dev-handset" />
+  </path>
+
+  <path name="incall-speaker">
+    <path name="route-cp" />
+    <path name="gain-calling-out" />
+    <path name="dev-speaker" />
+  </path>
+
+  <path name="incall-headset">
+    <path name="route-cp" />
+    <path name="gain-calling-out" />
+    <path name="dev-headset" />
+  </path>
+
+  <path name="incall-bt-sco-headset">
+    <path name="route-cp-bt" />
+    <path name="gain-calling-out" />
+    <path name="dev-bt-headset" />
+  </path>
+
+  <path name="communication-speaker">
+    <path name="gain-calling-out" />
+    <path name="media-speaker" />
+  </path>
+
+  <path name="communication-headset">
+    <path name="gain-calling-out" />
+    <path name="media-headset" />
+  </path>
+
+  <path name="communication-handset">
+    <path name="gain-calling-out" />
+    <path name="media-handset" />
+  </path>
+
+  <path name="communication-bt-sco-headset">
+    <path name="route-ap-bt" />
+    <path name="dev-bt-headset" />
+    <path name="gain-multimedia-out" />
+  </path>
+
+<!-- Capture paths -->
+  <path name="main-mic">
+    <path name="route-ap" />
+    <path name="dev-main-mic" />
+    <path name="gain-multimedia-in" />
+  </path>
+
+  <path name="media-mic">
+    <path name="main-mic" />
+  </path>
+
+  <path name="media-second-mic">
+    <path name="main-mic" />
+  </path>
+
+  <path name="media-headset-mic">
+    <path name="route-ap" />
+    <path name="dev-headset-mic" />
+    <path name="gain-multimedia-in" />
+  </path>
+
+  <path name="media-bt-sco-mic">
+    <path name="dev-bt-mic" />
+    <path name="gain-multimedia-in" />
+  </path>
+
+  <path name="communication-mic">
+    <path name="gain-calling-in" />
+    <path name="main-mic" />
+  </path>
+
+  <path name="communication-headset-mic">
+    <path name="gain-calling-in" />
+    <path name="media-headset-mic" />
+  </path>
+
+  <path name="communication-bt-sco-mic">
+    <path name="dev-bt-mic" />
+    <path name="gain-multimedia-in" />
+  </path>
+
+  <path name="incall-mic">
+    <path name="route-cp" />
+    <path name="gain-calling-in" />
+    <path name="dev-main-mic" />
+  </path>
+
+  <path name="incall-headset-mic">
+    <path name="route-cp" />
+    <path name="gain-calling-in" />
+    <path name="dev-headset-mic" />
+  </path>
+
+  <path name="incall-bt-sco-mic">
+    <path name="gain-calling-in" />
+    <path name="dev-bt-mic" />
+  </path>
+
+  <path name="incall-loud-mic">
+    <path name="route-cp" />
+    <path name="gain-calling-in" />
+    <path name="dev-main-mic" />
+  </path>
+
+  <path name="fm-linein">
+    <ctl name="FM Switch" value="1" />
+  </path>
+
+  <path name="fm-speaker">
+    <ctl name="HP Mixer HPR MIXR Switch" value="0" />
+    <ctl name="HP Mixer HPL MIXL Switch" value="0" />
+    <ctl name="SPK Mixer SPK MIXR Switch" value="1" />
+    <ctl name="SPK Mixer SPK MIXL Switch" value="1" />
+    <ctl name="ADCL Mixer LINELL Switch" value="1" />
+    <ctl name="ADCR Mixer LINERR Switch" value="1" />
+    <ctl name="LINEIN LINEIN On" value="1" />
+  </path>
+  <path name="fm-headset">
+    <ctl name="SPK Mixer SPK MIXR Switch" value="0" />
+    <ctl name="SPK Mixer SPK MIXL Switch" value="0" />
+    <ctl name="HP Mixer HPR MIXR Switch" value="1" />
+    <ctl name="HP Mixer HPL MIXL Switch" value="1" />
+    <ctl name="ADCL Mixer LINELL Switch" value="1" />
+    <ctl name="ADCR Mixer LINERR Switch" value="1" />
+    <ctl name="LINEIN LINEIN On" value="1" />
+  </path>
+
+</mixer>

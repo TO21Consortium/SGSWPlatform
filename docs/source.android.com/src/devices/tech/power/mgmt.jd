@@ -1,0 +1,261 @@
+page.title=Power Management
+@jd:body
+
+<!--
+    Copyright 2015 The Android Open Source Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<div id="qv-wrapper">
+  <div id="qv">
+    <h2>In this document</h2>
+    <ol id="auto-toc"></ol>
+  </div>
+</div>
+
+<p>Battery life is a perennial user concern. To extend battery life, Android
+continually adds new features and optimizations to help the platform optimize
+the off-charger behavior of applications and devices.</p>
+<p>The Android 6.0 release includes the following improvements to battery life:
+</p>
+
+<ul>
+<li><b><a href="#app-standby">App Standby</b></a>. The platform can now place
+unused applications in App Standby mode, temporarily restricting network access
+and deferring syncs and jobs for those applications.</li>
+<li><b><a href="#doze">Doze</b></a>. The platform now enters a state of deep
+sleep (periodically resuming normal operations) if users have not actively used
+their device (screen off and stationary) for extended periods of time. As this
+feature requires the platform to detect the stationary state, it is available
+only on devices that implement the significant motion detection APIs in the
+Sensor HAL. Doze dramatically improves battery life.</li>
+<li><b><a href="#exempt-apps">Exemptions</b></a>. System apps and cloud
+messaging services preloaded on a device are typically exempted by default. App
+developers can intent their applications into this setting. Users can also
+exempt applications from App Standby and Doze via Settings > Battery >
+Battery optimization > All apps and then selecting the app to turn off (or back
+on) optimization.</li>
+</ul>
+<p>The following sections describe these improvements.</p>
+
+<h2 id="app-standby">App Standby</h2>
+<p>App Standby extends battery life by deferring background network activity
+and jobs for applications the user is not actively using.</p>
+
+<h3 id="app-standby-life">App Standby lifecycle</h3>
+<p>The platform detects inactive applications and places them in App Standby
+until the user begins actively engaging with the application.</p>
+
+<table>
+<tbody>
+<tr>
+<th width=33%>Detection</th>
+<th width=33%>During App Standby</th>
+<th width=33%>Exit</th>
+</tr>
+
+<tr>
+<td><p>The platform detects an application is inactive when the device is not
+charging <strong>and</strong> the user has not launched the application directly
+or indirectly for a specific amount of clock time as well as a specific amount
+of screen-on time. (Indirect launches occur when a foreground app accesses a
+service in a second app.)</p></td>
+<td><p>The platform prevents applications from accessing the network more than
+once a day, deferring application syncs and other jobs.</p></td>
+<td><p>The platform exits the app from App Standby when:</p>
+<ul>
+<li>Application becomes active.</li>
+<li>Device is plugged in and charging.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>Active applications are unaffected by App Standby. An application is active
+when it has:</p>
+<ul>
+<li>A process currently in the foreground (either as an activity or foreground
+service, or in use by another activity or foreground service), such as
+notification listener, accessibility services, live wallpaper, etc.</li>
+<li>A notification viewed by the user, such as in the lock screen or
+notification tray.</li>
+<li>Explicitly been launched by the user.</li>
+</ul>
+<p>An application is inactive if none of the above activities has occurred for
+a period of time.
+</p>
+
+<h3>Testing App Standby</h3>
+<p>You can manually test App Standby using the following ADB commands:</p>
+
+<pre>
+$ adb shell dumpsys battery unplug
+$ adb shell am set-idle packageName true
+$ adb shell am set-idle packageName false
+$ adb shell am get-idle packageName
+</pre>
+
+<h2 id="doze">Doze</h2>
+
+<p>Doze extends battery life by deferring application background CPU and
+network activity when a device is unused for long periods.</p>
+
+<p>Idle devices in Doze periodically enter a maintenance window, during which
+apps can complete pending activities (syncs, jobs, etc.). Doze then resumes sleep
+for a longer period of time, followed by another maintenance window. The
+platform continues the Doze sleep/maintenance sequence, increasing the length of
+idle each time, until a maximum of a few hours of sleep time is reached. At all
+times, a device in Doze remains aware of motion and immediately leaves Doze
+if motion is detected.</p>
+
+<p>System services (such as telephony) and other preloaded services/apps are
+exempted from Doze by default. Users can also exempt specific applications from
+Doze in the Settings menu. By default, Doze is <b>disabled</b> in the Android
+Open Source Project (AOSP). For details on enabling Doze, see
+<a href="#integrate-doze">Integrating Doze</a>.</p>
+
+<h3 id="doze-reqs">Doze requirements</h3>
+
+<p>Doze support requires the following:</p>
+<ul>
+<li>Device implements the
+<a href="http://source.android.com/devices/sensors/sensor-types.html#significant_motion">significant
+motion detector (SMD) APIs</a> in the Sensor HAL. Devices that do not implement
+these APIs cannot support Doze.</li>
+<li>Device has a cloud messaging service, such as
+<a href="https://developers.google.com/cloud-messaging/">Google Cloud Messaging
+(GCM).</a> This enables the device to know when to wake from Doze.</li>
+</ul>
+
+<h3 id="doze-life">Doze lifecycle</h3>
+
+<p>The Doze lifecycle begins when the platform detects the device is idle and
+ends when the device exits Doze mode.</p>
+
+<table>
+<tbody>
+<tr>
+<th width=33%>Detection</td>
+<th width=33%>During Doze</th>
+<th width=33%>Exit</th>
+</tr>
+<tr>
+<td><p>The platform detects a device is idle when:</p>
+<ul>
+<li>Device is stationary (using significant motion detector).</li>
+<li>Device screen is off for some amount of time.</li>
+</ul>
+<p>Doze mode does not engage when the device is plugged into a power charger.
+</p>
+</td>
+<td><p>The platform attempts to keep the system in a sleep state, periodically
+resuming normal operations during a maintenance window then returning the device
+to sleep for longer repeating periods. During the sleep state, the following
+restrictions are active:</p>
+<ul>
+<li>Apps not allowed network access.</li>
+<li>App wakelocks ignored.</li>
+<li>Alarms deferred. Excludes alarm clock alarms and alarms set using
+<code>setAndAllowWhileIdle()</code>. This exemption is intended for apps (such
+as Calendar) that must show event reminder notifications.</li>
+<li>Wi-Fi scans not performed.</li>
+<li>SyncAdapter syncs and JobScheduler jobs deferred until the next maintenance
+window.</li>
+<li>Apps receiving SMS and MMS messages are put on a temporary whitelist so
+they can complete their processing.</li>
+</ul>
+</td>
+<td><p>The platform exits the device from Doze when it detects:</p>
+<ul>
+<li>User interaction with device.</li>
+<li>Device movement.</li>
+<li>Device screen turns on.</li>
+<li>Imminent AlarmClock alarm.</li>
+</ul>
+<p>Notifications do not cause the device to exit from Doze.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="doze-interactions">Interaction with App Standby</h3>
+<ul>
+<li>Time spent in Doze does not count towards App Standby.</li>
+<li>While the device is in Doze, idle applications are allowed to perform normal
+operations at least once a day.</li>
+</ul>
+
+<h3 id="integrate-doze">Integrating Doze</h3>
+<p>To enable Doze for a device, perform the following tasks:</p>
+
+<ol>
+<li>Confirm the device supports
+<a href="http://source.android.com/devices/sensors/sensor-types.html#significant_motion">SENSOR_TYPE_SIGNIFICANT_MOTION
+</a>. If the device does not support this sensor, it cannot support Doze.</li>
+<li>Confirm the device has a cloud messaging service installed.</li>
+<li>In the device overlay config file
+<code>overlay/frameworks/base/core/res/res/values/config.xml</code>, set
+<code>config_enableAutoPowerModes</code> to <b>true</b>:
+<pre>
+bool name="config_enableAutoPowerModes"&gt;true&lt;/bool&gt;
+</pre>
+<br>In AOSP, this parameter is set to false (Doze disabled) by default.<br>
+</li>
+<li>Confirm that preloaded apps and services:
+<ul>
+<li>Use the new
+<a href="https://developer.android.com/preview/behavior-changes.html#behavior-power">power-saving
+optimization guidelines</a>. For details, see <a href="#test-apps">Testing and
+optimizing applications</a>.
+<p><b>OR</b></p>
+<li>Are exempted from Doze and App Standby. For details, see
+<a href="#exempt-apps">Exempting applications</a>.</li>
+</ul>
+</li>
+<li>Confirm the necessary services are exempted from Doze.</a>
+</li>
+</ol>
+
+<h4 id="test-apps">Testing and optimizing applications</h4>
+<p>Test all applications (especially preloaded applications) in Doze mode. For
+details, refer to
+<a href="https://developer.android.com/preview/testing/guide.html#doze-standby">Testing
+Doze and App Standby</a>.</p>
+
+<p class="note"><b>Note</b>: MMS/SMS/Telephony services function independently
+of Doze and will always wake client apps even while the device remains in Doze
+mode.</p>
+
+<h2 id="exempt-apps">Exempting applications</h2>
+<p>You can exempt applications from being subject to Doze or App Standby.</p>
+
+<p class="warning"><b>Warning</b>: Do not exempt apps to avoid testing and
+optimizing. Unnecessary exemptions undermine the benefits of Doze and App
+Standby and can compromise the user experience, so we strongly suggest
+minimizing such exemptions as they allow applications to defeat beneficial
+controls the platform has over power use. If users become unhappy about the
+power consumption of these apps, it can lead to frustration, bad experiences
+(and negative user reviews for the app), and customer support questions. For
+these reasons, we strongly recommend that you do not exempt third-party
+applications and instead exempt only cloud messaging services or apps with
+similar functions.</p>
+
+<p>Apps exempted by default are listed in a single view within the Settings >
+Battery menu. This list is used for exempting the app from both Doze and App
+Standby modes. To provide transparency to the user, the Settings menu
+<b>MUST</b> show all exempted applications.</p>
+
+<p>Users can manually exempt apps using the Settings menu. However, users cannot
+unexempt any application or service that is exempted by default in the system
+image.</p>

@@ -1,0 +1,28 @@
+type cbd, domain;
+type cbd_exec, exec_type, file_type;
+init_daemon_domain(cbd);
+
+allow cbd init:unix_stream_socket connectto;
+allow cbd kernel:system syslog_read;
+allow cbd kmsg_device:chr_file { read write open };
+allow cbd property_socket:sock_file write;
+allow cbd rootfs:file entrypoint;
+allow cbd self:capability setuid;
+allow cbd cpboot_block_device:blk_file { read open };
+allow cbd radio_device:chr_file { read write ioctl open };
+allow cbd self:capability dac_override;
+allow cbd self:capability2 block_suspend;
+allow cbd sysfs_wake_lock:file { open append };
+allow cbd radio_prop:property_service set;
+allow cbd cbd_log_data:file { read open };
+allow cbd cbd_log_data:dir { write getattr add_name };
+allow cbd cbd_log_data:file { write create append setattr };
+allow cbd logcat_exec:file { read getattr open execute execute_no_trans };
+allow cbd logd:unix_stream_socket connectto;
+allow cbd logdr_socket:sock_file write;
+allow cbd shell_exec:file { read execute open execute_no_trans };
+allow cbd block_device:dir search;
+allow cbd efs_file:dir search;
+allow cbd cbd_log_data:dir search;
+allow cbd efs_file:file { read open };
+allow cbd storage_file:dir { search };

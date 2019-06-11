@@ -1,0 +1,34 @@
+*** Creating Trace Output File 'MDK_Project.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '"core_cm3.o"'
+### List of Objects: adding '"misc.o"'
+### List of Objects: adding '"stm32l1xx_gpio.o"'
+### List of Objects: adding '"stm32l1xx_pwr.o"'
+### List of Objects: adding '"stm32l1xx_rcc.o"'
+### List of Objects: adding '"stm32l1xx_syscfg.o"'
+### List of Objects: adding '"stm32l1xx_wwdg.o"'
+### List of Objects: adding '"stm32l1xx_exti.o"'
+### List of Objects: adding '"stm32l1xx_rtc.o"'
+### List of Objects: adding '"stm32l1xx_usart.o"'
+### List of Objects: adding '"main.o"'
+### List of Objects: adding '"system_stm32l1xx.o"'
+### List of Objects: adding '".\startup_stm32l1xx_md.o"'
+### List of Objects: adding '"usart_1.o"'
+### List of Objects: adding '"led.o"'
+### ADS-LD Command completed:
+--cpu Cortex-M3 "core_cm3.o" "misc.o" "stm32l1xx_gpio.o" "stm32l1xx_pwr.o" "stm32l1xx_rcc.o" "stm32l1xx_syscfg.o" "stm32l1xx_wwdg.o" "stm32l1xx_exti.o" "stm32l1xx_rtc.o" "stm32l1xx_usart.o" "main.o" "system_stm32l1xx.o" ".\startup_stm32l1xx_md.o" "usart_1.o" "led.o" 
+--strict --scatter "MDK_Project.sct" 
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\MDK_Project.map" -o MDK_Project.axf### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: 'MDK_Project.axf'
+### ADS-LD Command File: 'MDK_Project.lnp'
+### Checking for dirty Components...
+### Creating CmdFile 'MDK_Project.lnp', Handle=0x000003CC
+### Writing '.lnp' file
+### ADS-LD Command file 'MDK_Project.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

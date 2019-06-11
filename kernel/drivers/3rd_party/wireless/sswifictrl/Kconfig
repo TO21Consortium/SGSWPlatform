@@ -1,0 +1,5 @@
+config SAMSUNG_WIFI_CONTROL 
+	bool "samsung wifi ctrl support"
+	depends on BCMDHD
+	default y 
+

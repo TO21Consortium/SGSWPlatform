@@ -1,0 +1,9 @@
+#
+# system.prop for smdk7570
+#
+
+ro.arch=exynos7570
+#ro.kernel.qemu=1
+#ro.kernel.qemu.gles=1
+persist.demo.hdmirotationlock=false
+

@@ -1,0 +1,19 @@
+# Exynos specific
+type secmem_device, dev_type;
+type ump_device, dev_type;
+type emmcblk_device, dev_type;
+type m2m1shot_scaler_device, dev_type;
+
+# UFS fstab
+type systemdata_block_device, dev_type;
+type cachedata_block_device, dev_type;
+type cpboot_block_device, dev_type;
+
+# CP device
+type spi_boot_device, dev_type;
+
+# RPMBD device
+type rpmbd_block_device, dev_type;
+
+# fimg2d
+type fimg2d_video_device, dev_type, mlstrustedobject;

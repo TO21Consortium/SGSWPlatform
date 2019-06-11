@@ -1,0 +1,47 @@
+#!/system/bin/sh
+##
+## Ensures logd does NOT collect Kernel messages from /proc/kmsg,
+## so corrupting our collected Kernel logs.
+##
+## Usage on TARGET: ./disable_logd_kmsg_collection
+##
+## It is equivalent to issuing from HOST:
+##   adb shell 'setprop ctl.stop logd && setprop logd.klogd false && setprop ctl.start logd'
+##
+## Anyway this script checks if logd is running at first and restarts it after disabling kmsg
+## collection ONLY if it was ALREADY running.
+##
+
+logd_was_running="N"
+
+is_logd_running ()
+{
+	ps | grep logd 2>&1 >/dev/null
+	[ "x$?" == "x0" ] && { echo "* LOGD is RUNNING" && true ; } || { echo "* LOGD is NOT RUNNING" && false ; }
+}
+
+is_logd_reading_kmsg ()
+{
+	kmsg="/proc/kmsg"
+	lsof | grep logd | grep $kmsg 2>&1 >/dev/null
+	[ "x$?" == "x0" ] && { echo "* LOGD is READING $kmsg" && true ; } || { echo "* LOGD is NOT READING $kmsg" && false ; }
+}
+
+if is_logd_running
+then
+	logd_was_running="Y"
+	# is_logd_reading_kmsg
+	echo "-> Stopping LOGD..."
+	setprop ctl.stop logd || true
+	# is_logd_running
+fi
+
+# Anyway setprop and possibly restart logd
+echo "-> Stopping kmsg reading by LOGD."
+setprop logd.klogd false
+[ "x$logd_was_running" == "xY" ] && setprop ctl.start logd && echo "-> LOGD RESTARTED."
+
+is_logd_running
+is_logd_reading_kmsg
+
+echo "Done."

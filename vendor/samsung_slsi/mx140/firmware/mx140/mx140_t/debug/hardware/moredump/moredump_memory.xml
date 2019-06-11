@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+(c) SCSC 2015 Maxwell moredump memory definitions
+    From http://wiki/Maxwell140MemoryMap
+-->
+
+<memory xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.samsung.com Memory.xsd">
+  <!-- Define the mmap range - DO NOT CHANGE THIS -->
+  <mmap startAddr="80000000" endAddr="803FFFFF"/>
+  <R4>
+    <!-- Memory specific to (and will only be read via) R4 -->
+    <region startAddr="00000000" endAddr="00007fff" name="TCMA" comment=""/>
+    <region startAddr="00018000" endAddr="0001ffff" name="TCMB1" comment=""/>
+  </R4>
+  <M4>
+    <!--  Memory specific to (and will only be read via) M4 -->
+  </M4>
+  <!--  Memory that can be read via R4 or M4 (or possibly mmap) -->
+  <region startAddr="07FE0000" endAddr="07FFFFFF" name="RAMCB" comment="128KB" />
+  <region startAddr="08000000" endAddr="08013FFF" name="RAMSB" comment="80KB" />
+  <region startAddr="80000000" endAddr="803FFFFF" name="DRAM" comment="4MB" />
+  <region startAddr="C0000000" endAddr="C0017FFF" name="RAMSW ASIC" comment="96KB" />
+  
+  <region startAddr="A0580000" endAddr="A0580003" name="MAILBOX_AP_APM 1" comment="MCU Controller" />
+  <region startAddr="A0580008" endAddr="A058002F" name="MAILBOX_AP_APM 2" comment="Interrupt registers" /> 
+  <region startAddr="A058004C" endAddr="A0580053" name="MAILBOX_AP_APM 3" comment="INIT/VERSION" /> 
+  <region startAddr="A0580080" endAddr="A058009F" name="MAILBOX_AP_APM 4" comment="Shared registers" /> 
+</memory>

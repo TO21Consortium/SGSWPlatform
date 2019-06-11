@@ -1,0 +1,11 @@
+type vcd, domain;
+type vcd_exec, exec_type, file_type;
+init_daemon_domain(vcd);
+
+allow vcd radio_device:chr_file { read write open };
+allow vcd self:capability { setuid dac_override };
+allow vcd serial_device:chr_file { read write ioctl open };
+allow vcd socket_device:dir { write add_name };
+allow vcd socket_device:sock_file create;
+allow vcd socket_device:dir remove_name;
+allow vcd socket_device:sock_file unlink;

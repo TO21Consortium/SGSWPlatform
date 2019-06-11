@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- Define an address range -->
+  <xs:complexType name="addressRange">
+    <xs:attribute name="startAddr" type="xs:hexBinary" use="required" />
+    <xs:attribute name="endAddr" type="xs:hexBinary" use="required" />
+  </xs:complexType>
+
+  <!-- Define a region -->
+  <xs:complexType name="region">
+    <xs:complexContent>
+      <xs:extension base="addressRange">
+        <xs:attribute name="name" type="xs:string" use="optional" />
+        <xs:attribute name="comment" type="xs:string" use="optional" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:element name="memory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:choice maxOccurs="unbounded">
+          <!-- Define the mmap range -->
+          <!-- Memory regions outwith R4/M4 that fall within the mmap range will use the mmap interface (android only) -->
+          <xs:element name="mmap" minOccurs="1" maxOccurs="1" type ="addressRange" />
+
+          <!-- Memory that will be read over any available interface, mmap, r4 or m4 (in that order) -->
+          <!-- This element can occur before R4 and/or between R4/M4 and/or after M4-->
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="region" type="region" />
+
+          <!-- Memory specific to (and will only be read via) R4 -->
+          <!-- will also be wrapped with IF (CPUIS("CortexR4")) in CMM -->
+          <xs:element name="R4" minOccurs="0" maxOccurs="1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="region" type="region" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+
+          <!-- Memory specific to (and will only be read via) M4 -->
+          <!-- will also be wrapped with IF (CPUIS("CortexM4")) in CMM -->
+          <xs:element name="M4" minOccurs="0" maxOccurs="1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="region" type="region" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+
+        </xs:choice>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

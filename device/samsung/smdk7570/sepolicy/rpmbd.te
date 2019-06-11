@@ -1,0 +1,14 @@
+type rpmbd, domain;
+type rpmbd_exec, exec_type, file_type;
+init_daemon_domain(rpmbd);
+
+allow rpmbd self:capability dac_override;
+allow rpmbd apk_data_file:dir write;
+allow rpmbd apk_data_file:dir add_name;
+allow rpmbd apk_data_file:sock_file { create setattr };
+allow rpmbd apk_data_file:dir remove_name;
+allow rpmbd apk_data_file:sock_file unlink;
+allow rpmbd block_device:dir { search };
+allow rpmbd rpmbd_block_device:blk_file { read write };
+allow rpmbd rpmbd_block_device:blk_file { open };
+allow rpmbd rpmbd_block_device:blk_file { ioctl };

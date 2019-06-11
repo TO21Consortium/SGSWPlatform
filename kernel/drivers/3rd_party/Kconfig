@@ -1,0 +1,14 @@
+#
+# 3rd_party device configuration
+#
+
+menu "3rd_party device drivers"
+
+source "drivers/3rd_party/panels/Kconfig"
+source "drivers/3rd_party/touchscreen/Kconfig"
+source "drivers/3rd_party/wireless/Kconfig"
+source "drivers/3rd_party/bluetooth/Kconfig"
+source "drivers/3rd_party/sensorhub/Kconfig"
+source "drivers/3rd_party/vibrator/Kconfig"
+source "drivers/3rd_party/audio/Kconfig"
+endmenu

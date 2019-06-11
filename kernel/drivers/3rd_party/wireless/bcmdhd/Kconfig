@@ -1,0 +1,54 @@
+config BCMDHD_SDIO
+	bool "SDIO bus interface support"
+	depends on BCMDHD && MMC
+	default y 
+
+config BCMDHD_PCIE
+	bool "PCIe bus interface support"
+	depends on BCMDHD && PCI && !BCMDHD_SDIO
+	default n
+
+config DTS_WIFI_BCM43438
+	tristate "BCM43438 dts support"
+	depends on BCMDHD
+	default y
+
+config BCM4339
+	tristate "BCM4339 support"
+	depends on BCMDHD
+
+config BCMDHD_FW_PATH
+	depends on BCMDHD
+	string "Firmware path"
+	default "/vendor/firmware/fw_bcmdhd.bin"
+	---help---
+	  Path to the firmware file.
+
+config BCMDHD_NVRAM_PATH
+	depends on BCMDHD
+	string "NVRAM path"
+	default "/system/etc/wifi/bcmdhd.cal"
+	---help---
+	  Path to the calibration file.
+
+config BCMDHD_WEXT
+	bool "Enable WEXT support"
+	depends on BCMDHD && CFG80211 = n
+	select WIRELESS_EXT
+	select WEXT_PRIV
+	help
+	  Enables WEXT support
+
+config DHD_USE_STATIC_BUF
+	bool "Enable memory preallocation"
+	depends on BCMDHD
+	default n
+	---help---
+	  Use memory preallocated in platform
+
+config DHD_USE_SCHED_SCAN
+	bool "Use CFG80211 sched scan"
+	depends on BCMDHD && CFG80211
+	default n
+	---help---
+	  Use CFG80211 sched scan

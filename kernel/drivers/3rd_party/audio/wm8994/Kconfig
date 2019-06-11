@@ -1,0 +1,12 @@
+config SND_SOC_SAMSUNG_SMDK_WM8994
+	tristate "SoC I2S Audio support for WM8994 on SMDK"
+	depends on SND_SOC_SAMSUNG
+	depends on I2C=y
+	select SND_SAMSUNG_I2S
+	select SND_SAMSUNG_AUDSS
+	select MFD_WM8994
+	select SND_SOC_WM8994
+	select SND_SOC_DUMMY_CODEC
+	select SND_SOC_EXYNOS_AUDMIXER
+	help
+		Say Y if you want to add support for SoC audio on the SMDKs.

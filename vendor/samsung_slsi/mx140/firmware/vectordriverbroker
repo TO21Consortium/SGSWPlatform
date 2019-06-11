@@ -1,0 +1,13 @@
+#!/system/bin/sh
+#Start vectordriverbroker
+
+#Check to see if broker is already running in the background
+#if it is, then this script assumes that it will have already claimed port 27015
+#which will generate a not entirely helpful message:
+#  Terminated due to error: Unable to bind socket to port
+v=`ps | grep vectordriverbroker`
+if [ -z "$v" ] ; then
+    vectordriverbroker.bin -foreground "$@"
+else
+    echo 'Vectordriverbroker already running. You will need to kill this process before starting a new instance.'
+fi

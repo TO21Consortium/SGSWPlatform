@@ -1,0 +1,11 @@
+#!/system/bin/sh
+# suppress all debugging messages for the best performance
+
+# Disable WLAN f/w debug
+wlan_debug_level.sh 0
+if [ $? -ne 0 ]; then
+	echo "ERROR: WLAN must be on"
+fi
+
+# Disable driver debug
+echo 0 > /sys/module/scsc_logring/parameters/scsc_droplevel_all

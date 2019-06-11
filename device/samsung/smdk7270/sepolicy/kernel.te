@@ -1,0 +1,6 @@
+allow kernel device:chr_file { create setattr };
+allow kernel device:dir { write add_name };
+allow kernel self:capability mknod;
+allow kernel device:blk_file { create setattr };
+allow kernel device:blk_file { getattr unlink };
+allow kernel device:dir remove_name;

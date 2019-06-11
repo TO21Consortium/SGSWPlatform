@@ -1,0 +1,8 @@
+#
+# panel device configuration
+#
+
+menu "panel device drivers"
+
+source "drivers/3rd_party/panels/rm69080/Kconfig"
+endmenu

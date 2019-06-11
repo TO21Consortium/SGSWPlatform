@@ -1,0 +1,18 @@
+# Non soc camera module can be selected by selecting cis.
+
+# soc camera module select.
+
+menuconfig CAMERA_MODULE_SELECT
+	bool "Soc camera module select"
+	depends on USE_DIRECT_IS_CONTROL
+	help
+	  Say Y here to enable support for platform-specific V4L drivers.
+
+config CAMERA_SENSOR_4EC_SOC_OBJ
+		bool "Use 4EC soc camera module"
+	depends on USE_DIRECT_IS_CONTROL
+	depends on CAMERA_MODULE_SELECT
+		default n
+		help
+		  Use to build 4EC soc camera module.
+
