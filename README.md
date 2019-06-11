@@ -7,6 +7,7 @@ SGSWPlatform is an Android-based S/W Platform for smart glasses made by TO21 con
 #### Smart Glass (SG) Keys and Touch
 * Peripheral ports and keys
 <img width="649" alt="1" src="https://user-images.githubusercontent.com/51391510/59261878-3040df00-8c79-11e9-9fa0-f4f62b6dbcd8.png">
+
 * Touch functions
 <img width="649" alt="2" src="https://user-images.githubusercontent.com/51391510/59261881-3040df00-8c79-11e9-9c12-a0b3d0b872cc.png">
 
